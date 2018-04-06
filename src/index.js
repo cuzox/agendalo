@@ -1,23 +1,23 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.css'
 import { Provider } from "react-redux"
 import store from "./store"
-import App from './components/App';
+import App from './App'
 
-import 'semantic-ui-css/semantic.min.css';
-import 'antd/dist/antd.css';
+import 'semantic-ui-css/semantic.min.css'
+import 'antd/dist/antd.css'
 
-import registerServiceWorker from './registerServiceWorker';
+import registerServiceWorker from './registerServiceWorker'
 
 ReactDOM.render(
   <Provider store={ store }>
     <App />
   </Provider>, 
-  document.getElementById('root'));
+  document.getElementById('root'))
 
 if (module.hot) {
-  module.hot.accept('./components/App', () => {
+  module.hot.accept('./App', () => {
     ReactDOM.render(
       <Provider store={ store }>
         <App />
