@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from "styled-components";
 import FaEdit from 'react-icons/lib/fa/edit';
 import { Input, Checkbox, Button } from 'semantic-ui-react'
-import { MainContainer } from '../../components/styled/styled'
+import { MainContainer } from '../../components/global.styled'
 
 class Register extends Component{
   constructor(props){

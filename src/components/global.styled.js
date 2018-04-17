@@ -29,3 +29,19 @@ export const Content = styled.div`
   justify-content: center;
   min-height: 80vh;
 `
+
+export const FooterSection = styled.div`
+  display: flex;
+  flex-direction: column;
+  border-left: 1px solid blue;
+  margin: 0 10px;
+  padding: 0 0 0 15px;
+  height: 60px;
+  font-size: 0.8em;
+
+  span:first-child{
+    font-size: 1.1em;
+    margin-bottom: 5px;
+    font-weight: 600;
+  }
+`

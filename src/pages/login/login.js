@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import FaEdit from 'react-icons/lib/fa/edit';
 import { Input, Button } from 'semantic-ui-react'
 // import Nav from './components/nav/nav'
-import { Footer, Content, MainContainer} from '../../components/styled/styled'
+import { Footer, Content, MainContainer} from '../../components/global.styled'
 
 class Login extends Component{
   constructor(props){
