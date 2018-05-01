@@ -1,57 +1,95 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import styled from "styled-components";
 import { withRouter } from 'react-router-dom'
 
 
-/** IMPORT UI ELEMENTS */
+/** UI */
+import { Link } from 'react-router-dom'
 import FaPlayCircleO from 'react-icons/lib/fa/play-circle-o';
 import { MainContainer, Content } from '../../components/global.styled'
-import StdHeader from './home.styled'
+import { 
+  Header as StdHeader,
+  Month as StdMonth,
+  Newsletter as StdNewsletter
+} from './home.styled'
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
-import { Button } from 'semantic-ui-react'
+import { Button, Dropdown, Advertisement, Dimmer, Loader, Input,} from 'semantic-ui-react'
+import { Row, Col } from 'antd';
 
+const MONTHS = [
+  { text: "Enero", value: 0 },
+  { text: "Febrero", value: 1 },
+  { text: "Marzo", value: 2 },
+  { text: "Abril", value: 3 },
+  { text: "Mayo", value: 4 },
+  { text: "Junio", value: 5 },
+  { text: "Julio", value: 6 },
+  { text: "Agosto", value: 7 },
+  { text: "Septiembre", value: 8 },
+  { text: "Octubre", value: 9 },
+  { text: "Noviembre", value: 10 },
+  { text: "Diciembre", value: 11 }
+]
 
-class Header extends Component{
-  constructor(props){
-    super(props)
-  }
-  
-  render(){
-    return (
-      <StdHeader>
-        <MainContainer>
-          <Nav />
-          <span style={{marginTop: "80px"}}><h3>TU AGENDA EN LINEA DE</h3></span>
-          <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
-          <span>
-            <p>
-              Mantente al día con todas las actividades cristianas:<br/>
-              conciertos, charlas, campamentos, conferencias y más.
-            </p>
-          </span>
-          <div style={{display: "flex", marginTop: "30px", marginBottom: "50px"}}>
-            <div className="register">
-              <Button className="register our-green" onClick={()=> this.props.history.push('/register')}>
+const Header = props =>{
+  return (
+    <StdHeader>
+      <MainContainer>
+        <Nav />
+        <span style={{marginTop: "80px"}}><h3>TU AGENDA EN LINEA DE</h3></span>
+        <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
+        <span>
+          <p>
+            Mantente al día con todas las actividades cristianas:<br/>
+            conciertos, charlas, campamentos, conferencias y más.
+          </p>
+        </span>
+        <div style={{display: "flex", marginTop: "30px", marginBottom: "50px"}}>
+          <div className="register">
+          <Link to="/register">
+            <Button className="register our-green">
                 ¡REGISTRAME!
-              </Button>
-              <span><Link to="/login">¿Ya tienes cuenta?</Link></span>
-            </div>
-            <span className="video-link">
-              <span>¿CÓMO FUNCTIONA?</span>
-              <FaPlayCircleO/>
-            </span>
+            </Button>
+          </Link>
+            <span><Link to="/login">¿Ya tienes cuenta?</Link></span>
           </div>
-        </MainContainer>
-      </StdHeader>
-    )
-  }
+          <span className="video-link">
+            <span>¿CÓMO FUNCTIONA?</span>
+            <FaPlayCircleO/>
+          </span>
+        </div>
+      </MainContainer>
+    </StdHeader>
+  )
 }
 
-Header = withRouter(Header)
+const Month = props =>{
+  return(
+    <StdMonth>
+      <span> VER TODOS </span>
+      <Dropdown selection options={MONTHS} defaultValue={0}/>
+    </StdMonth>
+  )
+}
+
+const Newsletter = props =>{
+  return(
+    <StdNewsletter>
+      <div style={{display: "flex"}}>
+        <img style={{width: "auto", height: "40px"}}src="assets/images/mail.png"/>
+        <span style={{color: "rgb(0,201,211)", fontWeight: "bolder"}}>RECIBE NUESTRO<br/>NEWSLETTER</span>
+      </div>
+      <span style={{color: "white"}}>Mantente informado sobre las actividades, anotate a<br/>nuestro newsletter y no te pierdas ni un solo evento</span>
+      <span>
+        <Input/>
+        <Button style={{backgroundColor: "rgb(0,201,211)"}}>!AGREGAME!</Button>
+      </span>
+    </StdNewsletter>
+  )
+}
 
 class Home extends Component{
   constructor(props){
@@ -62,17 +100,22 @@ class Home extends Component{
     return (
       <React.Fragment>
         <Header/>
-        {/* <Content>
-          <MainContainer>
-            <div>
-
-            </div>
-          </MainContainer>
-        </Content> */}
+        <Row>
+          <Col lg={16} md={24} >
+            <Month/>
+          </Col>
+          <Col lg={8} md={0} >
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={{span: 16, offset: 8}} md={24}>
+            <Newsletter/>
+          </Col>
+        </Row>
         <Footer/>
       </React.Fragment>
     )
   }
 }
 
-export default withRouter(Home)
+export default Home

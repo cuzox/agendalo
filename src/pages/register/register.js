@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
+
+/** UI */
+import { Link } from 'react-router-dom'
 import FaEdit from 'react-icons/lib/fa/edit';
 import { Input, Checkbox, Button } from 'semantic-ui-react'
 import { MainContainer } from '../../components/global.styled'
@@ -30,7 +33,7 @@ class Register extends Component{
         </div>
         <Button content="¡Registrame!" className="agendalo-blue"/>
         <div>
-          ¿Ya tienes cuenta? <u>Click aquí</u>
+          ¿Ya tienes cuenta? <Link to="/login"><u>Click aquí</u></Link>
         </div>
       </MainContainer>
     )
