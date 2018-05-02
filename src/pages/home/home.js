@@ -17,7 +17,8 @@ import {
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
 import { Button, Dropdown, Advertisement, Dimmer, Loader, Input,} from 'semantic-ui-react'
-import { Row, Col } from 'antd';
+import { Row, Col, Collapse } from 'antd';
+const Panel = Collapse.Panel
 
 const MONTHS = [
   { text: "Enero", value: 0 },
@@ -105,6 +106,21 @@ class Home extends Component{
             <Month/>
           </Col>
           <Col lg={8} md={0} >
+          </Col>
+        </Row>
+        <Row>
+          <Col lg={{span: 12, offset: 6}} md={24}>
+          <Collapse bordered={false} defaultActiveKey={['1']}>
+            <Panel header="1-7" key="1">
+              Events
+            </Panel>
+            <Panel header="8-15" key="2">
+              Events
+            </Panel>
+            <Panel header="16-22" key="3">
+              Events
+            </Panel>
+          </Collapse>
           </Col>
         </Row>
         <Row>
