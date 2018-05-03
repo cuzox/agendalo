@@ -54,17 +54,19 @@ export const Month = styled.div`
     display: flex;
     align-items: center;
     background-color: #003366;
-    border-top-right-radius: 35px;
-    border-bottom-right-radius: 35px;
-    padding: 8px 40px;
-    margin: 35px 8px 8px 0;
-    justify-content: flex-end;
+    padding: 8px 0;
+    justify-content: center;
+
+    /* @media (max-width: 576px) {
+      flex-direction: column;
+      align-items: flex-start;
+    } */
 
 
     span{
       font-size: 1.3em;
       font-weight: bolder;
-      margin-right: 40px;
+      margin-right: 20px;
       color: white;
     }
 

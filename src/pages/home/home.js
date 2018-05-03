@@ -71,7 +71,7 @@ const Month = props =>{
   return(
     <StdMonth>
       <span> VER TODOS </span>
-      <Dropdown selection options={MONTHS} defaultValue={0}/>
+      <Dropdown compact selection options={MONTHS} defaultValue={0}/>
     </StdMonth>
   )
 }
@@ -81,9 +81,9 @@ const Newsletter = props =>{
     <StdNewsletter>
       <div style={{display: "flex"}}>
         <img style={{width: "auto", height: "40px"}}src="assets/images/mail.png"/>
-        <span style={{color: "rgb(0,201,211)", fontWeight: "bolder"}}>RECIBE NUESTRO<br/>NEWSLETTER</span>
+        <span style={{color: "rgb(0,201,211)", fontWeight: "bolder",  minWidth: "200px"}}>RECIBE NUESTRO NEWSLETTER</span>
       </div>
-      <span style={{color: "white"}}>Mantente informado sobre las actividades, anotate a<br/>nuestro newsletter y no te pierdas ni un solo evento</span>
+      <span style={{color: "white", maxWidth: "400px", minWidth: "200px"}}>Mantente informado sobre las actividades, anotate a nuestro newsletter y no te pierdas ni un solo evento</span>
       <span>
         <Input/>
         <Button style={{backgroundColor: "rgb(0,201,211)"}}>!AGREGAME!</Button>
@@ -102,25 +102,23 @@ class Home extends Component{
       <React.Fragment>
         <Header/>
         <Row>
-          <Col lg={16} md={24} >
+          <Col>
             <Month/>
-          </Col>
-          <Col lg={8} md={0} >
           </Col>
         </Row>
         <Row>
-          <Col lg={{span: 12, offset: 6}} md={24}>
-          <Collapse bordered={false} defaultActiveKey={['1']}>
-            <Panel header="1-7" key="1">
-              Events
-            </Panel>
-            <Panel header="8-15" key="2">
-              Events
-            </Panel>
-            <Panel header="16-22" key="3">
-              Events
-            </Panel>
-          </Collapse>
+          <Col lg={{span: 16, offset: 4}} md={24}>
+            <Collapse bordered={false} defaultActiveKey={['1']}>
+              <Panel header="1-7" key="1">
+                Events
+              </Panel>
+              <Panel header="8-15" key="2">
+                Events
+              </Panel>
+              <Panel header="16-22" key="3">
+                Events
+              </Panel>
+            </Collapse>
           </Col>
         </Row>
         <Row>
