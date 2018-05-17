@@ -4,6 +4,7 @@ export const NavLinks = styled.div`
   display: flex;
   justify-content: space-between;
   margin-top: 30px;
+  height: 10vh;
   
   span{
     margin: 0 30px;
@@ -16,4 +17,8 @@ export const NavLinks = styled.div`
 
   span:first-child{ margin-left: 0; }
   span:last-child{ margin-right: 0; }
+`
+
+export const Nav = styled.div`
+  
 `

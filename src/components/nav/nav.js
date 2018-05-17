@@ -7,7 +7,7 @@ import { bindActionCreators} from 'redux'
 import { logInAsync, logOut } from '../../actions/userActions'
 
 import { Button } from 'semantic-ui-react'
-import { NavLinks } from './nav.styled'
+import { NavLinks, Nav as StdNav } from './nav.styled'
 
 
 class Nav extends Component{
@@ -17,17 +17,19 @@ class Nav extends Component{
 
   render (){
     return(
-      <NavLinks>
-        <div>
-          <span className="Logo" ><Link to="/"><img src="assets/images/logo.png"/></Link></span>
-          <span><Link to="/">CATEGORÍAS</Link></span>
-          <span><Link to="/">ARTISTAS</Link></span>
-          <span><Link to="/">IGLESIAS</Link></span>
-        </div>
-        <span className="add-activity">
-          <Button className="our-green">AGREGAR ACTIVIDAD</Button>
-        </span>
-      </NavLinks>
+      <StdNav>
+        <NavLinks>
+          <div>
+            <span className="Logo" ><Link to="/"><img src="assets/images/logo.png"/></Link></span>
+            <span><Link to="/">CATEGORÍAS</Link></span>
+            <span><Link to="/">ARTISTAS</Link></span>
+            <span><Link to="/">IGLESIAS</Link></span>
+          </div>
+          <span className="add-activity">
+            <Button className="our-green">AGREGAR ACTIVIDAD</Button>
+          </span>
+        </NavLinks>
+      </StdNav>
     )
   }
 }
