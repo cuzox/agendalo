@@ -10,7 +10,7 @@ export const Header = styled.div`
   background-color: #cccccc;
   background-repeat: no-repeat;
   background-size: cover;
-  border-bottom: 22px solid rgb(0,201,211);
+  border-bottom: 20px solid rgb(0,201,211);
   align-items: center;
 
   * {

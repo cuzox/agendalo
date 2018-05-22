@@ -26,7 +26,7 @@ class Login extends Component{
                 <span> INICIA SESION </span>
               </div>
               <Input size="big" placeholder='E-mail' />
-              <Input size="big" placeholder='Contraseña' />
+              <Input size="big" placeholder='Contraseña' type="password"/>
               <Button style={{color: "white"}} content="¡Entrar!" className="our-green"/>
               <div className="center-text" style={{textAlign: "center"}}>
                 ¿No tienes cuenta? <Link to="/register">Click aquí</Link>

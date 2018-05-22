@@ -26,7 +26,7 @@ export const Footer = Header.extend`
   overflow: hidden;
   color: white;
   background-color: #003366;
-  border-top: 22px solid rgb(0,201,211);
+  border-top: 20px solid rgb(0,201,211);
   font-size: 0.9rem;
 `
 

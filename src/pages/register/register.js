@@ -1,5 +1,5 @@
-import React, { Component } from 'react';
-import styled from "styled-components";
+import React, { Component } from 'react'
+import styled from "styled-components"
 
 /** UI */
 import { Link } from 'react-router-dom'
@@ -28,7 +28,7 @@ class Register extends Component{
               </div>
               <Input size="big" placeholder='Nombre' />
               <Input size="big" placeholder='E-mail' />
-              <Input size="big" placeholder='Contraseña' />
+              <Input size="big" placeholder='Contraseña' type="password" />
               <div style={{ display: "flex", justifyContent: "center" }}>
                   <Checkbox style={{margin: "0 auto"}}/>
                   <p style={{width: "200px"}}>

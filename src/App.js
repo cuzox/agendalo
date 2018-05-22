@@ -6,13 +6,10 @@ import {
 import styled from "styled-components";
 
 import Login from './pages/login/login'
-import Register from './pages/register/register'
+import Register from './pages/register/register'  
 import Home from './pages/home/home'
 import Landing from './pages/landing/landing'
-
-// import Nav from './Nav'
-// import { Footer, Content} from './Styled.js'
-
+import ActivityCrud from './pages/activity/activity-crud/activity-crud'
 
 class App extends Component {
   constructor() {
@@ -24,16 +21,11 @@ class App extends Component {
     return (
       <Router>
         <React.Fragment>
-          {/* <Nav/> */}
           <Route exact path="/" component={ Home } />       
           {/* <Route exact path="/" component={Landing} />              */}
           <Route path="/login" component={ Login } /> 
-          <Route path="/register" component={ Register } /> 
-
-          {/* <Content>
-            <Route exact path="/" component={Home} />
-          </Content> */}
-          {/* <Foot/> */}
+          <Route path="/register" component={ Register } />
+          <Route path="/agregar" component={ ActivityCrud }/>
         </React.Fragment>
       </Router>
     );
