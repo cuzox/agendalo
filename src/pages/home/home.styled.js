@@ -10,7 +10,7 @@ export const Header = styled.div`
   background-color: #cccccc;
   background-repeat: no-repeat;
   background-size: cover;
-  border-bottom: 30px solid rgb(0,201,211);
+  border-bottom: 22px solid rgb(0,201,211);
   align-items: center;
 
   * {
@@ -26,9 +26,11 @@ export const Header = styled.div`
   p { font-size: 1.4em; }
 
   .add-activity{
-    align-items: center;
+    align-items: flex-end;
     display: flex;
-    button { font-weight: bold; color: #003366; }
+    button { 
+      font-weight: bold; color: #003366; height: 35px 
+    }
   }
 
   .register{

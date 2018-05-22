@@ -4,15 +4,16 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 100vh;
+  min-height: 80vh;
 `
 
 export const Header = styled.div`
-  height: 15vh;
+  height: 10vh;
   overflow: hidden;
   display: flex;
   justify-content: center;
   padding: 15px 0 20px 0;
+  overflow: hidden;
 `
 
 export const Footer = Header.extend`
@@ -22,16 +23,22 @@ export const Footer = Header.extend`
   left: 0;
   padding: 1rem;
   height: 10vh;
+  overflow: hidden;
+  color: white;
+  background-color: #003366;
+  border-top: 22px solid rgb(0,201,211);
+  font-size: 0.9rem;
 `
 
 export const FooterSection = styled.div`
   display: flex;
   flex-direction: column;
-  border-left: 1px solid blue;
+  border-left: 1px solid white;
   margin: 0 10px;
   padding: 0 0 0 15px;
-  height: 60px;
+  height: 4rem;
   font-size: 0.8em;
+  white-space: nowrap;
 
   span:first-child{
     font-size: 1.1em;

@@ -18,7 +18,3 @@ export const NavLinks = styled.div`
   span:first-child{ margin-left: 0; }
   span:last-child{ margin-right: 0; }
 `
-
-export const Nav = styled.div`
-  
-`

@@ -21,15 +21,14 @@ class Login extends Component{
         <Nav/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
           <Row type="flex" justify="center">
-            <Col style={{display: "flex", flexDirection: "column"}}>
-              <div>
-                <FaEdit/> 
+            <Col lg={5} md={8} sm={10} xs={15} style={{display: "flex", flexDirection: "column"}} className="col-space">
+              <div className="center-text" style={{textAlign: "center"}}>
                 <span> INICIA SESION </span>
               </div>
               <Input size="big" placeholder='E-mail' />
               <Input size="big" placeholder='Contraseña' />
-              <Button content="¡Iniciar Sesión!" className="agendalo-blue"/>
-              <div>
+              <Button style={{color: "white"}} content="¡Entrar!" className="our-green"/>
+              <div className="center-text" style={{textAlign: "center"}}>
                 ¿No tienes cuenta? <Link to="/register">Click aquí</Link>
               </div>
             </Col>
