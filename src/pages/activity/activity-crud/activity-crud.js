@@ -42,11 +42,16 @@ class ActivityCrud extends Component{
                   <Input size="medium" placeholder='Nombre' />
                   <Input size="medium" placeholder='Teléfono' />
                   <Input size="medium" placeholder='Dirección' />
-                  <Input size="medium" placeholder='$' />
+                  <Input size="medium" placeholder='Costo' type="number" />
                   <TextArea placeholder='Descripción' />
                   <Dropdown size="medium" placeholder='Categorías' search selection options={this.categorias} />
-                  <DatePicker size="default" />
-                  <TimePicker use12Hours format="h:mm A" minuteStep={5} size="default" />
+                  <div style={{display: "flex"}}>
+                    <DatePicker placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
+                    <TimePicker placeholder="Hora" style={{width: "calc(50% - 5px)", marginLeft: "5px"}} use12Hours format="h:mm A" minuteStep={5} size="default" />
+                  </div>
+                  <div style={{height: "100px", width: "100px", borderRadius: "5px", border: "1px dashed slategray", backgroundColor: "#f1f1f1"}}>
+                    
+                  </div>
               </Col>
             </Row>
           </Form>

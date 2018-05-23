@@ -27,7 +27,9 @@ class Nav extends Component{
             <span><Link to="/">IGLESIAS</Link></span>
           </div>
           <span className="add-activity">
-            <Button className="our-green">AGREGAR ACTIVIDAD</Button>
+            <Link to="/agregar">
+              <Button className="our-green">AGREGAR ACTIVIDAD</Button>
+            </Link>
           </span>
         </NavLinks>
       </StdHeader>
