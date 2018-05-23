@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {
-  Route, Link,
+  Route,
   BrowserRouter as Router
 } from "react-router-dom";
 import styled from "styled-components";

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Dimmer, Loader, Input, Button } from 'semantic-ui-react'
 import { notification, Alert } from 'antd';
-import styled from "styled-components";
 import axios from 'axios'
 import { Main, Img, Text, Redes } from './landing.styled.js'
 

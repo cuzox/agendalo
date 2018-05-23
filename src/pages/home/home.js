@@ -2,13 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import styled from "styled-components";
-import { withRouter } from 'react-router-dom'
 
 
 /** UI */
 import { Link } from 'react-router-dom'
 import FaPlayCircleO from 'react-icons/lib/fa/play-circle-o';
-import { MainContainer, Content } from '../../components/global.styled'
+import { MainContainer } from '../../components/global.styled'
 import { 
   Header as StdHeader,
   Month as StdMonth,
@@ -16,7 +15,7 @@ import {
 } from './home.styled'
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
-import { Button, Dropdown, Advertisement, Dimmer, Loader, Input,} from 'semantic-ui-react'
+import { Button, Dropdown, Dimmer, Loader, Input,} from 'semantic-ui-react'
 import { Row, Col, Collapse } from 'antd';
 const Panel = Collapse.Panel
 

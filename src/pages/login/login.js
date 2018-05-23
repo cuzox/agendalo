@@ -3,9 +3,8 @@ import React, { Component } from 'react';
 
 // import Nav from './components/nav/nav'
 import { Link } from 'react-router-dom'
-import FaEdit from 'react-icons/lib/fa/edit';
 import { Input, Button } from 'semantic-ui-react'
-import { Content, MainContainer} from '../../components/global.styled'
+import { MainContainer} from '../../components/global.styled'
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
 import { Row, Col } from 'antd';

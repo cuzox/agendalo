@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
-import { logInAsync, logOut } from '../../actions/userActions'
+import { login, logout } from '../../actions/userActions'
 
 import { Button } from 'semantic-ui-react'
 import { NavLinks } from './nav.styled'
@@ -47,8 +47,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      logInAsync,
-      logOut
+      login,
+      login
     },
     dispatch
   );

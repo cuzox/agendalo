@@ -35,3 +35,7 @@ body {
 .col-space > *{
   margin-bottom: 10px !important;
 }
+
+.green-border {
+  border-color: green !important;
+}

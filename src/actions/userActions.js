@@ -1,18 +1,32 @@
 import {
-  LOG_IN,
-  LOG_OUT
+  LOGOUT,
+  LOGGING_IN,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS
 } from '../constants'
 
-export const logIn = email => ({type: LOG_IN, payload: email})
-export const logOut = () => ({type: LOG_OUT})
+export const loggingIn = () => ({
+  type: LOGGING_IN
+})
 
-export function logInAsync(){
-  return dispatch => {
+export const loginFail = () => ({
+  type: LOGIN_FAILED
+})
+
+export const loginSucc = () => ({
+  type: LOGIN_SUCCESS
+})
+
+export const logout = () => ({
+  type: LOGOUT
+})
+
+export const login = email =>
+  dispatch => {
+    dispatch(loggingIn())
     let response = {
       name: "Will",
       email: "will@email.com"
     }
-    dispatch(logIn(response))
+    dispatch(loginSucc(response))
   }
-}
-

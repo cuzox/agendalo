@@ -1,3 +1,10 @@
+import {
+  LOGOUT,
+  LOGGING_IN,
+  LOGIN_FAILED,
+  LOGIN_SUCCESS
+} from '../constants'
+
 const initialState = {
   id: null,
   name: null,
@@ -9,15 +16,25 @@ const initialState = {
 
 export default function reducer(state = initialState, action){
   switch(action.type){
-    case "LOG_IN":
-      return { loggingIn: true }
-    case "LOG_IN_FAILED": 
-      return { loggingIn: false, error: action.payload}
-    case "LOG_IN_":
+    case LOGGING_IN:
+      return { 
+        loggingIn: true 
+      }
+    case LOGIN_FAILED: 
+      return { 
+        loggingIn: false, 
+        error: action.payload
+      }
+    case LOGIN_SUCCESS: 
+      return { 
+        ...action.payload,
+        loggingIn: false, 
+        loggedIn: true
+      }
+    case LOGOUT:
       return {
-          ...action.payload,
           loggingIn: false,
-          loggedIn: true,
+          loggedIn: false,
       }
     default:
       return state
