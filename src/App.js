@@ -22,7 +22,7 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <Route exact path="/" component={ Home } />       
-          {/* <Route exact path="/" component={Landing} />              */}
+          <Route exact path="/landing" component={Landing} />             
           <Route path="/login" component={ Login } /> 
           <Route path="/register" component={ Register } />
           <Route path="/agregar" component={ ActivityCrud }/>

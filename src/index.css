@@ -39,3 +39,19 @@ body {
 .green-border {
   border-color: green !important;
 }
+
+.ant-carousel .slick-slide {
+  text-align: center;
+  background: #364d79;
+  overflow: hidden;
+  
+}
+
+.ant-carousel {
+  margin-left: 10px;
+  
+}
+
+.ant-carousel .slick-slide h3 {
+  color: #fff;
+}

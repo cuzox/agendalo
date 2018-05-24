@@ -57,19 +57,27 @@ export const Month = styled.div`
     align-items: center;
     background-color: #003366;
     padding: 8px 0;
-    justify-content: center;
+    justify-content: flex-end;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: 25px;
+    padding-right: 40px;
 
     /* @media (max-width: 576px) {
-      flex-direction: column;
-      align-items: flex-start;
-    } */
+       flex-direction: column;
+       align-items: flex-start;
+     } */
 
 
-    span{
-      font-size: 1.3em;
+    > span{
+      font-size: 1.2em;
       font-weight: bolder;
       margin-right: 20px;
       color: white;
+      border: 1px solid white;
+      border-radius: 5px;
+      padding: 5px 8px;
+      cursor: default;
     }
 
     .ui.selection.active.dropdown .menu,
@@ -78,7 +86,6 @@ export const Month = styled.div`
       background-color: rgb(0,201,211);
       color: #003366 !important;
       font-weight: bold !important;
-      font-size: 1.3em;
     }
 
     .ui.selection.dropdown{
@@ -99,8 +106,8 @@ export const Newsletter = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #003366;
-    border-top-left-radius: 35px;
-    border-bottom-left-radius: 35px;
-    padding: 20px 80px;
-    margin: 35px 0px 8px 8px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding: 20px 40px;
+    margin: 25px 0px 25px 0px;
 `

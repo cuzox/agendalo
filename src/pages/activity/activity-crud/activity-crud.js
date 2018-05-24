@@ -3,20 +3,22 @@ import React, { Component } from 'react'
 import Footer from '../../../components/footer'
 import Nav from '../../../components/nav/nav'
 import { Row, Col } from 'antd'
-import { Form, Input, Checkbox, Button, TextArea, Dropdown } from 'semantic-ui-react'
+import { Form, Input, Checkbox, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
 import { MainContainer } from '../../../components/global.styled'
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaCloudUpload from 'react-icons/lib/fa/cloud-upload'
-import { DatePicker, TimePicker } from 'antd'
+import FaTrash from 'react-icons/lib/fa/trash'
+import FaEye from 'react-icons/lib/fa/eye'
+import { DatePicker, TimePicker, Modal } from 'antd'
 import locale from 'antd/lib/date-picker/locale/es_ES'
 import { PhotoUpload, PhotoList } from './styled-crud.styled'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
-
-import { addImage } from '../../../actions/activityActions'
 import { fetchCategories } from '../../../actions/categoryActions'
+
+const confirm = Modal.confirm;
 
 
 
@@ -25,7 +27,7 @@ class ActivityCrud extends Component{
     super(props)
     this.imagesInput = React.createRef()
     this.imageDropArea = React.createRef()
-    this.activityImages = []
+    this.state = { open: false, activityImages: [] }
   }
 
   componentDidMount(){
@@ -41,16 +43,54 @@ class ActivityCrud extends Component{
     )
     this.imageDropArea.current.addEventListener('click', () => this.addImages())
     this.imageDropArea.current.addEventListener('drop', e => this.dropImages(e))
+    this.imageDropArea.current.addEventListener('change', e => this.dropImages(e))
   }
+
+  showDeleteConfirm(key) {
+    let that = this;
+    confirm({
+      title: 'Borrar foto?',
+      content: '',
+      okText: 'Si',
+      okType: 'danger',
+      cancelText: 'No',
+      onOk() {
+        that.setState({
+          activityImages: that.state.activityImages.filter(el => el.key !== key)
+        })
+      }
+    });
+  }
+
+  handleOpenChange = (open) => this.setState({ open })
+
+  handleClose = () => this.setState({ open: false })
 
   addImages(){
     this.imagesInput.current.click()
   }
 
   dropImages(e){
-    let files = e.dataTransfer.files
-    if(files) this.activityImages.concat(files)
-    console.log(files)
+    let files = e.dataTransfer && e.dataTransfer.files || e.target.files
+    if(files && files.length) {
+      ;[].forEach.call(files, file =>{
+        if ( /\.(jpe?g|png)$/i.test(file.name) ) {
+          var reader = new FileReader();
+    
+          reader.onload = e =>{
+            this.setState({
+              activityImages: this.state.activityImages.concat([{
+                key: this.state.activityImages.length,
+                file: file,
+                src: e.target.result
+              }])
+            })
+          }
+    
+          reader.readAsDataURL(file);
+        }
+      })
+    }
   }
   
   render(){
@@ -58,6 +98,9 @@ class ActivityCrud extends Component{
       <React.Fragment>
         <Nav/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
+          <Dimmer active={this.props.creatingActivity}>
+            <Loader/>  
+          </Dimmer>
           <Form>
             <Row type="flex" justify="center">
               <Col lg={7} md={10} sm={13} xs={18} style={{display: "flex", flexDirection: "column"}} className="col-space">
@@ -65,15 +108,25 @@ class ActivityCrud extends Component{
                     <FaEdit/>
                     <span> AGREGA TU ACTIVIDAD </span>
                   </div>
-                  <Input size="medium" placeholder='Nombre' />
-                  <Input size="medium" placeholder='Teléfono' />
-                  <Input size="medium" placeholder='Dirección' />
-                  <Input size="medium" placeholder='Costo' type="number" />
-                  <TextArea placeholder='Descripción' />
+                  <Input name="name" size="medium" placeholder='Nombre' />
+                  <Input name="phone" size="medium" placeholder='Teléfono' />
+                  <Input name="address" size="medium" placeholder='Dirección' />
+                  <Input name="fee" size="medium" placeholder='Costo' type="number" />
+                  <TextArea name="description" placeholder='Descripción' />
                   <Dropdown size="medium" placeholder='Categorías' search selection options={this.props.categories} />
                   <div style={{display: "flex"}}>
                     <DatePicker format="DD-MM-YYYY" locale={locale} placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
-                    <TimePicker placeholder="Hora" style={{width: "calc(50% - 5px)", marginLeft: "5px"}} use12Hours format="h:mm A" minuteStep={5} size="default" />
+                    <TimePicker
+                      size="default" 
+                      minuteStep={5} 
+                      use12Hours format="h:mm A" 
+                      open={this.state.open}
+                      onOpenChange={this.handleOpenChange}
+                      addon={() => (
+                        <Button size="small" type="primary" onClick={this.handleClose} content="Ok"/>
+                      )}
+                      placeholder="Hora" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
+                    />
                   </div>
                   <div style={{display: "flex"}}>
                     <PhotoUpload innerRef={this.imageDropArea}>
@@ -83,14 +136,17 @@ class ActivityCrud extends Component{
                     </PhotoUpload>
                     <PhotoList>
                       {
-                        this.activityImages.map( el =>
+                        this.state.activityImages.map( (el, key) =>
                           <div>
-                            
+                            <img src={ el.src }/>
+                            <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
+                            {/* <FaEye className="eye"/> */}
                           </div>
                         )
                       }
                     </PhotoList>
                   </div>
+                  <Button style={{color: "white"}} content="¡Crear!" className="our-green"/>
               </Col>
             </Row>
           </Form>
@@ -103,13 +159,14 @@ class ActivityCrud extends Component{
 
 const mapStateToProps = state => {
   return ({
-    categories: state.category.categories
+    categories: state.category.categories,
+    creatingActivity: state.activity.creating,
+    createdActivity: state.activity.createdActivity
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    addImage,
     fetchCategories
   }, dispatch);
 

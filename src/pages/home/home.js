@@ -16,7 +16,7 @@ import {
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
 import { Button, Dropdown, Dimmer, Loader, Input,} from 'semantic-ui-react'
-import { Row, Col, Collapse } from 'antd';
+import { Row, Col, Collapse, Carousel } from 'antd'
 const Panel = Collapse.Panel
 
 const MONTHS = [
@@ -37,8 +37,8 @@ const MONTHS = [
 const Header = props =>{
   return (
     <StdHeader>
-      <MainContainer>
-        <Nav />
+      <MainContainer style={{minHeight: "initial"}}>
+        <Nav home={true}/>
         <span style={{marginTop: "80px"}}><h3>TU AGENDA EN LINEA DE</h3></span>
         <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
         <span>
@@ -70,7 +70,7 @@ const Month = props =>{
   return(
     <StdMonth>
       <span> VER TODOS </span>
-      <Dropdown compact selection options={MONTHS} defaultValue={0}/>
+      <Dropdown selection options={MONTHS} defaultValue={0}/>
     </StdMonth>
   )
 }
@@ -79,13 +79,17 @@ const Newsletter = props =>{
   return(
     <StdNewsletter>
       <div style={{display: "flex"}}>
-        <img style={{width: "auto", height: "40px"}}src="assets/images/mail.png"/>
-        <span style={{color: "rgb(0,201,211)", fontWeight: "bolder",  minWidth: "200px"}}>RECIBE NUESTRO NEWSLETTER</span>
+        <img style={{width: "auto", height: "50px"}}src="assets/images/mail.png"/>
+        <span style={{color: "rgb(0,201,211)", fontWeight: "bolder",  minWidth: "200px", marginLeft: "15px"}}>
+          RECIBE NUESTRO <br/> <font size="5">NEWSLETTER</font>
+        </span>
       </div>
-      <span style={{color: "white", maxWidth: "400px", minWidth: "200px"}}>Mantente informado sobre las actividades, anotate a nuestro newsletter y no te pierdas ni un solo evento</span>
-      <span>
-        <Input/>
-        <Button style={{backgroundColor: "rgb(0,201,211)"}}>!AGREGAME!</Button>
+      <span style={{color: "white", maxWidth: "400px", minWidth: "200px", whiteSpace: "nowrap", marginBottom: "5px"}}>
+        Mantente informado sobre las actividades, anotate a <br/> nuestro newsletter y no te pierdas ni un solo evento
+      </span>
+      <span style={{width: "350px"}}>
+        <Input placeholder="Tu email"/>
+        <Button style={{backgroundColor: "rgb(0,201,211)", marginLeft: "15px"}}>!AGREGAME!</Button>
       </span>
     </StdNewsletter>
   )
@@ -101,23 +105,23 @@ class Home extends Component{
       <React.Fragment>
         <Header/>
         <Row>
-          <Col>
+          <Col lg={{span: 16}} md={24}>
             <Month/>
           </Col>
         </Row>
         <Row>
-          <Col lg={{span: 16, offset: 4}} md={24}>
-            <Collapse bordered={false} defaultActiveKey={['1']}>
-              <Panel header="1-7" key="1">
-                Events
-              </Panel>
-              <Panel header="8-15" key="2">
-                Events
-              </Panel>
-              <Panel header="16-22" key="3">
-                Events
-              </Panel>
-            </Collapse>
+          <Col lg={{span: 8, offset: 8}} md={{span: 12, offset: 5}} xs={24} style={{overflow: "hidden", borderRadius: "20px", marginTop: "25px"}}>
+            <Carousel vertical autoplay >
+              <div style={{height: "300px"}}>
+                <h3>1</h3>
+              </div>
+              <div style={{height: "300px"}}>
+                <h3>2</h3>
+              </div>
+              <div style={{height: "300px"}}>
+                <h3>3</h3>
+              </div>
+            </Carousel>
           </Col>
         </Row>
         <Row>
