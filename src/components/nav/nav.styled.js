@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const NavLinks = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-top: 30px;
   height: 10vh;
   
   span{

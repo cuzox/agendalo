@@ -9,6 +9,7 @@ import { login, logout } from '../../actions/userActions'
 import { Button } from 'semantic-ui-react'
 import { NavLinks } from './nav.styled'
 import { Header as StdHeader } from '../global.styled'
+import FaUserCircle from 'react-icons/lib/fa/user'
 
 
 class Nav extends Component{
@@ -20,17 +21,23 @@ class Nav extends Component{
     return(
       <StdHeader>
         <NavLinks>
-          <div>
+          <nav>
             <span className="Logo" ><Link to="/"><img src="assets/images/logo.png"/></Link></span>
             <span><Link to="/">CATEGORÍAS</Link></span>
             <span><Link to="/">ARTISTAS</Link></span>
             <span><Link to="/">IGLESIAS</Link></span>
+          </nav>
+          <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end"}}>
+            <div style={{display: "flex", marginBottom: "3px"}}>
+              <span> <u>Iniciar Sesión</u></span>
+              <FaUserCircle style={{fontSize: "1.4em"}}/>
+            </div>
+            <span className="add-activity">
+              <Link to="/agregar">
+                <Button size="small" className="our-green">AGREGAR ACTIVIDAD</Button>
+              </Link>
+            </span>
           </div>
-          <span className="add-activity">
-            <Link to="/agregar">
-              <Button className="our-green">AGREGAR ACTIVIDAD</Button>
-            </Link>
-          </span>
         </NavLinks>
       </StdHeader>
     )
@@ -48,7 +55,7 @@ const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
       login,
-      login
+      logout
     },
     dispatch
   );

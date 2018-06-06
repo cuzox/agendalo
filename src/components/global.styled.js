@@ -14,6 +14,10 @@ export const Header = styled.div`
   justify-content: center;
   padding: 15px 0 20px 0;
   overflow: hidden;
+
+  .add-activity button{
+    margin: 0;
+  }
 `
 
 export const Footer = Header.extend`

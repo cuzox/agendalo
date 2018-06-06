@@ -25,13 +25,6 @@ export const Header = styled.div`
   h3{ font-size: 3.5em; }
   p { font-size: 1.4em; }
 
-  .add-activity{
-    align-items: flex-end;
-    display: flex;
-    button { 
-      font-weight: bold; color: #003366; height: 35px 
-    }
-  }
 
   .register{
     display: flex;

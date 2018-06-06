@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 /** UI */
 import { Link } from 'react-router-dom'
-import FaEdit from 'react-icons/lib/fa/edit';
+import FaEdit from 'react-icons/lib/fa/edit'
 import { Input, Checkbox, Button } from 'semantic-ui-react'
 import { MainContainer } from '../../components/global.styled'
 import Footer from '../../components/footer'

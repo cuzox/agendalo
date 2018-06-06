@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 /** UI */
 import { Link } from 'react-router-dom'
-import FaPlayCircleO from 'react-icons/lib/fa/play-circle-o';
+import FaPlayCircleO from 'react-icons/lib/fa/play-circle-o'
 import { MainContainer } from '../../components/global.styled'
 import { 
   Header as StdHeader,
