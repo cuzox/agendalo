@@ -10,6 +10,8 @@ import { Button } from 'semantic-ui-react'
 import { NavLinks } from './nav.styled'
 import { Header as StdHeader } from '../global.styled'
 import FaUserCircle from 'react-icons/lib/fa/user'
+import FaSignIn from 'react-icons/lib/fa/sign-in'
+
 
 
 class Nav extends Component{
@@ -27,11 +29,13 @@ class Nav extends Component{
             <span><Link to="/">ARTISTAS</Link></span>
             <span><Link to="/">IGLESIAS</Link></span>
           </nav>
-          <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end"}}>
-            <div style={{display: "flex", marginBottom: "3px"}}>
-              <span> <u>Iniciar Sesión</u></span>
-              <FaUserCircle style={{fontSize: "1.4em"}}/>
-            </div>
+          <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end", justifyContent: "flex-end"}}>
+              <Link to="/login">
+                <div style={{display: "flex", marginBottom: "3px"}}>
+                  <u style={{margin: "0 10px"}}>Iniciar Sesión</u> 
+                  <FaSignIn style={{fontSize: "1.4em"}}/>              
+                </div>
+              </Link>
             <span className="add-activity">
               <Link to="/agregar">
                 <Button size="small" className="our-green">AGREGAR ACTIVIDAD</Button>

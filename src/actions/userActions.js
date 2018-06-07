@@ -48,7 +48,7 @@ export const registerSucc = user => ({
 })
 
 export const registerFail = error => ({
-  type: LOGIN_SUCCESS,
+  type: REGISTER_FAIL,
   payload: error
 })
 

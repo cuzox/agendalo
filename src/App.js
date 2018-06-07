@@ -11,12 +11,20 @@ import Home from './pages/home/home'
 import Landing from './pages/landing/landing'
 import ActivityCrud from './pages/activity/activity-crud/activity-crud'
 
+import { connect } from 'react-redux'
+import { bindActionCreators} from 'redux'
+
+
+
 class App extends Component {
   constructor() {
     super();
   }
+
   componentDidMount() {
+
   }
+
   render() {
     return (
       <Router>
@@ -32,4 +40,17 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapStateToProps = state => {
+  return ({
+  })
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    
+  }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)
