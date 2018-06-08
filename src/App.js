@@ -14,6 +14,10 @@ import ActivityCrud from './pages/activity/activity-crud/activity-crud'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
+import { fetchCategories } from './actions/categoryActions'
+import { loginSucc } from './actions/userActions'
+
+
 
 
 class App extends Component {
@@ -22,7 +26,9 @@ class App extends Component {
   }
 
   componentDidMount() {
-
+    this.props.fetchCategories()
+    let user = localStorage.user
+    user && this.props.loginSucc(JSON.parse(user))
   }
 
   render() {
@@ -47,7 +53,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    
+    fetchCategories,
+    loginSucc
   }, dispatch);
 
 export default connect(

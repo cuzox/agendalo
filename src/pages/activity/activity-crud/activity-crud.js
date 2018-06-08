@@ -16,8 +16,6 @@ import { withRouter } from 'react-router-dom'
 import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
-import { fetchCategories } from '../../../actions/categoryActions'
-
 const confirm = Modal.confirm;
 
 
@@ -31,7 +29,6 @@ class ActivityCrud extends Component{
   }
 
   componentDidMount(){
-    this.props.fetchCategories()
     ;['ondrag','ondragstart','ondragend','ondragover','ondragenter','ondragleave','ondrop'].forEach(event =>
       this.imageDropArea.current[event] = e => e.preventDefault() && e.stopPropagation()
     )
@@ -96,7 +93,7 @@ class ActivityCrud extends Component{
   render(){
     return (
       <React.Fragment>
-        <Nav/>
+        <Nav hideAdd/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
           <Dimmer active={this.props.creatingActivity}>
             <Loader/>  
@@ -167,7 +164,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    fetchCategories
   }, dispatch);
 
 export default withRouter(

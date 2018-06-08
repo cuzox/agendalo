@@ -12,8 +12,6 @@ export const NavLinks = styled.div`
       font-weight: 600;
     }
   }
-  .Logo img{ width: 250px; }
-
   span:first-child{ margin-left: 0; }
   span:last-child{ margin-right: 0; }
 `

@@ -30,7 +30,7 @@ export default function reducer(state = initialState, action){
       }
     case LOGIN_SUCCESS: 
       return { 
-        loggedInUser: action.payload,
+        ...action.payload,
         loggingIn: false, 
         loggedIn: true
       }

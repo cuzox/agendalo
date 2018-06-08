@@ -14,9 +14,19 @@ export const Header = styled.div`
   justify-content: center;
   padding: 15px 0 20px 0;
   overflow: hidden;
+  background-color: #003366;
+  .Logo img{ width: 100px; }
+  
 
   .add-activity button{
     margin: 0;
+  }
+
+  &.in-home{
+    margin-top: 30px;
+    height: 150px;
+    background-color: initial;
+    .Logo img{ width: 250px; }
   }
 `
 

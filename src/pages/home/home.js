@@ -38,7 +38,7 @@ const Header = props =>{
   return (
     <StdHeader>
       <MainContainer style={{minHeight: "initial"}}>
-        <Nav home={true}/>
+        <Nav inHome/>
         <span style={{marginTop: "80px"}}><h3>TU AGENDA EN LINEA DE</h3></span>
         <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
         <span>

@@ -31,8 +31,8 @@ export const logout = () => ({
 export const login = credentials =>
   dispatch => {
     dispatch(loggingIn())
-    HttpClient.post('accounts/login', credentials).then(auth =>{
-      dispatch(loginSucc(auth))
+    HttpClient.post('accounts/login', credentials).then(user =>{
+      dispatch(loginSucc(user))
     }).catch( error =>{
       dispatch(loginFail(error))
     })
