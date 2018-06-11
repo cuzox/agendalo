@@ -37,8 +37,8 @@ const MONTHS = [
 const Header = props =>{
   return (
     <StdHeader>
-      <MainContainer style={{minHeight: "initial"}}>
-        <Nav inHome/>
+      <Nav inHome/>
+      <MainContainer style={{minHeight: "initial", whiteSpace: "nowrap"}}>
         <span style={{marginTop: "80px"}}><h3>TU AGENDA EN LINEA DE</h3></span>
         <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
         <span>
@@ -105,27 +105,28 @@ class Home extends Component{
       <React.Fragment>
         <Header/>
         <Row>
-          <Col lg={{span: 16}} md={24}>
+          <Col xl={{span: 16}} lg={{span: 18}} md={{span: 20}} sm={{span: 22}}>
             <Month/>
           </Col>
         </Row>
         <Row>
-          <Col lg={{span: 8, offset: 8}} md={{span: 12, offset: 5}} xs={24} style={{overflow: "hidden", borderRadius: "20px", marginTop: "25px"}}>
-            <Carousel vertical autoplay >
-              <div style={{height: "300px"}}>
+          <Col xl={{span: 8, offset: 8}} lg={{span: 12, offset: 6}} md={{span: 14, offset: 6}} sm={{span: 20, offset: 2}} xs={24} 
+            style={{overflow: "hidden", marginTop: "25px"}}>
+            <Carousel vertical autoplay effect="fade">
+              <div style={{height: "300px", borderRadius: "20px"}}>
                 <h3>1</h3>
               </div>
-              <div style={{height: "300px"}}>
+              <div style={{height: "300px", borderRadius: "20px"}}>
                 <h3>2</h3>
               </div>
-              <div style={{height: "300px"}}>
+              <div style={{height: "300px", borderRadius: "20px"}}>
                 <h3>3</h3>
               </div>
             </Carousel>
           </Col>
         </Row>
         <Row>
-          <Col lg={{span: 16, offset: 8}} md={24}>
+          <Col xl={{offset: 8, span: 16}} lg={{span: 18, offset: 6}} md={{offset: 6, span: 20}} sm={{span: 22, offset: 2}}>
             <Newsletter/>
           </Col>
         </Row>

@@ -23,29 +23,26 @@ class Nav extends Component{
     return(
       <StdHeader className={this.props.inHome ? 'in-home' : ''}>
         <NavLinks>
-          <nav>
-            <span className="Logo" ><Link to="/"><img src="assets/images/logo.png"/></Link></span>
-            <span><Link to="/">CATEGORÍAS</Link></span>
-            <span><Link to="/">ARTISTAS</Link></span>
-            <span><Link to="/">IGLESIAS</Link></span>
-          </nav>
-          <div style={{display: "flex", flexDirection: "column", alignItems: "flex-end", justifyContent: "baseline"}}>
-            { !this.props.hideLogin &&
+          <span className="Logo" ><Link to="/"><img src="assets/images/logo.png"/></Link></span>
+          <span><Link to="/">VER EVENTOS</Link></span>
+          <span><Link to="/">CATEGORÍAS</Link></span>
+          { !this.props.hideAdd &&
+            <span>
+              <Link to="/agregar">
+                <Button size="small" className="our-green">AGREGAR ACTIVIDAD</Button>
+              </Link>
+            </span>
+          }
+          { !this.props.hideLogin &&
+            <span>
               <Link to="/login">
                 <div style={{display: "flex", marginBottom: "3px"}}>
                     <u style={{margin: "0 10px"}}>Iniciar Sesión</u>
                     <FaSignIn style={{fontSize: "1.4em"}}/>
                 </div>
               </Link>
-            }
-            { !this.props.hideAdd &&
-              <span className="add-activity">
-                <Link to="/agregar">
-                  <Button size="small" className="our-green">AGREGAR ACTIVIDAD</Button>
-                </Link>
-              </span>
-            }
-          </div>
+            </span>
+          }
         </NavLinks>
       </StdHeader>
     )

@@ -32,6 +32,7 @@ export const login = credentials =>
   dispatch => {
     dispatch(loggingIn())
     HttpClient.post('accounts/login', credentials).then(user =>{
+      localStorage.user = user
       dispatch(loginSucc(user))
     }).catch( error =>{
       dispatch(loginFail(error))

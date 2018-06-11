@@ -12,15 +12,9 @@ export const Header = styled.div`
   overflow: hidden;
   display: flex;
   justify-content: center;
-  padding: 15px 0 20px 0;
   overflow: hidden;
   background-color: #003366;
   .Logo img{ width: 100px; }
-  
-
-  .add-activity button{
-    margin: 0;
-  }
 
   &.in-home{
     margin-top: 30px;

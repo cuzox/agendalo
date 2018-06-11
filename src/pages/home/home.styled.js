@@ -25,6 +25,14 @@ export const Header = styled.div`
   h3{ font-size: 3.5em; }
   p { font-size: 1.4em; }
 
+  @media only screen and (max-width: 800px) {
+
+    h4{ font-size: 2.5em; }
+    h3{ font-size: 2em; }
+    p { font-size: 1em; }
+
+  }
+
 
   .register{
     display: flex;
@@ -54,6 +62,7 @@ export const Month = styled.div`
     border-top-right-radius: 20px;
     border-bottom-right-radius: 20px;
     margin-top: 25px;
+    margin-right: 10px;
     padding-right: 40px;
 
     /* @media (max-width: 576px) {
@@ -102,5 +111,5 @@ export const Newsletter = styled.div`
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     padding: 20px 40px;
-    margin: 25px 0px 25px 0px;
+    margin: 25px 0px 25px 10px;
 `

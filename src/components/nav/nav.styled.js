@@ -1,12 +1,14 @@
 import styled from 'styled-components'
 
-export const NavLinks = styled.div`
+export const NavLinks = styled.nav`
   display: flex;
   justify-content: space-between;
-  height: 10vh;
+  align-items: center;
+  flex-wrap: nowrap;
+  white-space: nowrap;
   
   span{
-    margin: 0 30px;
+    margin: 0 10px;
     a {
       color: #ededed;
       font-weight: 600;

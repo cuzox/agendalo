@@ -47,11 +47,11 @@ body {
   
 }
 
-.ant-carousel {
-  margin-left: 10px;
-  
-}
-
 .ant-carousel .slick-slide h3 {
   color: #fff;
+}
+
+.ant-carousel .slick-slider{
+  margin-left: 10px;
+  margin-right: 10px;
 }
