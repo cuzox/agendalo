@@ -21,7 +21,7 @@ class Register extends Component{
     })
   }
 
-  register(){
+  register(e){
     const { name = '', email = '', password = ''} = this.state || {}
     const fields = ['name', 'email', 'password']
 
@@ -30,11 +30,11 @@ class Register extends Component{
       ...this.emailValidate(email),
       ...this.passwordValidate(password)
     }
+    !e.target.parentNode.querySelector("input[name='terms']").checked && formattedErrors.push('Debes aceptar los Terminos y Condiciones')
     
     for(let key in errors) if(errors[key].length) this.setState({[key + "Invalid"]: true})
 
     let formattedErrors = Object.keys(errors).reduce((c, e)=> c.concat(errors[e]), [])
-    // console.log("value", e.target.parentNode.querySelector("input[name='terms']").checked)
     
     if(!name || !email || !password) formattedErrors.unshift('Todos los campos son necesarios')
     if(formattedErrors.length){
@@ -43,14 +43,12 @@ class Register extends Component{
         description: <div>{formattedErrors.reduce((c,e) => c.push(<span>{e}<br/></span>) && c, [])}</div>
       })
     }
-
   }
 
   emailValidate(email){
     let sec = { email: [] }
     let emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return email.match(emailValidator) ? sec : sec.email.push(['Email: formato incorecto']) && sec
-    
   }
 
   passwordValidate(password){
@@ -90,7 +88,7 @@ class Register extends Component{
                     y aceptas haber leído nuestros <u>Términos y Condiciones</u>
                   </p>
               </div>
-              <Button onClick={()=> this.register()} style={{color: "white"}}  content="¡Registrame!" className="our-green"/>
+              <Button onClick={e => this.register(e)} style={{color: "white"}}  content="¡Registrame!" className="our-green"/>
               <div style={{textAlign: "center"}}>
                 ¿Ya tienes cuenta? <Link to="/login">Click aquí</Link>
               </div>
