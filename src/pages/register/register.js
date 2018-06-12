@@ -1,4 +1,7 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router'
+import { bindActionCreators} from 'redux'
+import { connect } from 'react-redux'
 
 /** UI */
 import { Link } from 'react-router-dom'
@@ -8,6 +11,8 @@ import { MainContainer } from '../../components/global.styled'
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
 import { Row, Col, notification } from 'antd';
+
+import { register } from '../../actions/userActions'
 
 class Register extends Component{
   constructor(props){
@@ -30,17 +35,21 @@ class Register extends Component{
       ...this.emailValidate(email),
       ...this.passwordValidate(password)
     }
-    !e.target.parentNode.querySelector("input[name='terms']").checked && formattedErrors.push('Debes aceptar los Terminos y Condiciones')
     
     for(let key in errors) if(errors[key].length) this.setState({[key + "Invalid"]: true})
-
+    
     let formattedErrors = Object.keys(errors).reduce((c, e)=> c.concat(errors[e]), [])
+    !e.target.parentNode.querySelector("input[name='terms']").checked && formattedErrors.push('Debes aceptar los Terminos y Condiciones')
     
     if(!name || !email || !password) formattedErrors.unshift('Todos los campos son necesarios')
     if(formattedErrors.length){
       notification['error']({
         message: 'Error de validación',
         description: <div>{formattedErrors.reduce((c,e) => c.push(<span>{e}<br/></span>) && c, [])}</div>
+      })
+    }else{
+      this.props.register({
+        name, email, password
       })
     }
   }
@@ -67,10 +76,11 @@ class Register extends Component{
   render(){
     return (
       <React.Fragment>
+        { this.props.registerSuccess && <Redirect push to="/login"/> }
         <Nav/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
           <Dimmer active={this.state && this.state.registering}>
-            <Loader />  
+            <Loader />
           </Dimmer>
           <Row type="flex" justify="center">
             <Col lg={5} md={8} sm={10} xs={15} style={{display: "flex", flexDirection: "column"}} className="col-space">
@@ -101,4 +111,18 @@ class Register extends Component{
   }
 }
 
-export default Register
+const mapStateToProps = state => {
+  return ({
+    registerSuccess: state.user.registerSuccess
+  })
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+    register
+  }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Register)

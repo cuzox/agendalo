@@ -31,9 +31,11 @@ export const logout = () => ({
 export const login = credentials =>
   dispatch => {
     dispatch(loggingIn())
-    HttpClient.post('accounts/login', credentials).then(user =>{
-      localStorage.user = user
-      dispatch(loginSucc(user))
+    HttpClient.post('accounts/login', credentials, { include: "user" }).then(user =>{
+      localStorage.token = JSON.stringify(user.data.id)
+      delete user.data.id
+      localStorage.user = JSON.stringify(user.data)
+      dispatch(loginSucc(user.data))
     }).catch( error =>{
       dispatch(loginFail(error))
     })
@@ -57,7 +59,7 @@ export const register = payload =>
   dispatch => {
     dispatch(registering())
     HttpClient.post('accounts', payload).then(res =>{
-      dispatch(registerSucc(res))
+      dispatch(registerSucc(res.data))
     }).catch( error =>{
       dispatch(registerFail(error))
     })
