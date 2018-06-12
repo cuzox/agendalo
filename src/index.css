@@ -55,3 +55,10 @@ body {
   margin-left: 10px;
   margin-right: 10px;
 }
+
+.ui.segment{
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+}

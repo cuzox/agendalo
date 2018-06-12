@@ -3,7 +3,7 @@ import React, { Component } from 'react'
 /** UI */
 import { Link } from 'react-router-dom'
 import FaEdit from 'react-icons/lib/fa/edit'
-import { Input, Checkbox, Button } from 'semantic-ui-react'
+import { Dimmer, Loader, Input, Checkbox, Button } from 'semantic-ui-react'
 import { MainContainer } from '../../components/global.styled'
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
@@ -71,6 +71,9 @@ class Register extends Component{
       <React.Fragment>
         <Nav/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
+          <Dimmer active={this.state && this.state.registering}>
+            <Loader />  
+          </Dimmer>
           <Row type="flex" justify="center">
             <Col lg={5} md={8} sm={10} xs={15} style={{display: "flex", flexDirection: "column"}} className="col-space">
               <div className="center-text" style={{textAlign: "center"}}>
