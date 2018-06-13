@@ -12,11 +12,29 @@ import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
 import { Row, Col, notification } from 'antd';
 
-import { register } from '../../actions/userActions'
+import { register, reset, logout } from '../../actions/userActions'
 
 class Register extends Component{
   constructor(props){
     super(props)
+  }
+
+  componentDidMount(){
+    this.props.logout()
+    if(this.props.registerFailed)
+      notification['error']({
+        message: 'Error de registro',
+        description: 'Trata mas tarde'
+      })
+  }
+
+  componentWillUnmount(){
+    if(this.props.registerSuccess)
+      notification['success']({
+        message: 'Registro exitoso',
+        description: 'Inicia sesión con tu nueva cuenta'
+      })
+    this.props.reset()
   }
 
   handleInputChange(e){
@@ -27,11 +45,9 @@ class Register extends Component{
   }
 
   register(e){
-    const { name = '', email = '', password = ''} = this.state || {}
-    const fields = ['name', 'email', 'password']
+    const { firstName = '', lastName = '', email = '', password = ''} = this.state || {}
 
     let errors = {
-      ...this.nameValidate(name),
       ...this.emailValidate(email),
       ...this.passwordValidate(password)
     }
@@ -41,7 +57,7 @@ class Register extends Component{
     let formattedErrors = Object.keys(errors).reduce((c, e)=> c.concat(errors[e]), [])
     !e.target.parentNode.querySelector("input[name='terms']").checked && formattedErrors.push('Debes aceptar los Terminos y Condiciones')
     
-    if(!name || !email || !password) formattedErrors.unshift('Todos los campos son necesarios')
+    if(!firstName || !lastName || !email || !password) formattedErrors.unshift('Todos los campos son necesarios')
     if(formattedErrors.length){
       notification['error']({
         message: 'Error de validación',
@@ -49,7 +65,7 @@ class Register extends Component{
       })
     }else{
       this.props.register({
-        name, email, password
+        firstName, lastName, email, password
       })
     }
   }
@@ -64,12 +80,6 @@ class Register extends Component{
     let sec = { password: [] }
     if(password.length < 8) sec.password.push('Contraseña: debe tener al menos 8 caracteres')
     if(!password.match(/[0-9]/)) sec.password.push('Contraseña: debe contener numeros')
-    return sec
-  }
-
-  nameValidate(name){
-    let sec = { name: []}
-    if(name.length < 5) sec.name.push('Nombre: debe tener al menos 5 caracteres')
     return sec
   }
 
@@ -88,7 +98,8 @@ class Register extends Component{
                 <FaEdit/> 
                 <span> REGISTRATE </span>
               </div>
-              <Input size="big" name="name" placeholder='Nombre' error={this.state && this.state.nameInvalid} onChange={ e => this.handleInputChange(e) }/>
+              <Input size="big" name="firstName" placeholder='Nombre' error={this.state && this.state.nameInvalid} onChange={ e => this.handleInputChange(e) }/>
+              <Input size="big" name="lastName" placeholder='Apellido' error={this.state && this.state.nameInvalid} onChange={ e => this.handleInputChange(e) }/>
               <Input size="big" name="email" placeholder='E-mail' error={this.state && this.state.emailInvalid} onChange={ e => this.handleInputChange(e) }/>
               <Input size="big" name="password" placeholder='Contraseña' type="password" error={this.state && this.state.passwordInvalid} onChange={ e => this.handleInputChange(e) }/>
               <div style={{ display: "flex", justifyContent: "center" }}>
@@ -113,13 +124,15 @@ class Register extends Component{
 
 const mapStateToProps = state => {
   return ({
+    registerSuccess: state.user.registerSuccess,
+    registerFailed: state.user.registerFailed,
     registerSuccess: state.user.registerSuccess
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    register
+    register, reset, logout
   }, dispatch);
 
 export default connect(

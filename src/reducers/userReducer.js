@@ -5,15 +5,18 @@ import {
   LOGIN_SUCCESS,
   REGISTERING,
   REGISTER_FAIL,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  AUTH_RESET
 } from '../constants'
 
 const initialState = {
   id: null,
-  name: null,
+  firstName: null,
+  lastName: null,
   email: null,
   loggingIn: false,
   loggedIn: false,
+  loginSuccess: false,
   loginFailed: false,
   registering: false,
   registerSuccess: false,
@@ -24,43 +27,56 @@ const initialState = {
 export default function reducer(state = initialState, action){
   switch(action.type){
     case LOGGING_IN:
-      return { 
-        loggingIn: true,
-        loginFailed: false,
+      return {
+        ...state,
+        loggingIn: true
       }
     case LOGIN_SUCCESS: 
       return { 
+        ...state,
         ...action.payload,
-        loggingIn: false, 
+        loggingIn: false,
+        loginSuccess: true,
         loggedIn: true
       }
     case LOGIN_FAILED:
       return { 
+        ...state,
         loggingIn: false,
         loginFailed: true,
         error: action.payload
       }
     case LOGOUT:
       return {
-        loggingIn: false,
+        ...state,
         loggedIn: false,
       }
     case REGISTERING:
       return { 
-        registering: true,
-        registerFailed: false,
+        ...state,
+        registering: true
       }
     case REGISTER_FAIL: 
       return { 
+        ...state,
         registering: false, 
         registerFailed: true,
         error: action.payload
       }
     case REGISTER_SUCCESS:
       return { 
+        ...state,
         registering: false,
         registerSuccess: true
-      } 
+      }
+    case AUTH_RESET:
+      return {
+        ...state,
+        loginSuccess: false,
+        loginFailed: false,
+        registerSuccess: false,
+        registerFailed: false
+      }
     default:
       return state
   }

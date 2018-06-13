@@ -10,12 +10,12 @@ import { Dimmer, Loader, Input, Button } from 'semantic-ui-react'
 import { MainContainer} from '../../components/global.styled'
 import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
-import { Row, Col } from 'antd';
+import { Row, Col, notification } from 'antd';
 
 import FaSignIn from 'react-icons/lib/fa/sign-in'
 import { handleInputChange, emailValidate, testErrors } from '../../util/form-utils'
 
-import { login } from '../../actions/userActions'
+import { login, reset, logout } from '../../actions/userActions'
 
 
 class Login extends Component{
@@ -24,8 +24,21 @@ class Login extends Component{
   }
 
   componentDidMount(){
+    this.props.logout()
+    if(this.props.loginFailed)
+      notification['error']({
+        message: 'Email o contraseña incorrecto',
+      })
     this.handleInputChange = handleInputChange.bind(this)
     this.testErrors = testErrors.bind(this)
+  }
+
+  componentWillUnmount(){
+    if(this.props.loginSuccess)
+      notification['success']({
+        message: 'Has iniciado sesión con exito',
+      })
+    this.props.reset()
   }
 
   login(){
@@ -43,7 +56,7 @@ class Login extends Component{
   render(){
     return (
       <React.Fragment>
-        { this.props.loggedIn && <Redirect push to="/"/> }
+        { this.props.loginSuccess && <Redirect push to="/"/> }
         <Nav hideLogin/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
           <Dimmer active={this.state && this.state.loggingIn}>
@@ -72,13 +85,15 @@ class Login extends Component{
 
 const mapStateToProps = state => {
   return ({
-    loggedIn: state.user.loggedIn
+    loggedIn: state.user.loggedIn,
+    loginSuccess: state.user.loginSuccess,
+    loginFailed: state.user.loginFailed
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    login
+    login, reset, logout
   }, dispatch);
 
 export default connect(

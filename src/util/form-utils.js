@@ -2,7 +2,6 @@ import React from 'react'
 import { notification } from 'antd';
 
 export function handleInputChange(e){
-  console.log("hey", this)
   if(!e.target.name) throw new Error("Input field does not contain name attribute")
   this.setState({
     [e.target.name]: e.target.value, 

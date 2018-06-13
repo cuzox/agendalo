@@ -5,7 +5,8 @@ import {
   LOGIN_SUCCESS,
   REGISTERING,
   REGISTER_FAIL,
-  REGISTER_SUCCESS
+  REGISTER_SUCCESS,
+  AUTH_RESET
 } from '../constants'
 
 import HttpClient from './http-client'
@@ -24,18 +25,19 @@ export const loginSucc = user => ({
   payload: user
 })
 
-export const logout = () => ({
-  type: LOGOUT
-})
+export const logout = () => 
+  dispatch => {
+    localStorage.clear()
+    dispatch({ type: LOGOUT })
+  }
 
 export const login = credentials =>
   dispatch => {
     dispatch(loggingIn())
-    HttpClient.post('accounts/login', credentials, { include: "user" }).then(user =>{
+    HttpClient.post('accounts/login?include=user', credentials).then(user =>{
       localStorage.token = JSON.stringify(user.data.id)
-      delete user.data.id
-      localStorage.user = JSON.stringify(user.data)
-      dispatch(loginSucc(user.data))
+      localStorage.user = JSON.stringify(user.data.user)
+      dispatch(loginSucc(user.data.user))
     }).catch( error =>{
       dispatch(loginFail(error))
     })
@@ -64,3 +66,7 @@ export const register = payload =>
       dispatch(registerFail(error))
     })
   }
+
+  export const reset = () => ({
+    type: AUTH_RESET
+  })

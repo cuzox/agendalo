@@ -15,7 +15,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
 import { fetchCategories } from './actions/categoryActions'
-import { loginSucc } from './actions/userActions'
+import { loginSucc, reset } from './actions/userActions'
 
 
 
@@ -28,7 +28,10 @@ class App extends Component {
   componentDidMount() {
     this.props.fetchCategories()
     let user = localStorage.user
-    user && this.props.loginSucc(JSON.parse(user))
+    if(user){
+      this.props.loginSucc(JSON.parse(user))
+      this.props.reset()
+    }
   }
 
   render() {
@@ -54,7 +57,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
     fetchCategories,
-    loginSucc
+    loginSucc,
+    reset
   }, dispatch);
 
 export default connect(

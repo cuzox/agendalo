@@ -35,12 +35,19 @@ class Nav extends Component{
           }
           { !this.props.hideLogin &&
             <span>
-              <Link to="/login">
-                <div style={{display: "flex", marginBottom: "3px"}}>
-                    <u style={{margin: "0 10px"}}>Iniciar Sesión</u>
-                    <FaSignIn style={{fontSize: "1.4em"}}/>
-                </div>
-              </Link>
+              { this.props.loggedIn ?
+                  <div style={{display: "flex", marginBottom: "3px"}}>
+                    <u style={{margin: "0 10px"}}>Bienvenido, {this.props.firstName}</u>
+                    <FaUserCircle style={{fontSize: "1.4em"}}/>
+                  </div>
+                :
+                  <Link to="/login">
+                    <div style={{display: "flex", marginBottom: "3px"}}>
+                      <u style={{margin: "0 10px"}}>Iniciar Sesión</u>
+                      <FaSignIn style={{fontSize: "1.4em"}}/>
+                    </div>
+                  </Link>
+              }
             </span>
           }
         </NavLinks>
@@ -52,7 +59,9 @@ class Nav extends Component{
 const mapStateToProps = state => {
   return ({
     email: state.user.email,
-    name: state.user.name
+    firstName: state.user.firstName,
+    lastName: state.user.lastName,
+    loggedIn: state.user.loggedIn
   })
 }
 
