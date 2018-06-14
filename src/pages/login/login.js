@@ -25,15 +25,15 @@ class Login extends Component{
 
   componentDidMount(){
     this.props.logout()
-    if(this.props.loginFailed)
-      notification['error']({
-        message: 'Email o contraseña incorrecto',
-      })
     this.handleInputChange = handleInputChange.bind(this)
     this.testErrors = testErrors.bind(this)
   }
 
-  componentWillUnmount(){
+  componentDidUpdate(){
+    if(this.props.loginFailed)
+      notification['error']({
+        message: 'Email o contraseña incorrecto',
+      })
     if(this.props.loginSuccess)
       notification['success']({
         message: 'Has iniciado sesión con exito',
