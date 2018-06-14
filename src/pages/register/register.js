@@ -19,8 +19,11 @@ class Register extends Component{
     super(props)
   }
 
-  componentDidUpdate(){
+  componentDidMount(){
     this.props.logout()
+  }
+
+  componentDidUpdate(){
     if(this.props.registerFailed)
       notification['error']({
         message: 'Error de registro',
