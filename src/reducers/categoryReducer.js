@@ -11,11 +11,13 @@ const initialState = {
 export default function reducer(state = initialState, action){
   switch(action.type){
     case FECTHING_CATEGORIES:
-      return { 
+      return {
+        ...state,
         fetching: true 
       }
     case FETCHED_CATEGORIES: 
       return { 
+        ...state,
         fetching: false,
         categories: action.payload
       }

@@ -22,6 +22,17 @@ export const Header = styled.div`
     background-color: initial;
     .Logo img{ width: 250px; }
   }
+
+  &.compact{
+    margin-top: 0;
+    justify-content: space-between;
+    width: 100%;
+    height: 50px;
+    background-color: rgba(0,0,0,0.8);
+    align-items: center;
+    .Logo img{ width: 250px; }
+    position: fixed;
+  }
 `
 
 export const Footer = Header.extend`

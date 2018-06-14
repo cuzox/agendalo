@@ -20,31 +20,37 @@ const initialState = {
 export default function reducer(state = initialState, action){
   switch(action.type){
     case FETCHING_ACTIVITIES:
-      return { 
+      return {
+        ...state,
         fetching: true 
       }
     case FETCH_ACTIVITIES_SUCCESS: 
-      return { 
+      return {
+        ...state,
         fetching: false,
         activities: action.payload
       }
     case FETCH_ACTIVITIES_FAILED: 
-      return { 
+      return {
+        ...state,
         fetching: false,
         fetchingFailed: true,
         error: action.payload
       }
     case CREATING_ACTIVITY:
-      return { 
+      return {
+        ...state,
         creating: true 
       }
     case CREATE_ACTIVITY_SUCCESS: 
-      return { 
+      return {
+        ...state,
         creating: false,
         createdActivity: action.payload
       }
     case CREATE_ACTIVITY_FAILED: 
-      return { 
+      return {
+        ...state,
         creating: false,
         creatingFailed: true,
         error: action.payload

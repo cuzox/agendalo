@@ -48,14 +48,16 @@ const Header = props =>{
           </p>
         </span>
         <div style={{display: "flex", marginTop: "30px", marginBottom: "50px"}}>
-          <div className="register">
-          <Link to="/register">
-            <Button className="register our-green">
-                ¡REGISTRAME!
-            </Button>
-          </Link>
-            <span><Link to="/login">¿Ya tienes cuenta?</Link></span>
-          </div>
+          {!props.loggedIn &&
+            <div className="register">
+              <Link to="/register">
+                <Button className="register our-green">
+                    ¡REGISTRAME!
+                </Button>
+              </Link>
+                <span><Link to="/login">¿Ya tienes cuenta?</Link></span>
+            </div>
+          }
           <span className="video-link">
             <span>¿CÓMO FUNCTIONA?</span>
             <FaPlayCircleO/>
@@ -103,7 +105,7 @@ class Home extends Component{
   render(){
     return (
       <React.Fragment>
-        <Header/>
+        <Header loggedIn={this.props.loggedIn}/>
         <Row>
           <Col xl={{span: 16}} lg={{span: 18}} md={{span: 20}} sm={{span: 22}}>
             <Month/>
@@ -136,4 +138,17 @@ class Home extends Component{
   }
 }
 
-export default Home
+const mapStateToProps = state => {
+  return ({
+    loggedIn: state.user.loggedIn
+  })
+}
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({
+  }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Home)
