@@ -24,17 +24,20 @@ class Register extends Component{
   }
 
   componentDidUpdate(){
-    if(this.props.registerFailed)
+    if(this.props.registerFailed){
       notification['error']({
         message: 'Error de registro',
         description: 'Trata mas tarde'
       })
-    if(this.props.registerSuccess)
+      this.props.reset()
+    }
+    if(this.props.registerSuccess){
       notification['success']({
         message: 'Registro exitoso',
         description: 'Inicia sesión con tu nueva cuenta'
       })
-    this.props.reset()
+      this.props.reset()
+    }
   }
 
   handleInputChange(e){

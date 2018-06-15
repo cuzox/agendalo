@@ -35,9 +35,12 @@ export const login = credentials =>
   dispatch => {
     dispatch(loggingIn())
     HttpClient.post('accounts/login?include=user', credentials).then(user =>{
-      localStorage.token = JSON.stringify(user.data.id)
-      localStorage.user = JSON.stringify(user.data.user)
-      dispatch(loginSucc(user.data.user))
+      if(!user.data.user) dispatch(loginFail({error: "Couldn't retrieve user"}))
+      else{
+        localStorage.token = JSON.stringify(user.data.id)
+        localStorage.user = JSON.stringify(user.data.user)
+        dispatch(loginSucc(user.data.user))
+      }
     }).catch( error =>{
       dispatch(loginFail(error))
     })

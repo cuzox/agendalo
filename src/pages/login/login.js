@@ -30,15 +30,18 @@ class Login extends Component{
   }
 
   componentDidUpdate(){
-    if(this.props.loginFailed)
+    if(this.props.loginFailed){
       notification['error']({
         message: 'Email o contraseña incorrecto',
       })
-    if(this.props.loginSuccess)
+      this.props.reset()
+    }
+    if(this.props.loginSuccess){
       notification['success']({
         message: 'Has iniciado sesión con exito',
       })
-    this.props.reset()
+      this.props.reset()
+    }
   }
 
   login(){

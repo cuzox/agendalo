@@ -9,10 +9,8 @@ export const MainContainer = styled.div`
 
 export const Header = styled.div`
   height: 10vh;
-  overflow: hidden;
   display: flex;
   justify-content: center;
-  overflow: hidden;
   background-color: #003366;
   .Logo img{ width: 100px; }
 
@@ -27,11 +25,21 @@ export const Header = styled.div`
     margin-top: 0;
     justify-content: space-between;
     width: 100%;
-    height: 50px;
+    height: 80px;
     background-color: rgba(0,0,0,0.8);
     align-items: center;
-    .Logo img{ width: 250px; }
+    .Logo img{ width: 100px; }
     position: fixed;
+  }
+
+  &.compact-top{
+    margin-top: 0;
+    justify-content: space-between;
+    width: 60%;
+    background-color: rgba(0,0,0,0);
+    align-items: center;
+    margin-top: 20px;
+    .Logo img{ width: 25vmin; min-width: 150px; }
   }
 `
 
