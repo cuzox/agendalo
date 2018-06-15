@@ -30,3 +30,17 @@ export function testErrors(errors, additional = []){
   }
   return true
 }
+
+export function submitOnEnter(ctx, fn){
+  document.addEventListener('keypress', run)
+  var original = ctx['componentWillUnmount']
+
+  ctx['componentWillUnmount'] = function(){
+    document.removeEventListener('keypress', run)
+    original.apply(ctx, arguments)
+  }
+
+  function run(e){
+    e.keyCode == 13 && fn.apply(ctx)
+  }
+}
