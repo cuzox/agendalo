@@ -1,7 +1,5 @@
 import React, { Component } from 'react'
 
-import Footer from '../../../components/footer'
-import Nav from '../../../components/nav/nav'
 import { Row, Col } from 'antd'
 import { Form, Input, Checkbox, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
 import { MainContainer } from '../../../components/global.styled'
@@ -93,7 +91,6 @@ class ActivityCrud extends Component{
   render(){
     return (
       <React.Fragment>
-        <Nav hideAdd/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
           <Dimmer active={this.props.creatingActivity}>
             <Loader/>  
@@ -148,7 +145,6 @@ class ActivityCrud extends Component{
             </Row>
           </Form>
         </MainContainer>
-        <Footer/>
       </React.Fragment>
     )
   }

@@ -70,16 +70,31 @@ const menu = (
 class Nav extends Component{
   constructor(props){
     super(props)
+    this.unlisten = this.props.history.listen((location, action) => {
+      this.setState({
+        currentLocation: locProps(location.pathname)
+      })
+    });
+  }
+
+  componentDidMount(){
+    this.setState({
+      currentLocation: locProps(window.location.pathname)
+    })
+  }
+
+  componentWillUnmount(){
+    this.unlisten()
   }
 
   render (){
-    const {firstName, hideAdd, hideLogin, loggedIn} = this.props
+    const { firstName, loggedIn } = this.props
     return(
       <Media query={{ minWidth: 968 }}>
         {matches =>
           matches ? (
-            <StdHeader className={this.props.inHome ? 'in-home' : ''}>
-              <NavLinks firstName={firstName} hideLogin={hideLogin} hideAdd={hideAdd} loggedIn={loggedIn}/>
+            <StdHeader className={this.state && this.state.currentLocation.inHome ? 'in-home' : ''}>
+              <NavLinks firstName={firstName} loggedIn={loggedIn} {...(this.state && this.state.currentLocation || {})}/>
             </StdHeader>
           ) : (
             <StdHeader className={'compact-top'}>
@@ -94,6 +109,14 @@ class Nav extends Component{
       
     )
   }
+}
+
+const locProps = (pathname)=>{
+  let state = {}
+  if(pathname == '/') state.inHome = true
+  if(pathname == '/login') state.hideLogin = true
+  if(pathname == '/agregar') state.hideAdd = true
+  return state
 }
 
 const mapStateToProps = state => {

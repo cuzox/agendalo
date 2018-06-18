@@ -37,7 +37,7 @@ export function submitOnEnter(ctx, fn){
 
   ctx['componentWillUnmount'] = function(){
     document.removeEventListener('keypress', run)
-    original.apply(ctx, arguments)
+    original && original.apply(ctx, arguments)
   }
 
   function run(e){

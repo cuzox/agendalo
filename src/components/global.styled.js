@@ -9,36 +9,42 @@ export const MainContainer = styled.div`
 
 export const Header = styled.div`
   height: 10vh;
+  width: 100%;
   display: flex;
   justify-content: center;
   background-color: #003366;
-  .Logo img{ width: 100px; }
+  transition: height 200ms ease 100ms;
+  .Logo img{ transition: width 200ms; width: 100px; }
 
   &.in-home{
     margin-top: 30px;
     height: 150px;
     background-color: initial;
     .Logo img{ width: 250px; }
+    position: absolute;
+    z-index: 1;
   }
 
   &.compact{
     margin-top: 0;
     justify-content: space-between;
-    width: 100%;
     height: 80px;
     background-color: rgba(0,0,0,0.8);
     align-items: center;
     .Logo img{ width: 100px; }
     position: fixed;
+    position: absolute;
+    z-index: 1;
   }
 
   &.compact-top{
     margin-top: 0;
     justify-content: space-between;
-    width: 60%;
     background-color: rgba(0,0,0,0);
     align-items: center;
     margin-top: 20px;
+    position: absolute;
+    z-index: 1;
     .Logo img{ width: 25vmin; min-width: 150px; }
   }
 `

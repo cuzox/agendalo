@@ -8,8 +8,6 @@ import { Link } from 'react-router-dom'
 import FaEdit from 'react-icons/lib/fa/edit'
 import { Dimmer, Loader, Input, Checkbox, Button } from 'semantic-ui-react'
 import { MainContainer } from '../../components/global.styled'
-import Footer from '../../components/footer'
-import Nav from '../../components/nav/nav'
 import { Row, Col, notification } from 'antd';
 
 import { register, reset, logout } from '../../actions/userActions'
@@ -90,7 +88,6 @@ class Register extends Component{
     return (
       <React.Fragment>
         { this.props.registerSuccess && <Redirect push to="/login"/> }
-        <Nav/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
           <Dimmer active={this.state && this.state.registering}>
             <Loader />
@@ -119,7 +116,6 @@ class Register extends Component{
             </Col>
           </Row>
         </MainContainer>
-        <Footer/>
       </React.Fragment>
     )
   }
