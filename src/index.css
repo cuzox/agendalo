@@ -11,6 +11,7 @@ body {
   font-family: "Raleway" !important;
   min-height: 100%;
   min-width: 320px;
+  overflow: overlay;
   /* white-space: nowrap; */
 }
 

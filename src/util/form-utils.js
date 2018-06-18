@@ -33,11 +33,11 @@ export function testErrors(errors, additional = []){
 
 export function submitOnEnter(ctx, fn){
   document.addEventListener('keypress', run)
-  var original = ctx['componentWillUnmount'] && ctx['componentWillUnmount'].bind(ctx) || (()=> void(0))
+  var original = ctx['componentWillUnmount']
 
   ctx['componentWillUnmount'] = function(){
     document.removeEventListener('keypress', run)
-    original()
+    original && original.apply(ctx, arguments)
   }
 
   function run(e){

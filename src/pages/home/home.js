@@ -13,7 +13,6 @@ import {
   Month as StdMonth,
   Newsletter as StdNewsletter
 } from './home.styled'
-import Footer from '../../components/footer'
 import Nav from '../../components/nav/nav'
 import { Button, Dropdown, Dimmer, Loader, Input,} from 'semantic-ui-react'
 import { Row, Col, Collapse, Carousel } from 'antd'
@@ -37,8 +36,7 @@ const MONTHS = [
 const Header = props =>{
   return (
     <StdHeader>
-      <Nav inHome/>
-      <MainContainer style={{minHeight: "initial", whiteSpace: "nowrap"}}>
+      <MainContainer style={{minHeight: "initial", whiteSpace: "nowrap", marginTop: "160px"}}>
         <span style={{marginTop: "80px"}}><h3>TU AGENDA EN LINEA DE</h3></span>
         <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
         <span>
@@ -132,7 +130,6 @@ class Home extends Component{
             <Newsletter/>
           </Col>
         </Row>
-        <Footer/>
       </React.Fragment>
     )
   }

@@ -8,8 +8,6 @@ import { Redirect } from 'react-router'
 import { Link } from 'react-router-dom'
 import { Dimmer, Loader, Input, Button } from 'semantic-ui-react'
 import { MainContainer} from '../../components/global.styled'
-import Footer from '../../components/footer'
-import Nav from '../../components/nav/nav'
 import { Row, Col, notification } from 'antd';
 
 import FaSignIn from 'react-icons/lib/fa/sign-in'
@@ -67,7 +65,6 @@ class Login extends Component{
     return (
       <React.Fragment>
         { this.props.loginSuccess && <Redirect push to="/"/> }
-        <Nav hideLogin/>
         <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
           <Dimmer active={this.state && this.state.loggingIn}>
             <Loader />  
@@ -87,7 +84,6 @@ class Login extends Component{
             </Col>
           </Row>
         </MainContainer>
-        <Footer/>
       </React.Fragment>
     )
   }
