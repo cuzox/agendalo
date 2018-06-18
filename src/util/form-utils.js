@@ -12,7 +12,7 @@ export function handleInputChange(e){
 export function emailValidate(email){
   let sec = { email: [] }
   let emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  return email.match(emailValidator) ? sec : sec.email.push(['Email: formato incorecto']) && sec
+  return email.match(emailValidator) ? sec : sec.email.push('Email: formato incorecto') && sec
 }
 
 export function testErrors(errors, additional = []){
@@ -20,7 +20,7 @@ export function testErrors(errors, additional = []){
 
   let formattedErrors = Object.keys(errors).reduce((c, e)=> c.concat(errors[e]), [])
   
-  additional.forEach( e => formattedErrors.unshift(e))
+  additional.forEach( e => e && formattedErrors.unshift(e))
   if(formattedErrors.length){
     notification['error']({
       message: 'Error de validación',
@@ -33,14 +33,18 @@ export function testErrors(errors, additional = []){
 
 export function submitOnEnter(ctx, fn){
   document.addEventListener('keypress', run)
-  var original = ctx['componentWillUnmount']
+  var original = ctx['componentWillUnmount'] && ctx['componentWillUnmount'].bind(ctx) || (()=> void(0))
 
   ctx['componentWillUnmount'] = function(){
     document.removeEventListener('keypress', run)
-    original.apply(ctx, arguments)
+    original()
   }
 
   function run(e){
     e.keyCode == 13 && fn.apply(ctx)
   }
+}
+
+function firstLetterCaps(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
 }

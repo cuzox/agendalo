@@ -13,7 +13,12 @@ import Nav from '../../components/nav/nav'
 import { Row, Col, notification } from 'antd';
 
 import FaSignIn from 'react-icons/lib/fa/sign-in'
-import { handleInputChange, emailValidate, testErrors, submitOnEnter } from '../../util/form-utils'
+import { 
+  handleInputChange, 
+  emailValidate, 
+  testErrors, 
+  submitOnEnter
+} from '../../util/form-utils'
 
 import { login, reset, logout } from '../../actions/userActions'
 
@@ -49,13 +54,13 @@ class Login extends Component{
     const { email = '', password = '' } = this.state || {}
     let errors = {
       ...emailValidate(email)
-    }
+    } 
+    let additional = (!email || !password) && "Faltan campos requeridos" || ""
 
-    if(this.testErrors(errors))
+    if(this.testErrors(errors, [additional]))
       this.props.login({
         email, password
       })
-      
   }
 
   render(){
