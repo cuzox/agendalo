@@ -13,8 +13,8 @@ export const Header = styled.div`
   display: flex;
   justify-content: center;
   background-color: #003366;
-  transition: height 200ms ease 100ms;
-  .Logo img{ transition: width 200ms; width: 100px; }
+  transition: height 150ms linear;
+  .Logo img{ transition: width 150ms linear; width: 150px; }
 
   &.in-home{
     margin-top: 30px;
@@ -39,7 +39,7 @@ export const Header = styled.div`
 
   &.compact-top{
     margin-top: 0;
-    justify-content: space-between;
+    justify-content: space-evenly;
     background-color: rgba(0,0,0,0);
     align-items: center;
     margin-top: 20px;
@@ -55,7 +55,7 @@ export const Footer = Header.extend`
   bottom: 0;
   left: 0;
   padding: 1rem;
-  height: 10vh;
+  height: 180px;
   overflow: hidden;
   color: white;
   background-color: #003366;
