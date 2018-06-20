@@ -19,7 +19,7 @@ export const Header = styled.div`
   &.in-home{
     margin-top: 30px;
     height: 150px;
-    background-color: initial;
+    background-color: rgba(0,0,0,0);
     .Logo img{ width: 250px; }
     position: absolute;
     z-index: 1;
