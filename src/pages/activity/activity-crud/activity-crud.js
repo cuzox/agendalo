@@ -91,7 +91,7 @@ class ActivityCrud extends Component{
   render(){
     return (
       <React.Fragment>
-        <MainContainer>
+        <MainContainer style={{padding: "100px 0"}}>
           <Dimmer active={this.props.creatingActivity}>
             <Loader/>  
           </Dimmer>

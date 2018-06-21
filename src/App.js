@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import {
   Route,
-  BrowserRouter as Router
+  BrowserRouter as Router,
+  Switch
 } from "react-router-dom";
 import styled from "styled-components";
 
@@ -10,6 +11,9 @@ import Register from './pages/register/register'
 import Home from './pages/home/home'
 import Landing from './pages/landing/landing'
 import ActivityCrud from './pages/activity/activity-crud/activity-crud'
+import Profile from './pages/profile/profile'
+import ControlPanel from './pages/control-panel/control-panel'
+
 
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
@@ -42,12 +46,16 @@ class App extends Component {
       <Router>
         <React.Fragment>
           <Nav/>
-          <Route exact path="/" component={ Home } />       
-          <Route exact path="/landing" component={Landing} />             
-          <Route path="/login" component={ Login } /> 
-          <Route path="/registro" component={ Register } />
-          <Route path="/agregar" component={ ActivityCrud }/>
-          {/* <Route component={()=><span>404 - Esta no es la pagina que buscas</span>} /> */}
+          <Switch>
+            <Route exact path="/" component={ Home } />       
+            <Route exact path="/landing" component={ Landing } />             
+            <Route path="/login" component={ Login } /> 
+            <Route path="/registro" component={ Register } />
+            <Route path="/agregar" component={ ActivityCrud }/>
+            <Route path="/perfil" component={ Profile }/>
+            <Route path="/panel" component={ ControlPanel }/>
+            <Route component={()=><span>404 - Esta no es la pagina que buscas</span>} />
+          </Switch>
           <Footer/>
         </React.Fragment>
       </Router>

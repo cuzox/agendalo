@@ -111,5 +111,5 @@ export const Newsletter = styled.div`
     background-color: #003366;
     border-radius: 20px;
     padding: 20px 40px;
-    margin: 25px 10px;
+    margin: 25px 10px 0 10px;
 `

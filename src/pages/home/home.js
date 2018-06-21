@@ -120,7 +120,7 @@ class Home extends Component{
         </Row>
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
-            style={{overflow: "hidden", marginTop: "25px"}}>
+            style={{overflow: "hidden", margin: "25px 0"}}>
             <Carousel vertical autoplay effect="fade">
               <div style={{height: "400px", borderRadius: "20px"}}>
                 <h3>1</h3>
@@ -134,11 +134,13 @@ class Home extends Component{
             </Carousel>
           </Col>
         </Row>
-        <Row  type="flex" justify="center">
-          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
-            <Newsletter/>
-          </Col>
-        </Row>
+        { !this.props.loggedIn &&
+          <Row  type="flex" justify="center">
+            <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
+              <Newsletter/>
+            </Col>
+          </Row>
+        }
       </React.Fragment>
     )
   }
