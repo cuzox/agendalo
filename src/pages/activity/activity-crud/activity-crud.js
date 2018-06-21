@@ -91,7 +91,7 @@ class ActivityCrud extends Component{
   render(){
     return (
       <React.Fragment>
-        <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
+        <MainContainer>
           <Dimmer active={this.props.creatingActivity}>
             <Loader/>  
           </Dimmer>

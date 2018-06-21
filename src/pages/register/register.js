@@ -93,8 +93,8 @@ class Register extends Component{
     return (
       <React.Fragment>
         { this.props.registerSuccess && <Redirect push to="/login"/> }
-        <MainContainer innerRef={ this.mainContainer} style={{backgroundColor: "rgb(233, 236, 240)"}}>
-          <Dimmer active={this.state && this.state.registering}>
+        <MainContainer innerRef={ this.mainContainer}>
+          <Dimmer active={this.props.registering}>
             <Loader />
           </Dimmer>
           <Row type="flex" justify="center">
@@ -130,7 +130,8 @@ const mapStateToProps = state => {
   return ({
     registerSuccess: state.user.registerSuccess,
     registerFailed: state.user.registerFailed,
-    registerSuccess: state.user.registerSuccess
+    registerSuccess: state.user.registerSuccess,
+    registering: state.user.registering
   })
 }
 

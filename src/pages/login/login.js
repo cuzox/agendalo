@@ -60,8 +60,8 @@ class Login extends Component{
     return (
       <React.Fragment>
         { this.props.loginSuccess && <Redirect push to="/"/> }
-        <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
-          <Dimmer active={this.state && this.state.loggingIn}>
+        <MainContainer>
+          <Dimmer active={ this.props.loggingIn }>
             <Loader />  
           </Dimmer>
           <Row type="flex" justify="center">
@@ -88,7 +88,8 @@ const mapStateToProps = state => {
   return ({
     loggedIn: state.user.loggedIn,
     loginSuccess: state.user.loginSuccess,
-    loginFailed: state.user.loginFailed
+    loginFailed: state.user.loginFailed,
+    loggingIn: state.user.loggingIn
   })
 }
 

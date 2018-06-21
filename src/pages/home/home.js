@@ -100,6 +100,15 @@ class Home extends Component{
     super(props)
   }
 
+  componentDidMount(){
+    this.root = document.querySelector("#root")
+    this.root.style.paddingTop = 0
+  }
+
+  componentWillUnmount(){
+    this.root.style.paddingTop = "120px"
+  }
+
   render(){
     return (
       <React.Fragment>
