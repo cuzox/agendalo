@@ -45,8 +45,9 @@ class App extends Component {
           <Route exact path="/" component={ Home } />       
           <Route exact path="/landing" component={Landing} />             
           <Route path="/login" component={ Login } /> 
-          <Route path="/register" component={ Register } />
+          <Route path="/registro" component={ Register } />
           <Route path="/agregar" component={ ActivityCrud }/>
+          {/* <Route component={()=><span>404 - Esta no es la pagina que buscas</span>} /> */}
           <Footer/>
         </React.Fragment>
       </Router>

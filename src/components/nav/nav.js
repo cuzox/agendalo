@@ -62,13 +62,19 @@ const NavLinks = props =>{
 const menu = (
   <Menu>
     <Menu.Item key="0">
-      <FaUser /> Perfil 
+      <Link to="/perfil">
+        <FaUser /> Perfil 
+      </Link>
     </Menu.Item>
     <Menu.Item key="1">
+    <Link to="/panel">
       <FaCogs /> Panel de control
+    </Link>
     </Menu.Item>
-    <Menu.Item key="1">
-      <FaSignOut /> Cerrar sesión
+    <Menu.Item key="2">
+      <Link to="/login">
+        <FaSignOut /> Cerrar sesión
+      </Link>
     </Menu.Item>
   </Menu>
 );

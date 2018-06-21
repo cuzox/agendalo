@@ -1,6 +1,8 @@
 import React from 'react'
 import { notification } from 'antd';
 
+import uuidv4 from 'uuid/v4'
+
 export function handleInputChange(e){
   if(!e.target.name) throw new Error("Input field does not contain name attribute")
   this.setState({
@@ -24,7 +26,7 @@ export function testErrors(errors, additional = []){
   if(formattedErrors.length){
     notification['error']({
       message: 'Error de validación',
-      description: <div>{formattedErrors.reduce((c,e) => c.push(<span>{e}<br/></span>) && c, [])}</div>
+      description: <div>{formattedErrors.reduce((c,e) => c.push(<span key={uuidv4()}>{e}<br/></span>) && c, [])}</div>
     })
     return false
   }

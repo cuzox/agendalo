@@ -48,7 +48,7 @@ const Header = props =>{
         <div style={{display: "flex", marginTop: "30px", marginBottom: "50px"}}>
           {!props.loggedIn &&
             <div className="register">
-              <Link to="/register">
+              <Link to="/registro">
                 <Button className="register our-green">
                     ¡REGISTRAME!
                 </Button>
