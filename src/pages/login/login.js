@@ -27,7 +27,12 @@ class Login extends Component{
   }
 
   componentDidMount(){
-    this.props.logout()
+    if(this.props.loggedIn){
+      this.props.logout()
+      notification['success']({
+        message: 'Has cerrado sesión'
+      })
+    }
     this.handleInputChange = handleInputChange.bind(this)
     this.testErrors = testErrors.bind(this)
     submitOnEnter(this, this.login)
@@ -65,8 +70,8 @@ class Login extends Component{
     return (
       <React.Fragment>
         { this.props.loginSuccess && <Redirect push to="/"/> }
-        <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
-          <Dimmer active={this.state && this.state.loggingIn}>
+        <MainContainer>
+          <Dimmer active={ this.props.loggingIn }>
             <Loader />  
           </Dimmer>
           <Row type="flex" justify="center">
@@ -79,7 +84,7 @@ class Login extends Component{
               <Input size="big" placeholder='Contraseña' name= "password" type="password" onChange={ e => this.handleInputChange(e) }/>
               <Button onClick={() => this.login()} style={{color: "white"}} content="¡Entrar!" className="our-green"/>
               <div className="center-text" style={{textAlign: "center"}}>
-                ¿No tienes cuenta? <Link to="/register">Click aquí</Link>
+                ¿No tienes cuenta? <Link to="/registro">Click aquí</Link>
               </div>
             </Col>
           </Row>
@@ -93,7 +98,8 @@ const mapStateToProps = state => {
   return ({
     loggedIn: state.user.loggedIn,
     loginSuccess: state.user.loginSuccess,
-    loginFailed: state.user.loginFailed
+    loginFailed: state.user.loginFailed,
+    loggingIn: state.user.loggingIn
   })
 }
 

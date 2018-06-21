@@ -4,43 +4,46 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: 80vh;
+  min-height: calc(100vh - 280px);
 `
 
 export const Header = styled.div`
-  height: 10vh;
-  width: 100%;
+  height: 120px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  left: 0;
   display: flex;
   justify-content: center;
-  background-color: #003366;
-  transition: height 200ms ease 100ms;
-  .Logo img{ transition: width 200ms; width: 100px; }
+  background-color: rgba(0,52,102,0.9);
+  transition: height 150ms linear;
+  .Logo img{ transition: width 150ms linear; width: 150px; }
+  border-bottom: 20px solid rgb(0,201,211);
 
   &.in-home{
     margin-top: 30px;
-    height: 150px;
-    background-color: initial;
+    background-color: rgba(0,0,0,0);
     .Logo img{ width: 250px; }
     position: absolute;
     z-index: 1;
+    border-bottom: none;
   }
 
   &.compact{
-    margin-top: 0;
     justify-content: space-between;
-    height: 80px;
     background-color: rgba(0,0,0,0.8);
     align-items: center;
     .Logo img{ width: 100px; }
     position: fixed;
-    position: absolute;
     z-index: 1;
+    border-bottom: none;
   }
 
   &.compact-top{
     margin-top: 0;
-    justify-content: space-between;
+    justify-content: space-evenly;
     background-color: rgba(0,0,0,0);
+    border-bottom: none;
     align-items: center;
     margin-top: 20px;
     position: absolute;
@@ -50,17 +53,16 @@ export const Header = styled.div`
 `
 
 export const Footer = Header.extend`
-  position: absolute;
-  right: 0;
+  top: initial;
   bottom: 0;
-  left: 0;
   padding: 1rem;
-  height: 10vh;
+  height: 160px;
   overflow: hidden;
   color: white;
-  background-color: #003366;
+  background-color: rgba(0,52,102,0.9);
   border-top: 20px solid rgb(0,201,211);
   font-size: 0.9rem;
+  border-bottom: none;
 `
 
 export const FooterSection = styled.div`

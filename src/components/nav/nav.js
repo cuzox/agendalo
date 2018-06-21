@@ -14,9 +14,12 @@ import FaSortDown from 'react-icons/lib/fa/sort-desc'
 import FaSignIn from 'react-icons/lib/fa/sign-in'
 import FaSignOut from 'react-icons/lib/fa/sign-out'
 import FaBars from 'react-icons/lib/fa/bars'
+import FaCogs from 'react-icons/lib/fa/cogs'
 
 import Media from "react-media";
 import { Menu, Dropdown, Icon } from 'antd';
+
+import { isInViewport } from '../../util/general-utils'
 
 const NavLinks = props =>{
   return (
@@ -59,10 +62,19 @@ const NavLinks = props =>{
 const menu = (
   <Menu>
     <Menu.Item key="0">
-      <FaUser /> Perfil 
+      <Link to="/perfil">
+        <FaUser /> Perfil 
+      </Link>
     </Menu.Item>
     <Menu.Item key="1">
-      <FaSignOut /> Cerrar sesión
+    <Link to="/panel">
+      <FaCogs /> Panel de control
+    </Link>
+    </Menu.Item>
+    <Menu.Item key="2">
+      <Link to="/login">
+        <FaSignOut /> Cerrar sesión
+      </Link>
     </Menu.Item>
   </Menu>
 );
@@ -101,7 +113,7 @@ class Nav extends Component{
               <span className="Logo" >
                 <Link to="/"><img src="assets/images/logo.png"/></Link>
               </span>
-              <FaBars style={{fontSize: "30px"}}/>
+              <FaBars style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
             </StdHeader>
           )
         }

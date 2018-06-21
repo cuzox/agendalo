@@ -48,7 +48,7 @@ const Header = props =>{
         <div style={{display: "flex", marginTop: "30px", marginBottom: "50px"}}>
           {!props.loggedIn &&
             <div className="register">
-              <Link to="/register">
+              <Link to="/registro">
                 <Button className="register our-green">
                     ¡REGISTRAME!
                 </Button>
@@ -100,33 +100,42 @@ class Home extends Component{
     super(props)
   }
 
+  componentDidMount(){
+    this.root = document.querySelector("#root")
+    this.root.style.paddingTop = 0
+  }
+
+  componentWillUnmount(){
+    this.root.style.paddingTop = "120px"
+  }
+
   render(){
     return (
       <React.Fragment>
         <Header loggedIn={this.props.loggedIn}/>
-        <Row>
-          <Col xl={{span: 16}} lg={{span: 18}} md={{span: 20}} sm={{span: 22}}>
+        <Row type="flex" justify="center">
+          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
             <Month/>
           </Col>
         </Row>
-        <Row>
-          <Col xl={{span: 8, offset: 8}} lg={{span: 12, offset: 6}} md={{span: 14, offset: 6}} sm={{span: 20, offset: 2}} xs={24} 
+        <Row type="flex" justify="center">
+          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
             style={{overflow: "hidden", marginTop: "25px"}}>
             <Carousel vertical autoplay effect="fade">
-              <div style={{height: "300px", borderRadius: "20px"}}>
+              <div style={{height: "400px", borderRadius: "20px"}}>
                 <h3>1</h3>
               </div>
-              <div style={{height: "300px", borderRadius: "20px"}}>
+              <div style={{height: "400px", borderRadius: "20px"}}>
                 <h3>2</h3>
               </div>
-              <div style={{height: "300px", borderRadius: "20px"}}>
+              <div style={{height: "400px", borderRadius: "20px"}}>
                 <h3>3</h3>
               </div>
             </Carousel>
           </Col>
         </Row>
-        <Row>
-          <Col xl={{offset: 8, span: 16}} lg={{span: 18, offset: 6}} md={{offset: 6, span: 20}} sm={{span: 22, offset: 2}}>
+        <Row  type="flex" justify="center">
+          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
             <Newsletter/>
           </Col>
         </Row>

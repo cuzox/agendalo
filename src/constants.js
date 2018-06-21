@@ -1,6 +1,6 @@
 /* USER */
 export const LOGOUT = 'LOG_OUT'
-export const LOGGING_IN = 'LOG_IN'
+export const LOGGING_IN = 'LOGGING_IN'
 export const LOGIN_FAILED = 'LOGIN_FAILED'
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS'
 

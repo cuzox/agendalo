@@ -21,9 +21,6 @@ import Nav from './components/nav/nav'
 import Footer from './components/footer'
 
 
-
-
-
 class App extends Component {
   constructor() {
     super()
@@ -31,11 +28,13 @@ class App extends Component {
 
   componentDidMount() {
     this.props.fetchCategories()
-    let user = localStorage.user
-    if(user){
-      this.props.loginSucc(JSON.parse(user))
-      this.props.reset()
-    }
+    try{
+      let user = localStorage.getItem('user')
+      if(user !== null){
+        this.props.loginSucc(JSON.parse(user))
+        this.props.reset()
+      }
+    } catch (err){}
   }
 
   render() {
@@ -46,8 +45,9 @@ class App extends Component {
           <Route exact path="/" component={ Home } />       
           <Route exact path="/landing" component={Landing} />             
           <Route path="/login" component={ Login } /> 
-          <Route path="/register" component={ Register } />
+          <Route path="/registro" component={ Register } />
           <Route path="/agregar" component={ ActivityCrud }/>
+          {/* <Route component={()=><span>404 - Esta no es la pagina que buscas</span>} /> */}
           <Footer/>
         </React.Fragment>
       </Router>

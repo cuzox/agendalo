@@ -11,14 +11,19 @@ import { MainContainer } from '../../components/global.styled'
 import { Row, Col, notification } from 'antd';
 
 import { register, reset, logout } from '../../actions/userActions'
+import { submitOnEnter } from '../../util/form-utils'
 
 class Register extends Component{
   constructor(props){
     super(props)
+    this.mainContainer = React.createRef()
+    
   }
 
   componentDidMount(){
     this.props.logout()
+    submitOnEnter(this, this.register)
+    console.log(this.mainContainer.current)
   }
 
   componentDidUpdate(){
@@ -45,7 +50,7 @@ class Register extends Component{
     })
   }
 
-  register(e){
+  register(){
     const { firstName = '', lastName = '', email = '', password = ''} = this.state || {}
 
     let errors = {
@@ -56,7 +61,7 @@ class Register extends Component{
     for(let key in errors) if(errors[key].length) this.setState({[key + "Invalid"]: true})
     
     let formattedErrors = Object.keys(errors).reduce((c, e)=> c.concat(errors[e]), [])
-    !e.target.parentNode.querySelector("input[name='terms']").checked && formattedErrors.push('Debes aceptar los Terminos y Condiciones')
+    !this.mainContainer.current.querySelector("input[name='terms']").checked && formattedErrors.push('Debes aceptar los Terminos y Condiciones')
     
     if(!firstName || !lastName || !email || !password) formattedErrors.unshift('Todos los campos son necesarios')
     if(formattedErrors.length){
@@ -88,8 +93,8 @@ class Register extends Component{
     return (
       <React.Fragment>
         { this.props.registerSuccess && <Redirect push to="/login"/> }
-        <MainContainer style={{backgroundColor: "rgb(233, 236, 240)"}}>
-          <Dimmer active={this.state && this.state.registering}>
+        <MainContainer innerRef={ this.mainContainer}>
+          <Dimmer active={this.props.registering}>
             <Loader />
           </Dimmer>
           <Row type="flex" justify="center">
@@ -125,7 +130,8 @@ const mapStateToProps = state => {
   return ({
     registerSuccess: state.user.registerSuccess,
     registerFailed: state.user.registerFailed,
-    registerSuccess: state.user.registerSuccess
+    registerSuccess: state.user.registerSuccess,
+    registering: state.user.registering
   })
 }
 

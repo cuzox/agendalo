@@ -61,12 +61,9 @@ export const Month = styled.div`
     display: flex;
     align-items: center;
     background-color: #003366;
-    padding: 8px 0;
-    justify-content: flex-end;
-    border-top-right-radius: 20px;
-    border-bottom-right-radius: 20px;
-    margin-top: 25px;
-    margin-right: 10px;
+    padding: 8px 40px;
+    border-radius: 20px;
+    margin: 25px 10px 0 10px;
     padding-right: 40px;
 
     /* @media (max-width: 576px) {
@@ -112,8 +109,7 @@ export const Newsletter = styled.div`
     display: flex;
     flex-direction: column;
     background-color: #003366;
-    border-top-left-radius: 20px;
-    border-bottom-left-radius: 20px;
+    border-radius: 20px;
     padding: 20px 40px;
-    margin: 25px 0px 25px 10px;
+    margin: 25px 10px;
 `
