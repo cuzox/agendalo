@@ -34,20 +34,11 @@ export const logout = () =>
 export const login = credentials =>
   dispatch => {
     dispatch(loggingIn())
-    HttpClient.post('accounts/login?include=user', credentials).then(user =>{
-      if(!user.data.user) dispatch(loginFail({error: "Couldn't retrieve user"}))
-      else{
-        try{
-          localStorage.setItem('token', JSON.stringify(user.data.id))
-          localStorage.setItem('user', JSON.stringify(user.data.user))
-          dispatch(loginSucc(user.data.user))
-        } catch (err){
-          dispatch(loginFail(err))
-        }
-      }
-    }).catch( error =>{
-      dispatch(loginFail(error))
-    })
+    HttpClient.post('accounts/login', 'include=user', credentials).then(response =>{
+      localStorage.setItem('token', response.data.id)
+      localStorage.setItem('user', JSON.stringify(response.data.user))
+      dispatch(loginSucc(response.data.user))
+    }).catch( error => dispatch(loginFail(error)))
   }
 
 export const registering = () => ({

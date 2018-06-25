@@ -1,13 +1,13 @@
 import axios from 'axios'
 
-let url = 'https://api.agendalo.com.do/api'
+const url = 'https://api.agendalo.com.do/api'
 
 const HttpClient = {
-  get: (endpoint, query = {}) => {
+  get: (endpoint, query) => {
     return axios.get(`${url}/${endpoint}${buildQuery(query)}`)
   },
-  post: (endpoint, data) => {
-    return axios.post(`${url}/${endpoint}${buildQuery()}`, data)
+  post: (endpoint, query, data) => {
+    return axios.post(`${url}/${endpoint}${buildQuery(query)}`, data)
   },
   patch: (endpoint, data) => {
     return axios.patch(`${url}/${endpoint}${buildQuery()}`, data)
@@ -17,12 +17,13 @@ const HttpClient = {
   }
 }
 
-const buildQuery = (query = {}) => {
+const buildQuery = (query = '') => {
   let build = ''
-  let token = localStorage.token || ''
-  if(token) build += '?accessToken=' + token
-  if(!Object.keys(query).length) return build
-  build += (token ? '&' : '?') + JSON.stringify(query)
+  let token = localStorage.getItem('token')
+  if(typeof query == "object" && Object.keys(query).length) build += "?" + JSON.stringify(query)
+  else if(typeof query == "string" && query.length) build += "?" + query
+  if(token) build += (build ? '&' : '?') + 'access_token=' + token
+  
   return build
 }
 
