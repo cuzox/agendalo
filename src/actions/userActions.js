@@ -34,7 +34,7 @@ export const logout = () =>
 export const login = credentials =>
   dispatch => {
     dispatch(loggingIn())
-    HttpClient.post('accounts/login', 'include=user', credentials).then(response =>{
+    HttpClient.post('accounts/login', credentials, 'include=user').then(response =>{
       localStorage.setItem('token', response.data.id)
       localStorage.setItem('user', JSON.stringify(response.data.user))
       dispatch(loginSucc(response.data.user))

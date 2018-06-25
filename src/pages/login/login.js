@@ -58,9 +58,9 @@ class Login extends Component{
     let errors = {
       ...emailValidate(email)
     } 
-    let additional = (!email || !password) && "Faltan campos requeridos" || ""
+    let before = (!email || !password) && ["Faltan campos requeridos"] || []
 
-    if(this.testErrors(errors, [additional]))
+    if(this.testErrors(errors, before))
       this.props.login({
         email, password
       })

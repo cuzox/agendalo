@@ -6,7 +6,7 @@ const HttpClient = {
   get: (endpoint, query) => {
     return axios.get(`${url}/${endpoint}${buildQuery(query)}`)
   },
-  post: (endpoint, query, data) => {
+  post: (endpoint, data, query) => {
     return axios.post(`${url}/${endpoint}${buildQuery(query)}`, data)
   },
   patch: (endpoint, data) => {
