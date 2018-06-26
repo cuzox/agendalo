@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
-import { MainContainer} from '../../components/global.styled'
+import { MainContainer} from '../../../components/global.styled'
 
 class ActivityList extends Component {
   constructor(props) {

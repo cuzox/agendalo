@@ -7,7 +7,6 @@ import {
 
 import './App.css'
 
-
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Login from './pages/login/login'
@@ -15,7 +14,7 @@ import Register from './pages/register/register'
 import Home from './pages/home/home'
 import Landing from './pages/landing/landing'
 import ActivityCrud from './pages/activity/activity-crud/activity-crud'
-import ActivityCrud from './pages/activity/activity-list/activity-list'
+import ActivityList from './pages/activity/activity-list/activity-list'
 
 import Profile from './pages/profile/profile'
 import ControlPanel from './pages/control-panel/control-panel'
