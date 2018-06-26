@@ -71,9 +71,8 @@ class Register extends Component{
 
   render(){
     return (
-      <React.Fragment>
-        { this.props.registerSuccess && <Redirect push to="/login"/> }
-        <MainContainer innerRef={ this.mainContainer}>
+      <MainContainer innerRef={ this.mainContainer}>
+          { this.props.registerSuccess && <Redirect push to="/login"/> }
           <Dimmer active={this.props.registering}>
             <Loader />
           </Dimmer>
@@ -101,7 +100,6 @@ class Register extends Component{
             </Col>
           </Row>
         </MainContainer>
-      </React.Fragment>
     )
   }
 }

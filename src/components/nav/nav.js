@@ -25,8 +25,8 @@ const NavLinks = props =>{
   return (
     <StdNavLinks>
       <span className="Logo" ><Link to="/"><img src="assets/images/logo.png"/></Link></span>
-      <span><Link to="/">VER EVENTOS</Link></span>
-      <span><Link to="/">CATEGORÍAS</Link></span>
+      <span><Link to="/lista">VER EVENTOS</Link></span>
+      {/* <span><Link to="/">CATEGORÍAS</Link></span> */}
       { !props.hideAdd &&
         <span>
           <Link to="/agregar">
@@ -118,7 +118,6 @@ class Nav extends Component{
           )
         }
       </Media>
-      
     )
   }
 }

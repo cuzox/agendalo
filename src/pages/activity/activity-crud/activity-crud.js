@@ -90,62 +90,60 @@ class ActivityCrud extends Component{
   
   render(){
     return (
-      <React.Fragment>
-        <MainContainer style={{padding: "100px 0"}}>
-          <Dimmer active={this.props.creatingActivity}>
-            <Loader/>  
-          </Dimmer>
-          <Form>
-            <Row type="flex" justify="center">
-              <Col lg={7} md={10} sm={13} xs={18} style={{display: "flex", flexDirection: "column"}} className="col-space">
-                  <div className="center-text" style={{textAlign: "center"}}>
-                    <FaEdit/>
-                    <span> AGREGA TU ACTIVIDAD </span>
-                  </div>
-                  <Input name="name" size="medium" placeholder='Nombre' />
-                  <Input name="phone" size="medium" placeholder='Teléfono' />
-                  <Input name="address" size="medium" placeholder='Dirección' />
-                  <Input name="fee" size="medium" placeholder='Costo' type="number" />
-                  <TextArea name="description" placeholder='Descripción' />
-                  <Dropdown size="medium" placeholder='Categorías' search selection options={this.props.categories} />
-                  <div style={{display: "flex"}}>
-                    <DatePicker format="DD-MM-YYYY" locale={locale} placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
-                    <TimePicker
-                      size="default" 
-                      minuteStep={5} 
-                      use12Hours format="h:mm A" 
-                      open={this.state.open}
-                      onOpenChange={this.handleOpenChange}
-                      addon={() => (
-                        <Button size="small" type="primary" onClick={this.handleClose} content="Ok"/>
-                      )}
-                      placeholder="Hora" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
-                    />
-                  </div>
-                  <div style={{display: "flex"}}>
-                    <PhotoUpload innerRef={this.imageDropArea}>
-                      <FaCloudUpload style={{width: "30px", height: "30px", color: "#b1b1b1"}}/>
-                      <span style={{fontSize: "0.8em", color: "#b1b1b1", textAlign: "center"}}>Arrastra imagenes o haz click aquí</span>
-                      <input ref={this.imagesInput} type="file" style={{display: "none"}} multiple/>
-                    </PhotoUpload>
-                    <PhotoList>
-                      {
-                        this.state.activityImages.map( (el, key) =>
-                          <div>
-                            <img src={ el.src }/>
-                            <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
-                            {/* <FaEye className="eye"/> */}
-                          </div>
-                        )
-                      }
-                    </PhotoList>
-                  </div>
-                  <Button style={{color: "white"}} content="¡Crear!" className="our-green"/>
-              </Col>
-            </Row>
-          </Form>
-        </MainContainer>
-      </React.Fragment>
+      <MainContainer>
+        <Dimmer active={this.props.creatingActivity}>
+          <Loader/>  
+        </Dimmer>
+        <Form>
+          <Row type="flex" justify="center">
+            <Col lg={7} md={10} sm={13} xs={18} style={{display: "flex", flexDirection: "column"}} className="col-space">
+                <div className="center-text" style={{textAlign: "center"}}>
+                  <FaEdit/>
+                  <span> AGREGA TU ACTIVIDAD </span>
+                </div>
+                <Input name="name" size="medium" placeholder='Nombre' />
+                <Input name="phone" size="medium" placeholder='Teléfono' />
+                <Input name="address" size="medium" placeholder='Dirección' />
+                <Input name="fee" size="medium" placeholder='Costo' type="number" />
+                <TextArea name="description" placeholder='Descripción' />
+                <Dropdown size="medium" placeholder='Categorías' search selection options={this.props.categories} />
+                <div style={{display: "flex"}}>
+                  <DatePicker format="DD-MM-YYYY" locale={locale} placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
+                  <TimePicker
+                    size="default" 
+                    minuteStep={5} 
+                    use12Hours format="h:mm A" 
+                    open={this.state.open}
+                    onOpenChange={this.handleOpenChange}
+                    addon={() => (
+                      <Button size="small" type="primary" onClick={this.handleClose} content="Ok"/>
+                    )}
+                    placeholder="Hora" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
+                  />
+                </div>
+                <div style={{display: "flex"}}>
+                  <PhotoUpload innerRef={this.imageDropArea}>
+                    <FaCloudUpload style={{width: "30px", height: "30px", color: "#b1b1b1"}}/>
+                    <span style={{fontSize: "0.8em", color: "#b1b1b1", textAlign: "center"}}>Arrastra imagenes o haz click aquí</span>
+                    <input ref={this.imagesInput} type="file" style={{display: "none"}} multiple/>
+                  </PhotoUpload>
+                  <PhotoList>
+                    {
+                      this.state.activityImages.map( (el, key) =>
+                        <div>
+                          <img src={ el.src }/>
+                          <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
+                          {/* <FaEye className="eye"/> */}
+                        </div>
+                      )
+                    }
+                  </PhotoList>
+                </div>
+                <Button style={{color: "white"}} content="¡Crear!" className="our-green"/>
+            </Col>
+          </Row>
+        </Form>
+      </MainContainer>
     )
   }
 }

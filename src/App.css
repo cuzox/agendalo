@@ -1,28 +1,72 @@
-.App {
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Raleway" !important;
+  overflow: overlay;
+}
+
+#root{
+  position: relative;
+  min-height: 100%;
+  min-width: 320px;
+  background-color: rgb(233, 236, 240);
+}
+
+.agendalo-blue {
+  background-color: #003366 !important;
+}
+
+.our-green{
+  background-color: rgb(0,201,211) !important;
+}
+
+.subscribe {
+  background-color: rgb(0,201,211) !important;
+  color: #003366 !important;
+}
+
+.col-space > *{
+  margin-bottom: 10px !important;
+}
+
+.green-border {
+  border-color: green !important;
+}
+
+.ant-carousel .slick-slide {
   text-align: center;
+  background: #364d79;
+  overflow: hidden;
+  
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.ant-carousel .slick-slide h3 {
+  color: #fff;
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.ant-carousel .slick-slider{
+  margin-left: 10px;
+  margin-right: 10px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.ui.segment{
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
 }
 
-.App-intro {
-  font-size: large;
+.fade-enter {
+  opacity: 0;
+  z-index: 1;
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.fade-enter.fade-enter-active {
+  opacity: 1;
+  transition: opacity 100ms linear;
 }

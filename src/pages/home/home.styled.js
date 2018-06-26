@@ -3,7 +3,6 @@ import styled from 'styled-components'
 export const Header = styled.div`
   display: flex;
   flex-direction: column;
-  /* height: 700px; */
   position: relative;
   overflow: hidden;
   background-image: url("assets/images/bg-plain.png");
@@ -12,6 +11,7 @@ export const Header = styled.div`
   background-size: cover;
   border-bottom: 20px solid rgb(0,201,211);
   align-items: center;
+  padding-top: 150px;
 
   * {
     color: white;
@@ -26,13 +26,10 @@ export const Header = styled.div`
   p { font-size: 1.4rem; }
 
   @media only screen and (max-width: 800px) {
-
     h4{ font-size: 2rem; }
     h3{ font-size: 1.5rem; }
     p { font-size: 0.8rem; }
-
   }
-
 
   .register{
     display: flex;

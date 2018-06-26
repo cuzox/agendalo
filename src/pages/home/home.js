@@ -96,18 +96,9 @@ class Home extends Component{
     super(props)
   }
 
-  componentDidMount(){
-    this.root = document.querySelector("#root")
-    this.root.style.paddingTop = 0
-  }
-
-  componentWillUnmount(){
-    this.root.style.paddingTop = "120px"
-  }
-
   render(){
     return (
-      <MainContainer>
+      <MainContainer style={{paddingTop: "0px" }}>
         <Header loggedIn={this.props.loggedIn}/>
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>

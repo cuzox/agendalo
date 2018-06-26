@@ -5,6 +5,9 @@ import {
   Switch
 } from "react-router-dom";
 
+import './App.css'
+
+
 import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Login from './pages/login/login'
@@ -48,7 +51,7 @@ class App extends Component {
         <Route render={({ location }) => (
           <React.Fragment>
             <Nav/>
-            <TransitionGroup>
+            <TransitionGroup component={null} exit={false}>
               <CSSTransition key={location.key} classNames="fade" timeout={200}>
                 <Switch location={location}>
                   <Route exact path="/" component={ Home } />       

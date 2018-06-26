@@ -4,11 +4,8 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  position: absolute;
-  top: 120px;
-  left: 0;
-  right: 0;
-  bottom: 160px;
+  padding-top: 120px;
+  padding-bottom: 160px;
 `
 
 export const Header = styled.div`
@@ -17,6 +14,7 @@ export const Header = styled.div`
   right: 0;
   top: 0;
   left: 0;
+  z-index: 2;
   display: flex;
   justify-content: center;
   background-color: rgba(0,52,102,0.9);
@@ -29,10 +27,8 @@ export const Header = styled.div`
 
   &.in-home,&.compact,&.compact-top{
     transition: height 100ms linear;
-    z-index: 100;
     border-bottom: none;
     align-items: center;
-    position: absolute;
     background-color: rgba(0,0,0,0);
     .Logo img{ 
       transition: width 100ms ease-in-out; 
@@ -52,7 +48,6 @@ export const Header = styled.div`
     background-color: rgba(0,0,0,0.8);
     .Logo img{ width: 100px; }
     position: fixed;
-
   }
 
   &.compact-top{
@@ -71,6 +66,7 @@ export const Footer = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
+  z-index: 2;
   padding: 1rem;
   height: 160px;
   overflow: hidden;
@@ -80,7 +76,6 @@ export const Footer = styled.div`
   background-color: rgba(0,52,102,0.9);
   border-top: 20px solid rgb(0,201,211);
   font-size: 0.9rem;
-  border-bottom: none;
 `
 
 export const FooterSection = styled.div`
