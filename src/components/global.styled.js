@@ -4,7 +4,11 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-height: calc(100vh - 280px);
+  position: absolute;
+  top: 120px;
+  left: 0;
+  right: 0;
+  bottom: 160px;
 `
 
 export const Header = styled.div`
@@ -62,13 +66,17 @@ export const Header = styled.div`
   }
 `
 
-export const Footer = Header.extend`
-  top: initial;
+export const Footer = styled.div`
+  position: absolute;
+  right: 0;
   bottom: 0;
+  left: 0;
   padding: 1rem;
   height: 160px;
   overflow: hidden;
   color: white;
+  display: flex;
+  justify-content: center;
   background-color: rgba(0,52,102,0.9);
   border-top: 20px solid rgb(0,201,211);
   font-size: 0.9rem;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
+import { MainContainer} from '../../components/global.styled'
 
 class Profile extends Component {
   constructor(props) {
@@ -10,10 +11,10 @@ class Profile extends Component {
 
   render(){
     return(
-      <div style={{ display: "flex", alignItems: "center", flexDirection: "column"}}>
+      <MainContainer style={{alignItems: "center", justifyContent: "initial"}}>
         <img style={{ height: "100px", width: "100px" }}src="assets/images/user.png"/>
         <span>{this.props.userName}</span>
-      </div>
+      </MainContainer>
     )
   }
 }

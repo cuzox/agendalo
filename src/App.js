@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import {
-  Route,
   BrowserRouter as Router,
+  Route,
   Switch
 } from "react-router-dom";
-import styled from "styled-components";
+
+import { TransitionGroup, CSSTransition } from "react-transition-group";
 
 import Login from './pages/login/login'
 import Register from './pages/register/register'  
@@ -44,20 +45,26 @@ class App extends Component {
   render() {
     return (
       <Router>
-        <React.Fragment>
-          <Nav/>
-          <Switch>
-            <Route exact path="/" component={ Home } />       
-            <Route exact path="/landing" component={ Landing } />             
-            <Route path="/login" component={ Login } /> 
-            <Route path="/registro" component={ Register } />
-            <Route path="/agregar" component={ ActivityCrud }/>
-            <Route path="/perfil" component={ Profile }/>
-            <Route path="/panel" component={ ControlPanel }/>
-            <Route component={()=><span>404 - Esta no es la pagina que buscas</span>} />
-          </Switch>
-          <Footer/>
-        </React.Fragment>
+        <Route render={({ location }) => (
+          <React.Fragment>
+            <Nav/>
+            <TransitionGroup>
+              <CSSTransition key={location.key} classNames="fade" timeout={200}>
+                <Switch location={location}>
+                  <Route exact path="/" component={ Home } />       
+                  <Route exact path="/landing" component={ Landing } />             
+                  <Route exact path="/login" component={ Login } /> 
+                  <Route exact path="/registro" component={ Register } />
+                  <Route exact path="/agregar" component={ ActivityCrud }/>
+                  <Route exact path="/perfil" component={ Profile }/>
+                  <Route exact path="/panel" component={ ControlPanel }/>
+                  <Route render={ () => <span>404 - Esta no es la pagina que buscas</span>} />
+                </Switch>
+              </CSSTransition>
+            </TransitionGroup>
+            <Footer/>
+          </React.Fragment>
+        )}/>
       </Router>
     );
   }

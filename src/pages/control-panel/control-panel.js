@@ -4,6 +4,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
+import { MainContainer} from '../../components/global.styled'
+
+
 
 import { Icon, Menu } from 'semantic-ui-react'
 
@@ -19,7 +22,7 @@ class ControlPanel extends Component {
   render(){
     const { activeItem } = this.state
     return(
-      <div style={{display: "flex", justifyContent: "center"}}>
+      <MainContainer style={{alignItems: "center", justifyContent: "initial"}}>
         <Menu compact icon='labeled'>
           <Menu.Item name='gamepad' active={activeItem === 'gamepad'} onClick={this.handleItemClick}>
             <Icon name='user' />
@@ -31,7 +34,7 @@ class ControlPanel extends Component {
             Publicidad
           </Menu.Item>
         </Menu>
-      </div>
+      </MainContainer>
     )
   }
 }

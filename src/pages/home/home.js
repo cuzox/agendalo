@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
-import styled from "styled-components";
 
 
 /** UI */
@@ -13,7 +12,6 @@ import {
   Month as StdMonth,
   Newsletter as StdNewsletter
 } from './home.styled'
-import Nav from '../../components/nav/nav'
 import { Button, Dropdown, Dimmer, Loader, Input,} from 'semantic-ui-react'
 import { Row, Col, Collapse, Carousel } from 'antd'
 const Panel = Collapse.Panel
@@ -36,8 +34,7 @@ const MONTHS = [
 const Header = props =>{
   return (
     <StdHeader>
-      <MainContainer style={{minHeight: "initial", whiteSpace: "nowrap", marginTop: "160px"}}>
-        <span style={{marginTop: "80px"}}><h3>TU AGENDA EN LINEA DE</h3></span>
+        <span><h3>TU AGENDA EN LINEA DE</h3></span>
         <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
         <span>
           <p>
@@ -61,7 +58,6 @@ const Header = props =>{
             <FaPlayCircleO/>
           </span>
         </div>
-      </MainContainer>
     </StdHeader>
   )
 }
@@ -111,7 +107,7 @@ class Home extends Component{
 
   render(){
     return (
-      <React.Fragment>
+      <MainContainer>
         <Header loggedIn={this.props.loggedIn}/>
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
@@ -141,7 +137,7 @@ class Home extends Component{
             </Col>
           </Row>
         }
-      </React.Fragment>
+      </MainContainer>
     )
   }
 }
