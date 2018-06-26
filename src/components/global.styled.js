@@ -16,39 +16,49 @@ export const Header = styled.div`
   display: flex;
   justify-content: center;
   background-color: rgba(0,52,102,0.9);
-  transition: height 150ms linear;
-  .Logo img{ transition: width 150ms linear; width: 150px; }
   border-bottom: 20px solid rgb(0,201,211);
+  transition: height 200ms linear 100ms;
+  .Logo img{ 
+    transition: width 180ms linear; 
+    width: 150px; 
+  }
+
+  &.in-home,&.compact,&.compact-top{
+    transition: height 100ms linear;
+    z-index: 100;
+    border-bottom: none;
+    align-items: center;
+    position: absolute;
+    background-color: rgba(0,0,0,0);
+    .Logo img{ 
+      transition: width 100ms ease-in-out; 
+    }
+  }
 
   &.in-home{
-    margin-top: 30px;
-    background-color: rgba(0,0,0,0);
-    .Logo img{ width: 250px; }
-    position: absolute;
-    z-index: 1;
-    border-bottom: none;
+    height: 150px;
+    align-items: flex-end;
+    .Logo img{ 
+      width: 250px; 
+    }
   }
 
   &.compact{
     justify-content: space-between;
     background-color: rgba(0,0,0,0.8);
-    align-items: center;
     .Logo img{ width: 100px; }
     position: fixed;
-    z-index: 1;
-    border-bottom: none;
+
   }
 
   &.compact-top{
     margin-top: 0;
     justify-content: space-evenly;
-    background-color: rgba(0,0,0,0);
-    border-bottom: none;
-    align-items: center;
     margin-top: 20px;
-    position: absolute;
-    z-index: 1;
-    .Logo img{ width: 25vmin; min-width: 150px; }
+    .Logo img{ 
+      width: 25vmin; 
+      min-width: 150px; 
+    }
   }
 `
 
