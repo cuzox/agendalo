@@ -15,6 +15,8 @@ import Register from './pages/register/register'
 import Home from './pages/home/home'
 import Landing from './pages/landing/landing'
 import ActivityCrud from './pages/activity/activity-crud/activity-crud'
+import ActivityCrud from './pages/activity/activity-list/activity-list'
+
 import Profile from './pages/profile/profile'
 import ControlPanel from './pages/control-panel/control-panel'
 
@@ -60,7 +62,8 @@ class App extends Component {
                   <Route exact path="/registro" component={ Register } />
                   <Route exact path="/agregar" component={ ActivityCrud }/>
                   <Route exact path="/perfil" component={ Profile }/>
-                  <Route exact path="/panel" component={ ControlPanel }/>
+                  <Route path="/panel" component={ ControlPanel }/>
+                  <Route path="/lista" component={ ActivityList }/>
                   <Route render={ () => <span>404 - Esta no es la pagina que buscas</span>} />
                 </Switch>
               </CSSTransition>
