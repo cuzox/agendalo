@@ -37,7 +37,7 @@ const NavLinks = props =>{
       { !props.hideLogin &&
         <span>
           { props.loggedIn ?
-              <Dropdown overlay={menu} trigger={['click']} placement="bottomRight">
+              <Dropdown overlay={menu(props.isAdmin)} trigger={['click']} placement="bottomRight">
                 <a className="ant-dropdown-link" href="#">
                   <div style={{display: "flex", marginBottom: "3px"}}>
                     <u style={{margin: "0 10px"}}>Saludos, {props.firstName}</u>
@@ -59,25 +59,27 @@ const NavLinks = props =>{
   )
 }
 
-const menu = (
+const menu = isAdmin => (
   <Menu>
     <Menu.Item key="0">
       <Link to="/perfil">
         <FaUser /> Perfil 
       </Link>
     </Menu.Item>
-    <Menu.Item key="1">
-    <Link to="/panel">
-      <FaCogs /> Panel de control
-    </Link>
-    </Menu.Item>
+    { isAdmin &&
+      <Menu.Item key="1">
+        <Link to="/panel">
+          <FaCogs /> Panel de control
+        </Link>
+      </Menu.Item>
+    }
     <Menu.Item key="2">
       <Link to="/login">
         <FaSignOut /> Cerrar sesión
       </Link>
     </Menu.Item>
   </Menu>
-);
+)
 
 class Nav extends Component{
   constructor(props){
@@ -100,13 +102,13 @@ class Nav extends Component{
   }
 
   render (){
-    const { firstName, loggedIn } = this.props
+    const { firstName, loggedIn, isAdmin } = this.props
     return(
       <Media query={{ minWidth: 968 }}>
         {matches =>
           matches ? (
             <StdHeader className={this.state && this.state.currentLocation.inHome ? 'in-home' : ''}>
-              <NavLinks firstName={firstName} loggedIn={loggedIn} {...(this.state && this.state.currentLocation || {})}/>
+              <NavLinks firstName={firstName} loggedIn={loggedIn} isAdmin={isAdmin} {...(this.state && this.state.currentLocation || {})}/>
             </StdHeader>
           ) : (
             <StdHeader className={'compact-top'}>
@@ -135,7 +137,8 @@ const mapStateToProps = state => {
     email: state.user.email,
     firstName: state.user.firstName,
     lastName: state.user.lastName,
-    loggedIn: state.user.loggedIn
+    loggedIn: state.user.loggedIn,
+    isAdmin: state.user.isAdmin
   })
 }
 

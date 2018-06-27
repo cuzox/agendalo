@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Switch
+  Switch,
+  Redirect
 } from "react-router-dom";
 
 import './App.css'
@@ -61,7 +62,7 @@ class App extends Component {
                   <Route exact path="/registro" component={ Register } />
                   <Route exact path="/agregar" component={ ActivityCrud }/>
                   <Route exact path="/perfil" component={ Profile }/>
-                  <Route path="/panel" component={ ControlPanel }/>
+                  <Protected isAdmin={this.props.isAdmin} path="/panel" component={ ControlPanel }/>
                   <Route path="/lista" component={ ActivityList }/>
                   <Route render={ () => <span>404 - Esta no es la pagina que buscas</span>} />
                 </Switch>
@@ -75,9 +76,27 @@ class App extends Component {
   }
 }
 
+const Protected = ({ component: Component, isAdmin, ...rest }) => (
+  <Route
+    {...rest}
+    render={props =>
+      isAdmin ? (
+        <Component {...props} />
+      ) : (
+        <Redirect
+          to={{
+            pathname: "/",
+            state: { from: props.location }
+          }}
+        />
+      )
+    }
+  />
+);
+
 const mapStateToProps = state => {
   return ({
-
+    isAdmin: state.user.isAdmin
   })
 }
 
