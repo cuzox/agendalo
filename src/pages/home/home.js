@@ -6,7 +6,7 @@ import { bindActionCreators} from 'redux'
 /** UI */
 import { Link } from 'react-router-dom'
 import FaPlayCircleO from 'react-icons/lib/fa/play-circle-o'
-import { MainContainer } from '../../components/global.styled'
+import { MainContainer } from '../../global.styled'
 import { 
   Header as StdHeader,
   Month as StdMonth,

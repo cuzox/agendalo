@@ -1,5 +1,5 @@
 import React from 'react'
-import { Footer as StdFooter, FooterSection } from './global.styled'
+import { Footer as StdFooter, FooterSection } from './footer.styled'
 
 function Footer(){
   return (

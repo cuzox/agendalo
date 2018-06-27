@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
-import { MainContainer} from '../../components/global.styled'
+import { MainContainer} from '../../global.styled'
 
 class Profile extends Component {
   constructor(props) {

@@ -8,7 +8,7 @@ import { login, logout } from '../../actions/userActions'
 
 import { Button } from 'semantic-ui-react'
 import { NavLinks as StdNavLinks } from './nav.styled'
-import { Header as StdHeader } from '../global.styled'
+import { NavContent } from './nav.styled'
 import FaUser from 'react-icons/lib/fa/user'
 import FaSortDown from 'react-icons/lib/fa/sort-desc'
 import FaSignIn from 'react-icons/lib/fa/sign-in'
@@ -107,16 +107,16 @@ class Nav extends Component{
       <Media query={{ minWidth: 968 }}>
         {matches =>
           matches ? (
-            <StdHeader className={this.state && this.state.currentLocation.inHome ? 'in-home' : ''}>
+            <NavContent className={this.state && this.state.currentLocation.inHome ? 'in-home' : ''}>
               <NavLinks firstName={firstName} loggedIn={loggedIn} isAdmin={isAdmin} {...(this.state && this.state.currentLocation || {})}/>
-            </StdHeader>
+            </NavContent>
           ) : (
-            <StdHeader className={'compact-top'}>
+            <NavContent className={'compact-top'}>
               <span className="Logo" >
                 <Link to="/"><img src="assets/images/logo.png"/></Link>
               </span>
               <FaBars style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
-            </StdHeader>
+            </NavContent>
           )
         }
       </Media>

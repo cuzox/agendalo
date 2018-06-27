@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import FaEdit from 'react-icons/lib/fa/edit'
 import { Dimmer, Loader, Input, Checkbox, Button } from 'semantic-ui-react'
-import { MainContainer } from '../../components/global.styled'
+import { MainContainer } from '../../global.styled'
 import { Row, Col, notification } from 'antd';
 
 import { register, reset, logout } from '../../actions/userActions'

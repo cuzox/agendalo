@@ -28,7 +28,7 @@ import { fetchCategories } from './actions/categoryActions'
 import { loginSucc, reset } from './actions/userActions'
 
 import Nav from './components/nav/nav'
-import Footer from './components/footer'
+import Footer from './components/footer/footer'
 
 
 class App extends Component {
