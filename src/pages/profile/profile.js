@@ -12,7 +12,7 @@ class Profile extends Component {
   render(){
     return(
       <MainContainer style={{alignItems: "center", justifyContent: "initial"}}>
-        <img style={{ height: "100px", width: "100px" }}src="assets/images/user.png"/>
+        <img style={{ height: "100px", width: "100px" }}src="/assets/images/user.png"/>
         <span>{this.props.userName}</span>
       </MainContainer>
     )

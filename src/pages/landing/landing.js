@@ -47,7 +47,7 @@ class Landing extends Component{
         <Dimmer active={this.state.emailSubmitting}>
           <Loader />  
         </Dimmer>
-        <Img src="assets/images/logo_decor.png"/>
+        <Img src="/assets/images/logo_decor.png"/>
         <Text>¡PROXIMAMENTE!</Text>
         {!this.state.emailSubmitted ?
           <React.Fragment>
@@ -74,7 +74,7 @@ class Landing extends Component{
         
         }
         <Redes>
-          <img style={{ marginTop: "20px" }} src="assets/images/redes.png"/>
+          <img style={{ marginTop: "20px" }} src="/assets/images/redes.png"/>
           <div onClick={ ()=>{ this.goTo("https://www.facebook.com/agendalord") }}></div>
           <div onClick={ ()=>{ this.goTo("https://www.instagram.com/agendalo_rd") }}></div>
           <div onClick={ ()=>{ this.goTo("https://www.youtube.com/channel/UCfEgM2AIGWs8aKa2YnuvZiA") }}></div>

@@ -75,7 +75,7 @@ const Newsletter = props =>{
   return(
     <StdNewsletter>
       <div style={{display: "flex"}}>
-        <img style={{width: "auto", height: "50px"}}src="assets/images/mail.png"/>
+        <img style={{width: "auto", height: "50px"}}src="/assets/images/mail.png"/>
         <span style={{color: "rgb(0,201,211)", fontWeight: "bolder",  minWidth: "200px", marginLeft: "15px"}}>
           RECIBE NUESTRO <br/> <font size="5">NEWSLETTER</font>
         </span>

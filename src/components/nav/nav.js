@@ -24,7 +24,7 @@ import { isInViewport } from '../../util/general-utils'
 const NavLinks = props =>{
   return (
     <StdNavLinks>
-      <span className="Logo" ><Link to="/"><img src="assets/images/logo.png"/></Link></span>
+      <span className="Logo" ><Link to="/"><img src="/assets/images/logo.png"/></Link></span>
       <span><Link to="/lista">VER EVENTOS</Link></span>
       {/* <span><Link to="/">CATEGORÍAS</Link></span> */}
       { !props.hideAdd &&
@@ -113,7 +113,7 @@ class Nav extends Component{
           ) : (
             <NavContent className={'compact-top'}>
               <span className="Logo" >
-                <Link to="/"><img src="assets/images/logo.png"/></Link>
+                <Link to="/"><img src="/assets/images/logo.png"/></Link>
               </span>
               <FaBars style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
             </NavContent>
