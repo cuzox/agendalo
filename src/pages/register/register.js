@@ -10,7 +10,7 @@ import { Dimmer, Loader, Input, Checkbox, Button } from 'semantic-ui-react'
 import { MainContainer } from '../../global.styled'
 import { Row, Col, notification } from 'antd';
 
-import { register, reset, logout } from '../../actions/userActions'
+import { register, reset, logout } from '../../_actions/userActions'
 import { 
   handleInputChange, 
   emailValidate,

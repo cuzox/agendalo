@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
-import { login, logout } from '../../actions/userActions'
+import { login, logout } from '../../_actions/userActions'
 
 import { Button } from 'semantic-ui-react'
 import { NavLinks as StdNavLinks } from './nav.styled'

@@ -18,7 +18,7 @@ import {
   submitOnEnter
 } from '../../util/form-utils'
 
-import { login, reset, logout } from '../../actions/userActions'
+import { login, reset, logout } from '../../_actions/userActions'
 
 
 class Login extends Component{
