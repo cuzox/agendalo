@@ -65,6 +65,6 @@ export const register = payload =>
     })
   }
 
-  export const reset = () => ({
-    type: AUTH_RESET
-  })
+export const reset = () => ({
+  type: AUTH_RESET
+})
