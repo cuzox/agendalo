@@ -17,7 +17,7 @@ import {
   passwordValidate,
   testErrors, 
   submitOnEnter
-} from '../../util/form-utils'
+} from '../../_helper/forms'
 
 class Register extends Component{
   constructor(props){

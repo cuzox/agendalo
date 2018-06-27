@@ -19,7 +19,7 @@ import FaCogs from 'react-icons/lib/fa/cogs'
 import Media from "react-media";
 import { Menu, Dropdown, Icon } from 'antd';
 
-import { isInViewport } from '../../util/general-utils'
+import { isInViewport } from '../../_helper/general'
 
 const NavLinks = props =>{
   return (

@@ -16,7 +16,7 @@ import {
   emailValidate, 
   testErrors, 
   submitOnEnter
-} from '../../util/form-utils'
+} from '../../_helper/forms'
 
 import { login, reset, logout } from '../../_actions/userActions'
 
