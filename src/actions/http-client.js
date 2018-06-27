@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const url = 'http://localhost:8085/api'
+const url = 'https://api.agendalo.com.do/api'
 
 const HttpClient = {
   get: (endpoint, query) => {

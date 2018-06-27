@@ -21,6 +21,7 @@ const initialState = {
   registering: false,
   registerSuccess: false,
   registerFailed: false,
+  isAdmin: false,
   error: null
 }
 
@@ -37,7 +38,8 @@ export default function reducer(state = initialState, action){
         ...action.payload,
         loggingIn: false,
         loginSuccess: true,
-        loggedIn: true
+        loggedIn: true,
+        isAdmin: action.payload.type == 'admin'
       }
     case LOGIN_FAILED:
       return { 
