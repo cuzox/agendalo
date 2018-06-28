@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-  Redirect
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
+import { connect } from 'react-redux'
+import { bindActionCreators} from 'redux'
 
 import './App.css'
 
@@ -19,20 +16,12 @@ import ActivityList from './pages/activity/activity-list/activity-list'
 import Profile from './pages/profile/profile'
 import ControlPanel from './pages/control-panel/control-panel'
 
-
-import { connect } from 'react-redux'
-import { bindActionCreators} from 'redux'
-
 import { fetchCategories } from './_actions/categoryActions'
 import { loginSucc, reset } from './_actions/userActions'
 import { loadApp } from './_actions/appActions'
 
 import Nav from './components/nav/nav'
 import Footer from './components/footer/footer'
-
-import { Dimmer, Loader } from 'semantic-ui-react'
-
-
 
 class App extends Component {
   constructor() {
@@ -59,7 +48,7 @@ class App extends Component {
           <React.Fragment>
             <Nav/>
             <TransitionGroup component={null} exit={false}>
-              <CSSTransition key={location.key} classNames="fade" timeout={200} exit={false}>
+              <CSSTransition key={location.pathname} classNames="fade" timeout={200} exit={false}>
                 <Switch location={location}>
                   <Route exact path="/" component={ Home }/>       
                   <Route path="/landing" component={ Landing }/>             
