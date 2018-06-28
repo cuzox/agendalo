@@ -68,28 +68,26 @@ class Login extends Component{
 
   render(){
     return (
-      <React.Fragment>
+      <MainContainer>
         { this.props.loginSuccess && <Redirect push to="/"/> }
-        <MainContainer>
-          <Dimmer active={ this.props.loggingIn }>
-            <Loader />  
-          </Dimmer>
-          <Row type="flex" justify="center">
-            <Col lg={5} md={8} sm={10} xs={15} style={{display: "flex", flexDirection: "column"}} className="col-space">
-              <div className="center-text" style={{textAlign: "center"}}>
-                <FaSignIn/>  
-                <span> INICIA SESION </span>
-              </div>
-              <Input size="big" placeholder='E-mail' name="email" error={this.state && this.state.emailInvalid} onChange={ e => this.handleInputChange(e) }/>
-              <Input size="big" placeholder='Contraseña' name= "password" type="password" onChange={ e => this.handleInputChange(e) }/>
-              <Button onClick={() => this.login()} style={{color: "white"}} content="¡Entrar!" className="our-green"/>
-              <div className="center-text" style={{textAlign: "center"}}>
-                ¿No tienes cuenta? <Link to="/registro">Click aquí</Link>
-              </div>
-            </Col>
-          </Row>
-        </MainContainer>
-      </React.Fragment>
+        <Dimmer active={ this.props.loggingIn }>
+          <Loader />  
+        </Dimmer>
+        <Row type="flex" justify="center">
+          <Col lg={5} md={8} sm={10} xs={15} style={{display: "flex", flexDirection: "column"}} className="col-space">
+            <div className="center-text" style={{textAlign: "center"}}>
+              <FaSignIn/>  
+              <span> INICIA SESION </span>
+            </div>
+            <Input size="big" placeholder='E-mail' name="email" error={this.state && this.state.emailInvalid} onChange={ e => this.handleInputChange(e) }/>
+            <Input size="big" placeholder='Contraseña' name= "password" type="password" onChange={ e => this.handleInputChange(e) }/>
+            <Button onClick={() => this.login()} style={{color: "white"}} content="¡Entrar!" className="our-green"/>
+            <div className="center-text" style={{textAlign: "center"}}>
+              ¿No tienes cuenta? <Link to="/registro">Click aquí</Link>
+            </div>
+          </Col>
+        </Row>
+      </MainContainer>
     )
   }
 }
