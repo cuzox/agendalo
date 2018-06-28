@@ -10,6 +10,9 @@ export const REGISTER_FAIL = 'REGISTER_FAIL'
 
 export const AUTH_RESET = 'AUTH_RESET'
 
+/* APP */
+export const LOAD_APP = 'LOAD_APP'
+
 /* CATEGORY */
 export const FECTHING_CATEGORIES = 'FECTHING_CATEGORIES'
 export const FETCHED_CATEGORIES = 'FETCHED_CATEGORIES'

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-
+import { Route, Redirect } from "react-router-dom";
 
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
-import { MainContainer} from '../../components/global.styled'
+import { MainContainer} from '../../global.styled'
 
 
 
@@ -28,12 +28,12 @@ class ControlPanel extends Component {
             <Icon name='user' />
             Usuarios
           </Menu.Item>
-
           <Menu.Item name='video play' active={activeItem === 'video play'} onClick={this.handleItemClick}>
             <Icon className='adversal' />
             Publicidad
           </Menu.Item>
         </Menu>
+        <Route />
       </MainContainer>
     )
   }

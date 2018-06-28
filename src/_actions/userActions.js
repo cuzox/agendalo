@@ -9,7 +9,7 @@ import {
   AUTH_RESET
 } from '../constants'
 
-import HttpClient from './http-client'
+import HttpClient from '../_helper/http-client'
 
 export const loggingIn = () => ({
   type: LOGGING_IN
@@ -65,6 +65,6 @@ export const register = payload =>
     })
   }
 
-  export const reset = () => ({
-    type: AUTH_RESET
-  })
+export const reset = () => ({
+  type: AUTH_RESET
+})

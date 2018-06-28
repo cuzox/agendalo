@@ -7,7 +7,7 @@ import { Redirect } from 'react-router'
 // import Nav from './components/nav/nav'
 import { Link } from 'react-router-dom'
 import { Dimmer, Loader, Input, Button } from 'semantic-ui-react'
-import { MainContainer} from '../../components/global.styled'
+import { MainContainer} from '../../global.styled'
 import { Row, Col, notification } from 'antd';
 
 import FaSignIn from 'react-icons/lib/fa/sign-in'
@@ -16,9 +16,9 @@ import {
   emailValidate, 
   testErrors, 
   submitOnEnter
-} from '../../util/form-utils'
+} from '../../_helper/forms'
 
-import { login, reset, logout } from '../../actions/userActions'
+import { login, reset, logout } from '../../_actions/userActions'
 
 
 class Login extends Component{

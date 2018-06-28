@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 
 import { Row, Col } from 'antd'
 import { Form, Input, Checkbox, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
-import { MainContainer } from '../../../components/global.styled'
+import { MainContainer } from '../../../global.styled'
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaCloudUpload from 'react-icons/lib/fa/cloud-upload'
 import FaTrash from 'react-icons/lib/fa/trash'

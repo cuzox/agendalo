@@ -6,7 +6,7 @@ import { bindActionCreators} from 'redux'
 /** UI */
 import { Link } from 'react-router-dom'
 import FaPlayCircleO from 'react-icons/lib/fa/play-circle-o'
-import { MainContainer } from '../../components/global.styled'
+import { MainContainer } from '../../global.styled'
 import { 
   Header as StdHeader,
   Month as StdMonth,
@@ -75,7 +75,7 @@ const Newsletter = props =>{
   return(
     <StdNewsletter>
       <div style={{display: "flex"}}>
-        <img style={{width: "auto", height: "50px"}}src="assets/images/mail.png"/>
+        <img style={{width: "auto", height: "50px"}}src="/assets/images/mail.png"/>
         <span style={{color: "rgb(0,201,211)", fontWeight: "bolder",  minWidth: "200px", marginLeft: "15px"}}>
           RECIBE NUESTRO <br/> <font size="5">NEWSLETTER</font>
         </span>

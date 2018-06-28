@@ -5,12 +5,12 @@ export const Header = styled.div`
   flex-direction: column;
   position: relative;
   overflow: hidden;
-  background-image: url("assets/images/bg-plain.png");
+  background-image: url("/assets/images/bg-plain.png");
   background-color: #cccccc;
   background-repeat: no-repeat;
   background-size: cover;
   border-bottom: 20px solid rgb(0,201,211);
-  align-items: center;
+  align-items: flex-start;
   padding-top: 150px;
 
   * {
