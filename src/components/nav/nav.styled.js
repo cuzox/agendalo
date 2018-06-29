@@ -71,3 +71,25 @@ export const NavContent = styled.div`
     }
   }
 `
+
+export const NavFold = styled.div`
+  visibility: hidden;
+  opacity: 0;
+  display: flex;
+  justify-content: center; 
+  width: 100%;
+  background-color: rgba(0,201,211,0.9);
+  height: 50px;
+  position: absolute;
+  z-index: -1;
+  top: 100%;
+  left: 0;
+  transition: height 200ms ease-in, visibility 0s linear 50ms, z-index 0s linear 10ms;
+
+  &.fold-down{
+    visibility: visible;
+    opacity: 1
+    z-index: 1;
+    height: 200px;
+  }
+`

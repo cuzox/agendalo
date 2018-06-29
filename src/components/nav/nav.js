@@ -7,8 +7,7 @@ import { bindActionCreators} from 'redux'
 import { login, logout } from '../../_actions/userActions'
 
 import { Button } from 'semantic-ui-react'
-import { NavLinks as StdNavLinks } from './nav.styled'
-import { NavContent } from './nav.styled'
+import { NavContent, NavLinks as StdNavLinks, NavFold as StdNavFold } from './nav.styled'
 import FaUser from 'react-icons/lib/fa/user'
 import FaSortDown from 'react-icons/lib/fa/sort-desc'
 import FaSignIn from 'react-icons/lib/fa/sign-in'
@@ -86,14 +85,16 @@ class Nav extends Component{
     super(props)
     this.unlisten = this.props.history.listen((location, action) => {
       this.setState({
-        currentLocation: locProps(location.pathname)
+        currentLocation: locProps(location.pathname),
+        navDeployed: false
       })
     });
   }
 
   componentDidMount(){
     this.setState({
-      currentLocation: locProps(window.location.pathname)
+      currentLocation: locProps(window.location.pathname),
+      navDeployed: false
     })
   }
 
@@ -103,19 +104,23 @@ class Nav extends Component{
 
   render (){
     const { firstName, loggedIn, isAdmin } = this.props
+    const { currentLocation, navDeployed } = this.state || {}
     return(
       <Media query={{ minWidth: 968 }}>
         {matches =>
           matches ? (
-            <NavContent className={this.state && this.state.currentLocation.inHome ? 'in-home' : ''}>
-              <NavLinks firstName={firstName} loggedIn={loggedIn} isAdmin={isAdmin} {...(this.state && this.state.currentLocation || {})}/>
+            <NavContent className={currentLocation.inHome ? 'in-home' : ''}>
+              <NavLinks firstName={firstName} loggedIn={loggedIn} isAdmin={isAdmin} {...(currentLocation || {})}/>
             </NavContent>
           ) : (
             <NavContent className={'compact-top'}>
               <span className="Logo" >
                 <Link to="/"><img src="/assets/images/logo.png"/></Link>
               </span>
-              <FaBars style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
+              <FaBars onClick={()=> this.setState({navDeployed: !navDeployed})} style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
+              <StdNavFold className={navDeployed && "fold-down" || ""}>
+                
+              </StdNavFold>
             </NavContent>
           )
         }

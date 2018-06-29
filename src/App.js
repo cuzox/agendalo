@@ -41,7 +41,7 @@ class App extends Component {
   }
 
   render() {
-    const {isAdmin, loaded } = this.props
+    const { isAdmin, loaded } = this.props
     return (
       <Router>
         <Route render={({ location }) => (
