@@ -78,18 +78,42 @@ export const NavFold = styled.div`
   display: flex;
   justify-content: center; 
   width: 100%;
-  background-color: rgba(0,201,211,0.9);
-  height: 50px;
+  background-color: #003366;
+  min-height: 50px;
   position: absolute;
   z-index: -1;
   top: 100%;
   left: 0;
   transition: height 200ms ease-in, visibility 0s linear 50ms, z-index 0s linear 10ms;
 
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+      padding: 5px 0;
+
+      a {
+        text-decoration: none;
+        color: white;
+      }
+
+      &:not(:last-child){
+        border-bottom: 1px solid white
+      }
+
+      &.center{
+        display: flex;
+        justify-content: center;
+      }
+    }
+
+  }
+
   &.fold-down{
     visibility: visible;
     opacity: 1
     z-index: 1;
-    height: 200px;
   }
 `

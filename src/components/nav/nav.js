@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { Link, withRouter } from 'react-router-dom'
-import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
@@ -20,6 +19,7 @@ import { Menu, Dropdown, Icon } from 'antd';
 
 import { isInViewport } from '../../_helper/general'
 
+
 const NavLinks = props =>{
   return (
     <StdNavLinks>
@@ -28,9 +28,7 @@ const NavLinks = props =>{
       {/* <span><Link to="/">CATEGORÍAS</Link></span> */}
       { !props.hideAdd &&
         <span>
-          <Link to="/agregar">
-            <Button size="small" className="our-green">AGREGAR ACTIVIDAD</Button>
-          </Link>
+          <Agregar/>
         </span>
       }
       { !props.hideLogin &&
@@ -58,24 +56,48 @@ const NavLinks = props =>{
   )
 }
 
+const Agregar = () => (
+  <Link to="/agregar">
+    <Button size="small" className="our-green">AGREGAR ACTIVIDAD</Button>
+  </Link>
+)
+
+const Profile = () => (
+  <Link to="/perfil">
+    <FaUser /> Perfil 
+  </Link>
+)
+
+const Panel = () => (
+  <Link to="/panel">
+    <FaCogs /> Panel de control
+  </Link>
+)
+
+const LogOut = () => (
+  <Link to="/login">
+    <FaSignOut /> Cerrar sesión
+  </Link>
+)
+
+const LogIn = () => (
+  <Link to="/login">
+    <FaSignIn /> Iniciar Sesión
+  </Link>
+)
+
 const menu = isAdmin => (
   <Menu>
     <Menu.Item key="0">
-      <Link to="/perfil">
-        <FaUser /> Perfil 
-      </Link>
+      <Profile />
     </Menu.Item>
     { isAdmin &&
       <Menu.Item key="1">
-        <Link to="/panel">
-          <FaCogs /> Panel de control
-        </Link>
+        <Panel />
       </Menu.Item>
     }
     <Menu.Item key="2">
-      <Link to="/login">
-        <FaSignOut /> Cerrar sesión
-      </Link>
+      <LogOut />
     </Menu.Item>
   </Menu>
 )
@@ -109,7 +131,7 @@ class Nav extends Component{
       <Media query={{ minWidth: 968 }}>
         {matches =>
           matches ? (
-            <NavContent className={currentLocation.inHome ? 'in-home' : ''}>
+            <NavContent className={currentLocation && currentLocation.inHome ? 'in-home' : ''}>
               <NavLinks firstName={firstName} loggedIn={loggedIn} isAdmin={isAdmin} {...(currentLocation || {})}/>
             </NavContent>
           ) : (
@@ -119,7 +141,13 @@ class Nav extends Component{
               </span>
               <FaBars onClick={()=> this.setState({navDeployed: !navDeployed})} style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
               <StdNavFold className={navDeployed && "fold-down" || ""}>
-                
+                <ul>
+                  <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
+                  <li className="center"> <Agregar/> </li>
+                  { loggedIn && <li> <Profile/> </li> }
+                  { loggedIn && isAdmin && <li> <Panel/> </li> }
+                  <li> { loggedIn && <LogOut/> || <LogIn/> }</li>
+                </ul>
               </StdNavFold>
             </NavContent>
           )
