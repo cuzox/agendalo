@@ -68,7 +68,7 @@ class Login extends Component{
 
   render(){
     return (
-      <MainContainer>
+      <MainContainer >
         { this.props.loginSuccess && <Redirect push to="/"/> }
         <Dimmer active={ this.props.loggingIn }>
           <Loader />  

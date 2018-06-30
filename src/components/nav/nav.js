@@ -126,13 +126,13 @@ class Nav extends Component{
 
   render (){
     const { firstName, loggedIn, isAdmin } = this.props
-    const { currentLocation, navDeployed } = this.state || {}
+    const { currentLocation = {}, navDeployed } = this.state || {}
     return(
       <Media query={{ minWidth: 968 }}>
         {matches =>
           matches ? (
-            <NavContent className={currentLocation && currentLocation.inHome ? 'in-home' : ''}>
-              <NavLinks firstName={firstName} loggedIn={loggedIn} isAdmin={isAdmin} {...(currentLocation || {})}/>
+            <NavContent className={currentLocation.inHome && 'in-home' }>
+              <NavLinks {...{ currentLocation, firstName, loggedIn, isAdmin }} />
             </NavContent>
           ) : (
             <NavContent className={'compact-top'}>
@@ -140,15 +140,7 @@ class Nav extends Component{
                 <Link to="/"><img src="/assets/images/logo.png"/></Link>
               </span>
               <FaBars onClick={()=> this.setState({navDeployed: !navDeployed})} style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
-              <StdNavFold className={navDeployed && "fold-down" || ""}>
-                <ul>
-                  <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
-                  <li className="center"> <Agregar/> </li>
-                  { loggedIn && <li> <Profile/> </li> }
-                  { loggedIn && isAdmin && <li> <Panel/> </li> }
-                  <li> { loggedIn && <LogOut/> || <LogIn/> }</li>
-                </ul>
-              </StdNavFold>
+              <NavFold {...{ navDeployed, firstName, loggedIn, isAdmin }}/>
             </NavContent>
           )
         }
@@ -156,6 +148,18 @@ class Nav extends Component{
     )
   }
 }
+
+const NavFold = props => (
+  <StdNavFold className={props.navDeployed && "fold-down" || ""}>
+    <ul>
+      <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
+      <li className="center"> <Agregar/> </li>
+      { props.loggedIn && <li> <Profile/> </li> }
+      { props.loggedIn && props.isAdmin && <li> <Panel/> </li> }
+      <li> { props.loggedIn && <LogOut/> || <LogIn/> }</li>
+    </ul>
+  </StdNavFold>
+)
 
 const locProps = (pathname)=>{
   let state = {}

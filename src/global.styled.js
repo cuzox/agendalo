@@ -6,4 +6,5 @@ export const MainContainer = styled.div`
   justify-content: center;
   padding-top: 120px;
   padding-bottom: 160px;
+  min-height: 100vh;
 `

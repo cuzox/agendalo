@@ -31,9 +31,12 @@ export const NavContent = styled.div`
   background-color: rgba(0,52,102,0.9);
   border-bottom: 20px solid rgb(0,201,211);
   transition: height 200ms linear 100ms;
-  .Logo img{ 
-    transition: width 180ms linear; 
-    width: 150px; 
+  .Logo {
+    z-index: 2;  
+    img{ 
+      transition: width 180ms linear; 
+      width: 150px; 
+    }
   }
 
   &.in-home,&.compact,&.compact-top{
@@ -62,9 +65,9 @@ export const NavContent = styled.div`
   }
 
   &.compact-top{
-    margin-top: 0;
     justify-content: space-evenly;
-    margin-top: 20px;
+    padding-top: 10px 0;
+    transition: background-color 200ms ease-in;
     .Logo img{ 
       width: 25vmin; 
       min-width: 150px; 
@@ -73,18 +76,22 @@ export const NavContent = styled.div`
 `
 
 export const NavFold = styled.div`
-  visibility: hidden;
-  opacity: 0;
   display: flex;
   justify-content: center; 
   width: 100%;
   background-color: #003366;
-  min-height: 50px;
   position: absolute;
-  z-index: -1;
+  padding: 15px 0;
   top: 100%;
   left: 0;
-  transition: height 200ms ease-in, visibility 0s linear 50ms, z-index 0s linear 10ms;
+  opacity: 0;
+  visibility: hidden;
+  z-index: -1;
+  transition: all 200ms ease-in;
+  transform: translateY(-20px);
+  border-bottom: 10px solid rgb(0,201,211);
+  border-top: 10px solid rgb(0,201,211);
+
 
   ul {
     margin: 0;
@@ -112,8 +119,10 @@ export const NavFold = styled.div`
   }
 
   &.fold-down{
+    opacity: 1;
     visibility: visible;
-    opacity: 1
     z-index: 1;
+    transform: translateY(0)
   }
+}
 `
