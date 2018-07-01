@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
+import ReactDOM from 'react-dom'
 
 import { Row, Col } from 'antd'
-import { Form, Input, Checkbox, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
+import { Form, Input, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
 import { MainContainer } from '../../../global.styled'
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaCloudUpload from 'react-icons/lib/fa/cloud-upload'
@@ -14,6 +15,10 @@ import { withRouter } from 'react-router-dom'
 import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
+import { createActivity } from '../../../_actions/activityActions'
+
+import uuidv4 from 'uuid/v4'
+
 const confirm = Modal.confirm;
 
 
@@ -23,10 +28,12 @@ class ActivityCrud extends Component{
     super(props)
     this.imagesInput = React.createRef()
     this.imageDropArea = React.createRef()
-    this.state = { open: false, activityImages: [] }
+    this.dropdownValue = {}
+    this.state = { open: false, activityImages: [], activity: {}}
   }
 
   componentDidMount(){
+    this.form = ReactDOM.findDOMNode(this.refs.form)
     ;['ondrag','ondragstart','ondragend','ondragover','ondragenter','ondragleave','ondrop'].forEach(event =>
       this.imageDropArea.current[event] = e => e.preventDefault() && e.stopPropagation()
     )
@@ -75,7 +82,7 @@ class ActivityCrud extends Component{
           reader.onload = e =>{
             this.setState({
               activityImages: this.state.activityImages.concat([{
-                key: this.state.activityImages.length,
+                key: uuidv4(),
                 file: file,
                 src: e.target.result
               }])
@@ -87,6 +94,15 @@ class ActivityCrud extends Component{
       })
     }
   }
+
+  create(){
+    let activity = {}
+    ;[].forEach.call(this.form, el =>{
+      if(el.name) activity[el.name] = el.value
+    })
+    this.setState({activity: {...this.state.activity, ...activity}})
+    setTimeout(()=>console.log(this.state),0)
+  }
   
   render(){
     return (
@@ -94,7 +110,7 @@ class ActivityCrud extends Component{
         <Dimmer active={this.props.creatingActivity}>
           <Loader/>  
         </Dimmer>
-        <Form>
+        <Form ref="form">
           <Row type="flex" justify="center">
             <Col lg={7} md={10} sm={13} xs={18} style={{display: "flex", flexDirection: "column"}} className="col-space">
                 <div className="center-text" style={{textAlign: "center"}}>
@@ -104,9 +120,12 @@ class ActivityCrud extends Component{
                 <Input name="name" size="medium" placeholder='Nombre' />
                 <Input name="phone" size="medium" placeholder='Teléfono' />
                 <Input name="address" size="medium" placeholder='Dirección' />
-                <Input name="fee" size="medium" placeholder='Costo' type="number" />
-                <TextArea name="description" placeholder='Descripción' />
-                <Dropdown size="medium" placeholder='Categorías' search selection options={this.props.categories} />
+                <div style={{display: "flex"}}>
+                  <Input style={{width: "calc(50% - 5px)", marginRight: "5px"}} name="fee" size="medium" placeholder='Costo' type="number"/>
+                  <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} name="seat" size="medium" placeholder='Cupo' type="number"/>
+                </div>
+                <TextArea name="description" autoHeight placeholder='Descripción' />
+                <Dropdown size="medium" placeholder='Categoría' search selection options={this.props.categories} onChange={(e, d)=>this.setState({activity: Object.assign(this.state.activity, {categoryId: d.value})})} />
                 <div style={{display: "flex"}}>
                   <DatePicker format="DD-MM-YYYY" locale={locale} placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
                   <TimePicker
@@ -130,7 +149,7 @@ class ActivityCrud extends Component{
                   <PhotoList>
                     {
                       this.state.activityImages.map( (el, key) =>
-                        <div>
+                        <div key={el.key}>
                           <img src={ el.src }/>
                           <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
                           {/* <FaEye className="eye"/> */}
@@ -139,7 +158,7 @@ class ActivityCrud extends Component{
                     }
                   </PhotoList>
                 </div>
-                <Button style={{color: "white"}} content="¡Crear!" className="our-green"/>
+                <Button onClick={()=>this.create()} style={{color: "white"}} content="¡Crear!" className="our-green"/>
             </Col>
           </Row>
         </Form>
@@ -151,13 +170,15 @@ class ActivityCrud extends Component{
 const mapStateToProps = state => {
   return ({
     categories: state.category.categories,
-    creatingActivity: state.activity.creating,
-    createdActivity: state.activity.createdActivity
+    creating: state.activity.creating,
+    createSuccess: state.activity.createSuccess,
+    createFailed: state.activity.createFailed
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
+    createActivity
   }, dispatch);
 
 export default withRouter(

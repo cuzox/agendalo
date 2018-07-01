@@ -7,7 +7,7 @@ import {
   FETCH_ACTIVITIES_SUCCESS,
 } from '../constants'
 
-import HttpClient from './http-client'
+import HttpClient from '../_helper/http-client'
 
 
 export const creatingActivity = () =>({

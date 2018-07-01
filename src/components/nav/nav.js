@@ -139,7 +139,7 @@ class Nav extends Component{
               <span className="Logo" >
                 <Link to="/"><img src="/assets/images/logo.png"/></Link>
               </span>
-              <FaBars onClick={()=> this.setState({navDeployed: !navDeployed})} style={{fontSize: "30px", fill: "rgb(0,201,211)"}}/>
+              <FaBars onClick={()=> this.setState({navDeployed: !navDeployed})} style={{fontSize: "30px", fill: "white"}}/>
               <NavFold {...{ navDeployed, firstName, loggedIn, isAdmin }}/>
             </NavContent>
           )

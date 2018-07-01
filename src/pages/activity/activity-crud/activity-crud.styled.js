@@ -11,6 +11,12 @@ export const PhotoUpload = styled.div`
   flex-direction:  column;
   justify-content:  center;
   align-items:  center;
+  cursor: default;
+  
+  &:hover, &.green-border{
+    border-color: green !important;
+
+  }
 `
 
 export const PhotoList = styled.div`

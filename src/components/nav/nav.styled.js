@@ -99,7 +99,7 @@ export const NavFold = styled.div`
 
     li {
       list-style: none;
-      padding: 5px 0;
+      padding: 10px 0;
 
       a {
         text-decoration: none;

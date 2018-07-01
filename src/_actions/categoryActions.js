@@ -12,34 +12,39 @@ export function fetchCategories(){
   return dispatch =>{
     let categories = [
       {
-        key: "iglesia",
-        value: "0",
-        text: "Iglesia"
+        key: "7",
+        value: "7",
+        text: "Lanzamiento"
       },
       {
-        key: "artista",
+        key: "1",
         value: "1",
-        text: "Artista"
+        text: "Conferencia"
       },
       {
-        key: "concierto",
+        key: "2",
         value: "2",
         text: "Concierto"
       },
       {
-        key: "campamento",
+        key: "3",
         value: "3",
         text: "Campamento"
       },
       {
-        key: "charla",
+        key: "4",
         value: "4",
         text: "Charla"
       },
       {
-        key: "retiro",
+        key: "5",
         value: "5",
         text: "Retiro"
+      },
+      {
+        key: "6",
+        value: "6",
+        text: "Otro"
       }
     ]
     dispatch(setCategories(categories))

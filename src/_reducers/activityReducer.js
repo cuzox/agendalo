@@ -11,8 +11,8 @@ const initialState = {
   fetching: false,
   fetchingFailed: false,
   creating: false,
-  createdActivity: null,
-  creatingFailed: false,
+  createSuccess: null,
+  createFailed: false,
   error: null,
   activities: []
 }
@@ -46,13 +46,13 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         creating: false,
-        createdActivity: action.payload
+        createSuccess: action.payload
       }
     case CREATE_ACTIVITY_FAILED: 
       return {
         ...state,
         creating: false,
-        creatingFailed: true,
+        createFailed: true,
         error: action.payload
       }
     default:
