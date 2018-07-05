@@ -150,13 +150,13 @@ class Nav extends Component{
 }
 
 const NavFold = props => (
-  <StdNavFold className={props.navDeployed && "fold-down" || ""}>
+  <StdNavFold className={props.navDeployed ? "fold-down" : ""}>
     <ul>
       <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
       <li className="center"> <Agregar/> </li>
       { props.loggedIn && <li> <Profile/> </li> }
       { props.loggedIn && props.isAdmin && <li> <Panel/> </li> }
-      <li> { props.loggedIn && <LogOut/> || <LogIn/> }</li>
+      <li> { props.loggedIn ? <LogOut/> : <LogIn/> }</li>
     </ul>
   </StdNavFold>
 )

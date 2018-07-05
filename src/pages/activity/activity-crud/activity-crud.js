@@ -9,7 +9,6 @@ import FaCloudUpload from 'react-icons/lib/fa/cloud-upload'
 import FaTrash from 'react-icons/lib/fa/trash'
 import FaEye from 'react-icons/lib/fa/eye'
 import { DatePicker, TimePicker, Modal } from 'antd'
-import locale from 'antd/lib/date-picker/locale/es_ES'
 import { PhotoUpload, PhotoList } from './activity-crud.styled'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators} from 'redux'
@@ -73,7 +72,7 @@ class ActivityCrud extends Component{
   }
 
   dropImages(e){
-    let files = e.dataTransfer && e.dataTransfer.files || e.target.files
+    let files = e.dataTransfer ? e.dataTransfer.files : e.target.files
     if(files && files.length) {
       ;[].forEach.call(files, file =>{
         if ( /\.(jpe?g|png)$/i.test(file.name) ) {
@@ -90,6 +89,7 @@ class ActivityCrud extends Component{
           }
     
           reader.readAsDataURL(file);
+          e.target.value = ""
         }
       })
     }
@@ -127,13 +127,14 @@ class ActivityCrud extends Component{
                 <TextArea name="description" autoHeight placeholder='Descripción' />
                 <Dropdown size="medium" placeholder='Categoría' search selection options={this.props.categories} onChange={(e, d)=>this.setState({activity: Object.assign(this.state.activity, {categoryId: d.value})})} />
                 <div style={{display: "flex"}}>
-                  <DatePicker format="DD-MM-YYYY" locale={locale} placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
+                  <DatePicker onChange={(e, d)=>this.setState({activity: {...this.state.activity, date: d}})}  format="DD-MM-YYYY" placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
                   <TimePicker
                     size="default" 
                     minuteStep={5} 
                     use12Hours format="h:mm A" 
                     open={this.state.open}
                     onOpenChange={this.handleOpenChange}
+                    onChange={(e, d)=>this.setState({activity: {...this.state.activity, time: d}})}
                     addon={() => (
                       <Button size="small" type="primary" onClick={this.handleClose} content="Ok"/>
                     )}
@@ -150,7 +151,7 @@ class ActivityCrud extends Component{
                     {
                       this.state.activityImages.map( (el, key) =>
                         <div key={el.key}>
-                          <img src={ el.src }/>
+                          <img alt="" src={ el.src }/>
                           <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
                           {/* <FaEye className="eye"/> */}
                         </div>

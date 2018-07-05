@@ -12,9 +12,8 @@ import {
   Month as StdMonth,
   Newsletter as StdNewsletter
 } from './home.styled'
-import { Button, Dropdown, Dimmer, Loader, Input,} from 'semantic-ui-react'
-import { Row, Col, Collapse, Carousel } from 'antd'
-const Panel = Collapse.Panel
+import { Button, Dropdown, Input,} from 'semantic-ui-react'
+import { Row, Col, Carousel } from 'antd'
 
 const MONTHS = [
   { text: "Enero", value: 0 },
@@ -75,7 +74,7 @@ const Newsletter = props =>{
   return(
     <StdNewsletter>
       <div style={{display: "flex"}}>
-        <img style={{width: "auto", height: "50px"}}src="/assets/images/mail.png"/>
+        <img alt="" style={{width: "auto", height: "50px"}}src="/assets/images/mail.png"/>
         <span style={{color: "rgb(0,201,211)", fontWeight: "bolder",  minWidth: "200px", marginLeft: "15px"}}>
           RECIBE NUESTRO <br/> <font size="5">NEWSLETTER</font>
         </span>
