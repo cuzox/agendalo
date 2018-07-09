@@ -34,7 +34,7 @@ const HttpClient = {
 const buildQuery = (query = '') => {
   let build = ''
   let token = localStorage.getItem('token')
-  if(typeof query == "object" && Object.keys(query).length) build += "?" + JSON.stringify(query)
+  if(typeof query == "object" && Object.keys(query).length) build += "?filter=" + JSON.stringify(query)
   else if(typeof query == "string" && query.length) build += "?" + query
   if(token) build += (build ? '&' : '?') + 'access_token=' + token
   
