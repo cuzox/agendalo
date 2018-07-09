@@ -33,30 +33,35 @@ const MONTHS = [
 const Header = props =>{
   return (
     <StdHeader>
-        <span><h3>TU AGENDA EN LINEA DE</h3></span>
-        <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
-        <span>
-          <p>
-            Mantente al día con todas las actividades cristianas:<br/>
-            conciertos, charlas, campamentos, conferencias y más.
-          </p>
-        </span>
-        <div style={{display: "flex", marginTop: "30px", marginBottom: "50px"}}>
-          {!props.loggedIn &&
-            <div className="register">
-              <Link to="/registro">
-                <Button className="register our-green">
-                    ¡REGISTRAME!
-                </Button>
-              </Link>
-                <span><Link to="/login">¿Ya tienes cuenta?</Link></span>
+        <Row type="flex" justify="center">
+          <Col md={12} sm={20} xs={22}>
+            <span><h3>TU AGENDA EN LINEA DE</h3></span>
+            <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
+            <span>
+              <p>
+                Mantente al día con todas las actividades cristianas:<br/>
+                conciertos, charlas, campamentos, conferencias y más.
+              </p>
+            </span>
+            <div style={{display: "flex", marginTop: "30px", marginBottom: "50px"}}>
+              {!props.loggedIn &&
+                <div className="register">
+                  <Link to="/registro">
+                    <Button className="register our-green">
+                        ¡REGISTRAME!
+                    </Button>
+                  </Link>
+                    <span><Link to="/login">¿Ya tienes cuenta?</Link></span>
+                </div>
+              }
+              <span className="video-link">
+                <span>¿CÓMO FUNCTIONA?</span>
+                <FaPlayCircleO/>
+              </span>
             </div>
-          }
-          <span className="video-link">
-            <span>¿CÓMO FUNCTIONA?</span>
-            <FaPlayCircleO/>
-          </span>
-        </div>
+          </Col>
+        </Row>
+        
     </StdHeader>
   )
 }

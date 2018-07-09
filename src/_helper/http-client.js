@@ -27,7 +27,8 @@ const HttpClient = {
       .then(res => res.json())
       .then(res => succ(res), err => fail(err))
     })
-  }
+  },
+  url: () => url
 }
 
 const buildQuery = (query = '') => {

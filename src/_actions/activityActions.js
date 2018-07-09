@@ -33,6 +33,7 @@ export const createActivitySucc = activity =>({
 
 export const createActivity = (accountId, activity, photos) => (
   dispatch => {
+    let url = HttpClient.url()
     dispatch(creatingActivity())
     HttpClient.post(`Accounts/${accountId}/Activities`, activity).then(res =>{
       let newActivity = res.data
@@ -53,7 +54,7 @@ export const createActivity = (accountId, activity, photos) => (
 
       dispatch(updatingActivity())
       HttpClient.patch(`Activities/${newActivity.id}`, {
-        photos: filenames
+        photos: filenames.map(filename => `${url}/Containers/${accountId}/download/${filename}`)
       }).then(updatedActivity=>{      
         dispatch(updateActivitySucc(updatedActivity))
       }).catch(error=>{
@@ -82,8 +83,8 @@ export const fetchActivitiesSucc = activities =>({
 export const fetchActivities = filter => (
   dispatch => {
     dispatch(fetchingActivities())
-    HttpClient.get('activities', filter).then(activities =>{
-      dispatch(fetchActivitiesSucc(activities))
+    HttpClient.get('activities', filter).then(res =>{
+      dispatch(fetchActivitiesSucc(res.data))
     }).catch(error =>{
       dispatch(fetchActivitiesFail(error))
     })
