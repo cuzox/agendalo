@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
+import { Redirect } from 'react-router'
 
 import { Row, Col } from 'antd'
 import { Form, Input, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
@@ -8,13 +9,13 @@ import FaEdit from 'react-icons/lib/fa/edit'
 import FaCloudUpload from 'react-icons/lib/fa/cloud-upload'
 import FaTrash from 'react-icons/lib/fa/trash'
 import FaEye from 'react-icons/lib/fa/eye'
-import { DatePicker, TimePicker, Modal } from 'antd'
+import { DatePicker, TimePicker, Modal, notification } from 'antd'
 import { PhotoUpload, PhotoList } from './activity-crud.styled'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
-import { createActivity } from '../../../_actions/activityActions'
+import { createActivity, reset } from '../../../_actions/activityActions'
 
 import uuidv4 from 'uuid/v4'
 
@@ -47,6 +48,22 @@ class ActivityCrud extends Component{
     this.imageDropArea.current.addEventListener('change', e => this.dropImages(e))
   }
 
+  componentDidUpdate(){
+    if(this.props.createFailed){
+      notification['error']({
+        message: 'Error creando actividad',
+        description: 'Trata mas tarde'
+      })
+      this.props.reset()
+    }
+    if(this.props.createSuccess){
+      notification['success']({
+        message: 'Actividad creada con exito'
+      })
+      this.props.reset()
+    }
+  }
+
   showDeleteConfirm(key) {
     let that = this;
     confirm({
@@ -72,12 +89,11 @@ class ActivityCrud extends Component{
   }
 
   dropImages(e){
-    let files = e.dataTransfer ? e.dataTransfer.files : e.target.files
+    let files = e.dataTransfer ? [...e.dataTransfer.files] : [...e.target.files]
     if(files && files.length) {
-      ;[].forEach.call(files, file =>{
+      Array.prototype.forEach.call(files, file =>{
         if ( /\.(jpe?g|png)$/i.test(file.name) ) {
           var reader = new FileReader();
-    
           reader.onload = e =>{
             this.setState({
               activityImages: this.state.activityImages.concat([{
@@ -89,26 +105,27 @@ class ActivityCrud extends Component{
           }
     
           reader.readAsDataURL(file);
-          e.target.value = ""
         }
       })
     }
+    e.target.value = ""
   }
 
   create(){
-    let activity = {}
+    let activity = { ...this.state.activity }
     ;[].forEach.call(this.form, el =>{
       if(el.name) activity[el.name] = el.value
     })
-    this.setState({activity: {...this.state.activity, ...activity}})
-    setTimeout(()=>console.log(this.state),0)
+    this.setState({activity: activity})
+    this.props.createActivity(this.props.accountId, activity, this.state.activityImages.map(img => img.file))
   }
   
   render(){
     return (
       <MainContainer>
-        <Dimmer active={this.props.creatingActivity}>
-          <Loader/>  
+        { this.props.createSuccess && <Redirect push to="/lista"/> }
+        <Dimmer active={this.props.creating}>
+          <Loader> Creando actividad... </Loader>  
         </Dimmer>
         <Form ref="form">
           <Row type="flex" justify="center">
@@ -134,7 +151,7 @@ class ActivityCrud extends Component{
                     use12Hours format="h:mm A" 
                     open={this.state.open}
                     onOpenChange={this.handleOpenChange}
-                    onChange={(e, d)=>this.setState({activity: {...this.state.activity, time: d}})}
+                    onChange={(e, d)=>this.setState({activity: {...this.state.activity, time: e.toDate()}})}
                     addon={() => (
                       <Button size="small" type="primary" onClick={this.handleClose} content="Ok"/>
                     )}
@@ -171,15 +188,16 @@ class ActivityCrud extends Component{
 const mapStateToProps = state => {
   return ({
     categories: state.category.categories,
-    creating: state.activity.creating,
-    createSuccess: state.activity.createSuccess,
-    createFailed: state.activity.createFailed
+    creating: state.activity.creating || state.activity.updating || state.activity.uploading,
+    createSuccess: state.activity.createSuccess && state.activity.updateSuccess && state.activity.uploadSuccess,
+    createFailed: state.activity.createFailed || state.activity.updateFailed || state.activity.uploadFailed,
+    accountId: state.user.id
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    createActivity
+    createActivity, reset
   }, dispatch);
 
 export default withRouter(

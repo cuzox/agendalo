@@ -2,13 +2,20 @@ import {
   CREATING_ACTIVITY,
   CREATE_ACTIVITY_SUCCESS,
   CREATE_ACTIVITY_FAILED,
+  UPDATING_ACTIVITY,
+  UPDATE_ACTIVITY_SUCCESS,
+  UPDATE_ACTIVITY_FAILED,
+  UPLOADING_PHOTOS,
+  UPLOAD_PHOTOS_SUCCESS,
+  UPLOAD_PHOTOS_FAILED,
   FETCHING_ACTIVITIES,
   FETCH_ACTIVITIES_FAILED,
   FETCH_ACTIVITIES_SUCCESS,
+  ACTIVITY_RESET
 } from '../constants'
 
 import HttpClient from '../_helper/http-client'
-
+import uuidv4 from 'uuid/v4'
 
 export const creatingActivity = () =>({
   type: CREATING_ACTIVITY
@@ -24,15 +31,39 @@ export const createActivitySucc = activity =>({
   payload: activity
 })
 
-export const createActivity = activity =>
+export const createActivity = (accountId, activity, photos) => (
   dispatch => {
     dispatch(creatingActivity())
-    HttpClient.post('activities', activity).then(newActivity =>{
+    HttpClient.post(`Accounts/${accountId}/Activities`, activity).then(res =>{
+      let newActivity = res.data
       dispatch(createActivitySucc(newActivity))
+      console.log("photos", photos)
+      let files = {}, filenames = []
+      photos.forEach((photo, i) => {
+        filenames.push(`${newActivity.id}_${uuidv4()}.${photo.name.split('.').pop()}`)
+        files["nomatter" + i] = photo
+      })
+
+      dispatch(uploadingPhotos())
+      HttpClient.form(`Containers/${accountId}/upload`, files, filenames).then(()=>{
+        dispatch(uploadPhotosSucc())
+      }).catch(error=>{
+        dispatch(uploadPhotosFail(error))
+      })
+
+      dispatch(updatingActivity())
+      HttpClient.patch(`Activities/${newActivity.id}`, {
+        photos: filenames
+      }).then(updatedActivity=>{      
+        dispatch(updateActivitySucc(updatedActivity))
+      }).catch(error=>{
+        dispatch(updateActivityFail(error))
+      })
     }).catch(error=>{
       dispatch(createActivityFail(error))
     })
   }
+)
 
 export const fetchingActivities = () =>({
   type: FETCHING_ACTIVITIES
@@ -48,13 +79,55 @@ export const fetchActivitiesSucc = activities =>({
   payload: activities
 })
 
-export const fetchActivities = () =>
+export const fetchActivities = filter => (
   dispatch => {
     dispatch(fetchingActivities())
-    HttpClient.get('activities').then(activities =>{
+    HttpClient.get('activities', filter).then(activities =>{
       dispatch(fetchActivitiesSucc(activities))
     }).catch(error =>{
       dispatch(fetchActivitiesFail(error))
     })
   }
+)
 
+export const updatingActivity = () =>({
+  type: UPDATING_ACTIVITY
+})
+
+export const updateActivityFail = err =>({
+  type: UPDATE_ACTIVITY_FAILED,
+  payload: err
+})
+
+export const updateActivitySucc = activity =>({
+  type: UPDATE_ACTIVITY_SUCCESS,
+  payload: activity
+})
+
+export const updateActivity = activity => (
+  dispatch => {
+    dispatch(updatingActivity())
+    HttpClient.patch('activities', activity).then(updatedActivity =>{
+      dispatch(updateActivitySucc(updatedActivity))
+    }).catch(error =>{
+      dispatch(updateActivityFail(error))
+    })
+  }
+)
+
+export const uploadingPhotos = () =>({
+  type: UPLOADING_PHOTOS
+})
+
+export const uploadPhotosFail = err =>({
+  type: UPLOAD_PHOTOS_FAILED,
+  payload: err
+})
+
+export const uploadPhotosSucc = () =>({
+  type: UPLOAD_PHOTOS_SUCCESS
+})
+
+export const reset = () =>({
+  type: ACTIVITY_RESET
+})

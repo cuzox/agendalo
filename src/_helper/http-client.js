@@ -14,6 +14,19 @@ const HttpClient = {
   },
   put: (endpoint, data) => {
     return axios.put(`${url}/${endpoint}${buildQuery()}`, data)
+  },
+  form: (endpoint, data, filenames) => {
+    let formData = new FormData()
+    Object.keys(data).forEach((key, i) => formData.append(key, data[key], filenames[i]))
+
+    return new Promise((succ, fail)=> {
+      fetch(`${url}/${endpoint}${buildQuery()}`, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(res => succ(res), err => fail(err))
+    })
   }
 }
 
