@@ -3,14 +3,12 @@ import styled from 'styled-components'
 export const Header = styled.div`
   display: flex;
   flex-direction: column;
-  position: relative;
   overflow: hidden;
   background-image: url("/assets/images/bg-plain.png");
   background-color: #cccccc;
   background-repeat: no-repeat;
   background-size: cover;
   border-bottom: 20px solid rgb(0,201,211);
-  align-items: flex-start;
   padding-top: 150px;
 
   * {
@@ -24,12 +22,6 @@ export const Header = styled.div`
   h4{ font-size: 4rem; }
   h3{ font-size: 3.5rem; }
   p { font-size: 1.4rem; }
-
-  @media only screen and (max-width: 800px) {
-    h4{ font-size: 2rem; }
-    h3{ font-size: 1.5rem; }
-    p { font-size: 0.8rem; }
-  }
 
   .register{
     display: flex;
