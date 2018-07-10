@@ -15,13 +15,13 @@ export const Header = styled.div`
     color: white;
   }
 
-  h4, h3, p{ 
+  h4, h3, p{
     color: white; 
     font-family: "Raleway"; 
   }
-  h4{ font-size: 4rem; }
-  h3{ font-size: 3.5rem; }
-  p { font-size: 1.4rem; }
+  h4{ font-size: calc(15px + 2vw); }
+  h3{ font-size: calc(15px + 1.8vw); }
+  p { font-size: calc(12px + 0.6vw); }
 
   .register{
     display: flex;

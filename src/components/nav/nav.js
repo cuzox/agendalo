@@ -19,6 +19,8 @@ import { Menu, Dropdown, Icon } from 'antd';
 
 import { isInViewport } from '../../_helper/general'
 
+import { Row, Col } from 'antd'
+
 
 const NavLinks = props =>{
   return (
@@ -124,6 +126,13 @@ class Nav extends Component{
     this.unlisten()
   }
 
+  deployNav(){
+    const { navDeployed } = this.state || {}
+    if(navDeployed) document.body.classList.remove("hide-overflow")
+    else document.body.classList.add("hide-overflow")
+    this.setState({navDeployed: !navDeployed})
+  }
+
   render (){
     const { firstName, loggedIn, isAdmin } = this.props
     const { currentLocation = {}, navDeployed } = this.state || {}
@@ -132,15 +141,25 @@ class Nav extends Component{
         {matches =>
           matches ? (
             <NavContent className={currentLocation.inHome && 'in-home' }>
-              <NavLinks {...{ currentLocation, firstName, loggedIn, isAdmin }} />
+              <Row type="flex" justify="center">
+                <Col xl={12} lg={16} md={18} sm={20} xs={22}> 
+                  <NavLinks {...{ currentLocation, firstName, loggedIn, isAdmin }} />
+                </Col>
+              </Row>
             </NavContent>
           ) : (
             <NavContent className={'compact-top'}>
-              <span className="Logo" >
-                <Link to="/"><img src="/assets/images/logo.png"/></Link>
-              </span>
-              <FaBars onClick={()=> this.setState({navDeployed: !navDeployed})} style={{fontSize: "30px", fill: "white"}}/>
-              <NavFold {...{ navDeployed, firstName, loggedIn, isAdmin }}/>
+              <Row type="flex" justify="center">
+                <Col xl={12} lg={16} md={18} sm={20} xs={22}>
+                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                    <span className="Logo" >
+                      <Link to="/"><img src="/assets/images/logo.png"/></Link>
+                    </span>
+                    <FaBars onClick={()=> this.deployNav() } style={{fontSize: "30px", fill: "white"}}/>
+                  </div>
+                </Col> 
+              </Row>
+              <NavFold deployNav={()=> this.deployNav()} {...{ navDeployed, firstName, loggedIn, isAdmin }}/>
             </NavContent>
           )
         }
@@ -150,7 +169,7 @@ class Nav extends Component{
 }
 
 const NavFold = props => (
-  <StdNavFold className={props.navDeployed ? "fold-down" : ""}>
+  <StdNavFold onClick={()=>props.deployNav()} className={props.navDeployed ? "fold-down" : ""}>
     <ul>
       <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
       <li className="center"> <Agregar/> </li>
@@ -158,6 +177,7 @@ const NavFold = props => (
       { props.loggedIn && props.isAdmin && <li> <Panel/> </li> }
       <li> { props.loggedIn ? <LogOut/> : <LogIn/> }</li>
     </ul>
+    <div style={{position: "absolute", top: "calc(100% + 10px)", bottom: 0, right: 0, left: 0, height: "100%", backgroundColor: "rgba(0,0,0,0.8)"}}></div>
   </StdNavFold>
 )
 

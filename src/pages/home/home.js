@@ -34,7 +34,7 @@ const Header = props =>{
   return (
     <StdHeader>
         <Row type="flex" justify="center">
-          <Col md={12} sm={20} xs={22}>
+          <Col xl={12} lg={16} md={18} sm={20} xs={22}>
             <span><h3>TU AGENDA EN LINEA DE</h3></span>
             <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
             <span>

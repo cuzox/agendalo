@@ -26,8 +26,6 @@ export const NavContent = styled.div`
   top: 0;
   left: 0;
   z-index: 2;
-  display: flex;
-  justify-content: center;
   background-color: rgba(0,52,102,0.9);
   border-bottom: 20px solid rgb(0,201,211);
   transition: height 200ms linear 100ms;
@@ -65,7 +63,7 @@ export const NavContent = styled.div`
   }
 
   &.compact-top{
-    justify-content: space-evenly;
+    justify-content: space-between;
     padding-top: 10px 0;
     transition: background-color 200ms ease-in;
     .Logo img{ 
