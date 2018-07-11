@@ -15,6 +15,11 @@ export const Footer = styled.div`
   background-color: rgba(0,52,102,0.9);
   border-top: 20px solid rgb(0,201,211);
   font-size: 0.9rem;
+
+  @media (max-width: 500px) {
+    flex-direction: column;
+    height: 300px;
+  }
 `
 
 export const FooterSection = styled.div`
@@ -26,6 +31,16 @@ export const FooterSection = styled.div`
   height: 4rem;
   font-size: 0.8em;
   white-space: nowrap;
+
+  @media (max-width: 500px) {
+    
+    border-left: none;
+    border-top: 1px solid white;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    margin-top: 10px;
+  }
 
   span:first-child{
     font-size: 1.1em;

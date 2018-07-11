@@ -27,11 +27,10 @@ export const Header = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: 1.2rem;
-    margin-right: 50px;
+    font-size: calc(12px + 0.3vw);;
+    margin-right: calc(15px + 5vw);
 
     button {
-      font-weight: 1.4rem;
       font-weight: bold; 
       color: #003366;
     }
@@ -39,8 +38,9 @@ export const Header = styled.div`
 
   .video-link{
     margin: 20px 0;
-    font-size: 1.3rem;
-    span{
+    font-size: calc(12px + 0.5vw);
+    white-space: nowrap;
+    a{
       margin-right: 10px;
     }
   }
@@ -49,11 +49,11 @@ export const Header = styled.div`
 export const Month = styled.div`
     display: flex;
     align-items: center;
+    justify-content: center;
     background-color: #003366;
-    padding: 8px 40px;
-    border-radius: 20px;
+    padding: 8px 0;
+    border-radius: 12px;
     margin: 25px 10px 0 10px;
-    padding-right: 40px;
 
     /* @media (max-width: 576px) {
        flex-direction: column;
@@ -62,7 +62,8 @@ export const Month = styled.div`
 
 
     > span{
-      font-size: 1.2em;
+      font-size: calc(12px + 0.3vw);
+      white-space: nowrap;
       font-weight: bolder;
       margin-right: 20px;
       color: white;
@@ -70,6 +71,10 @@ export const Month = styled.div`
       border-radius: 5px;
       padding: 5px 8px;
       cursor: default;
+    }
+
+    .ui.selection.dropdown {
+      min-width: calc(120px + 5vw)
     }
 
     .ui.selection.active.dropdown .menu,
@@ -97,8 +102,10 @@ export const Month = styled.div`
 export const Newsletter = styled.div`
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: #003366;
-    border-radius: 20px;
-    padding: 20px 40px;
+    border-radius: 12px;
+    padding: 20px 0 10px;
     margin: 0 10px 25px 10px;
+    overflow: hidden;
 `

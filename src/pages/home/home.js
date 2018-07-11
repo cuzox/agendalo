@@ -32,7 +32,7 @@ const MONTHS = [
 
 const Header = props =>{
   return (
-    <StdHeader>
+    <StdHeader className={"home-header"}>
         <Row type="flex" justify="center">
           <Col xl={12} lg={16} md={18} sm={20} xs={22}>
             <span><h3>TU AGENDA EN LINEA DE</h3></span>
@@ -48,14 +48,16 @@ const Header = props =>{
                 <div className="register">
                   <Link to="/registro">
                     <Button className="register our-green">
-                        ¡REGISTRAME!
+                      ¡REGISTRAME!
                     </Button>
                   </Link>
-                    <span><Link to="/login">¿Ya tienes cuenta?</Link></span>
+                  <Link to="/login">¿Ya tienes cuenta?</Link>
                 </div>
               }
               <span className="video-link">
-                <span>¿CÓMO FUNCTIONA?</span>
+                <a href="https://www.youtube.com/watch?v=RPhmAjNhp28/">
+                  ¿CÓMO FUNCTIONA?
+                </a>
                 <FaPlayCircleO/>
               </span>
             </div>
@@ -70,7 +72,7 @@ const Month = props =>{
   return(
     <StdMonth>
       <span> VER TODOS </span>
-      <Dropdown selection options={MONTHS} defaultValue={0}/>
+      <Dropdown className={"month-dropdown"} selection options={MONTHS} defaultValue={0}/>
     </StdMonth>
   )
 }
@@ -80,16 +82,16 @@ const Newsletter = props =>{
     <StdNewsletter>
       <div style={{display: "flex"}}>
         <img alt="" style={{width: "auto", height: "50px"}}src="/assets/images/mail.png"/>
-        <span style={{color: "rgb(0,201,211)", fontWeight: "bolder",  minWidth: "200px", marginLeft: "15px"}}>
+        <span style={{color: "rgb(0,201,211)", fontWeight: "bolder", marginLeft: "15px"}}>
           RECIBE NUESTRO <br/> <font size="5">NEWSLETTER</font>
         </span>
       </div>
-      <span style={{color: "white", maxWidth: "400px", minWidth: "200px", whiteSpace: "nowrap", marginBottom: "5px"}}>
+      <span style={{color: "white", maxWidth: "400px", minWidth: "200px", whiteSpace: "nowrap", marginBottom: "5px", fontSize: "calc(10px + 0.4vw)"}}>
         Mantente informado sobre las actividades, anotate a <br/> nuestro newsletter y no te pierdas ni un solo evento
       </span>
-      <span style={{width: "350px"}}>
-        <Input placeholder="Tu email"/>
-        <Button style={{backgroundColor: "rgb(0,201,211)", marginLeft: "15px"}}>!AGREGAME!</Button>
+      <span style={{display: "flex", flexWrap: "wrap", justifyContent: "center"}}>
+        <Input style={{marginBottom: "10px"}} placeholder="Tu email"/>
+        <Button style={{backgroundColor: "rgb(0,201,211)", marginLeft: "15px", marginBottom: "10px"}}>!AGREGAME!</Button>
       </span>
     </StdNewsletter>
   )
@@ -113,18 +115,24 @@ class Home extends Component{
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
             style={{overflow: "hidden", margin: "25px 0"}}>
             <Carousel vertical autoplay effect="fade">
-              <div style={{height: "400px", borderRadius: "20px"}}>
+              <div style={{height: "400px", borderRadius: "12px"}}>
                 <h3>1</h3>
               </div>
-              <div style={{height: "400px", borderRadius: "20px"}}>
+              <div style={{height: "400px", borderRadius: "12px"}}>
                 <h3>2</h3>
               </div>
-              <div style={{height: "400px", borderRadius: "20px"}}>
+              <div style={{height: "400px", borderRadius: "12px"}}>
                 <h3>3</h3>
               </div>
             </Carousel>
           </Col>
         </Row>
+        {/* <Row type="flex" justify="center">
+          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
+            style={{overflow: "hidden", marginBottom: "25px"}}>
+              <iframe width="560" height="315" src="https://www.youtube.com/embed/92xFonFLEM4?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </Col>
+        </Row> */}
         { !this.props.loggedIn &&
           <Row  type="flex" justify="center">
             <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>

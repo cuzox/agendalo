@@ -21,6 +21,7 @@ export const NavLinks = styled.nav`
 
 export const NavContent = styled.div`
   height: 120px;
+  padding-top: 15px;
   position: absolute;
   right: 0;
   top: 0;
@@ -85,11 +86,10 @@ export const NavFold = styled.div`
   opacity: 0;
   visibility: hidden;
   z-index: -1;
-  transition: all 200ms ease-in;
   transform: translateY(-20px);
+  transition: all 200ms ease-in;
   border-bottom: 10px solid rgb(0,201,211);
   border-top: 10px solid rgb(0,201,211);
-
 
   ul {
     margin: 0;

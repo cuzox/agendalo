@@ -128,9 +128,24 @@ class Nav extends Component{
 
   deployNav(){
     const { navDeployed } = this.state || {}
-    if(navDeployed) document.body.classList.remove("hide-overflow")
-    else document.body.classList.add("hide-overflow")
-    this.setState({navDeployed: !navDeployed})
+    let that = this
+    
+    if(!navDeployed){
+      let navFold = document.querySelector('.nav-fold')
+      let opaque = navFold.querySelector('.opaque')
+      let navFoldHeight = navFold.getBoundingClientRect().bottom
+      opaque.style.height = "calc(100vh - " + navFoldHeight + "px)"
+      document.body.classList.add("hide-overflow")
+      this.setState({navDeployed: true})
+      window.document.addEventListener('click', function anon(e){
+        if(e.target != navFold){
+          console.log("hey")
+          document.body.classList.remove("hide-overflow")
+          that.setState({navDeployed: false})
+          window.document.removeEventListener('click', anon)
+        }
+      })
+    }
   }
 
   render (){
@@ -155,11 +170,11 @@ class Nav extends Component{
                     <span className="Logo" >
                       <Link to="/"><img src="/assets/images/logo.png"/></Link>
                     </span>
-                    <FaBars onClick={()=> this.deployNav() } style={{fontSize: "30px", fill: "white"}}/>
+                    <FaBars onClick={()=> this.deployNav() } style={{fontSize: "30px", fill: currentLocation.inHome ? "white" : "rgb(0,201,211)"}}/>
                   </div>
                 </Col> 
               </Row>
-              <NavFold deployNav={()=> this.deployNav()} {...{ navDeployed, firstName, loggedIn, isAdmin }}/>
+              <NavFold {...{ navDeployed, firstName, loggedIn, isAdmin }}/>
             </NavContent>
           )
         }
@@ -169,7 +184,7 @@ class Nav extends Component{
 }
 
 const NavFold = props => (
-  <StdNavFold onClick={()=>props.deployNav()} className={props.navDeployed ? "fold-down" : ""}>
+  <StdNavFold className={props.navDeployed ? "nav-fold fold-down" : "nav-fold"}>
     <ul>
       <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
       <li className="center"> <Agregar/> </li>
@@ -177,7 +192,7 @@ const NavFold = props => (
       { props.loggedIn && props.isAdmin && <li> <Panel/> </li> }
       <li> { props.loggedIn ? <LogOut/> : <LogIn/> }</li>
     </ul>
-    <div style={{position: "absolute", top: "calc(100% + 10px)", bottom: 0, right: 0, left: 0, height: "100%", backgroundColor: "rgba(0,0,0,0.8)"}}></div>
+    <div className={"opaque"} style={{position: "absolute", top: "calc(100% + 10px)", bottom: 0, right: 0, left: 0, backgroundColor: "rgba(0,0,0,0.8)"}}></div>
   </StdNavFold>
 )
 
