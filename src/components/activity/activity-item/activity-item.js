@@ -9,8 +9,12 @@ function ActivityItem (props){
         <img style={{height: "150px", width: "170px", objectFit: "cover", borderRadius: "20px"}} alt="" src={activity.photos[0]}/>
       )}
       <div style={{width: "calc(100% - 190px)", margin: "10px"}}>
-        <h3>{activity.name}</h3>
-        <h4>{activity.description}</h4>
+        <h3 style={{fontWeight: "bold"}} >
+          {activity.name}
+        </h3>
+        <h4 style={{overflow: "hidden", textOverflow: "ellipsis"}}>
+          {activity.description}
+        </h4>
       </div>
     </div>
   )

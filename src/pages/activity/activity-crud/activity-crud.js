@@ -18,6 +18,7 @@ import { connect } from 'react-redux'
 import { createActivity, reset } from '../../../_actions/activityActions'
 
 import uuidv4 from 'uuid/v4'
+import moment from 'moment'
 
 const confirm = Modal.confirm;
 
@@ -148,7 +149,8 @@ class ActivityCrud extends Component{
                   <TimePicker
                     size="default" 
                     minuteStep={5} 
-                    use12Hours format="h:mm A" 
+                    use12Hours format="h:mm A"
+                    defaultOpenValue={moment('12:00 AM', 'HH:mm A')}
                     open={this.state.open}
                     onOpenChange={this.handleOpenChange}
                     onChange={(e, d)=>this.setState({activity: {...this.state.activity, time: e.toDate()}})}
