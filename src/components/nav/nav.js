@@ -139,7 +139,6 @@ class Nav extends Component{
       this.setState({navDeployed: true})
       window.document.addEventListener('click', function anon(e){
         if(e.target != navFold){
-          console.log("hey")
           document.body.classList.remove("hide-overflow")
           that.setState({navDeployed: false})
           window.document.removeEventListener('click', anon)
@@ -151,40 +150,36 @@ class Nav extends Component{
   render (){
     const { firstName, loggedIn, isAdmin } = this.props
     const { currentLocation = {}, navDeployed } = this.state || {}
+    let inHome = currentLocation.inHome
     return(
       <Media query={{ minWidth: 968 }}>
-        {matches =>
-          matches ? (
-            <NavContent className={currentLocation.inHome && 'in-home' }>
-              <Row type="flex" justify="center">
+        {matches =>(
+            <NavContent className={(!matches && 'compact-top' || '') + (inHome && ' in-home' || '') }>
+              <Row type="flex" justify="center" style={{height:"100%", alignItems: "center"}}  >
                 <Col xl={12} lg={16} md={18} sm={20} xs={22}> 
-                  <NavLinks {...{ currentLocation, firstName, loggedIn, isAdmin }} />
+                  {matches ? (
+                    <NavLinks {...{ currentLocation, firstName, loggedIn, isAdmin }} />
+                  ):(
+                    <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
+                      <span className="Logo" >
+                        <Link to="/"><img src="/assets/images/logo.png"/></Link>
+                      </span>
+                      <FaBars onClick={()=> this.deployNav() } style={{fontSize: "30px", fill: inHome ? "white" : "rgb(0,201,211)"}}/>
+                    </div>
+                  )}
                 </Col>
               </Row>
+              <NavFold {...{ navDeployed, firstName, loggedIn, isAdmin, inHome }}/>
             </NavContent>
-          ) : (
-            <NavContent className={'compact-top'}>
-              <Row type="flex" justify="center">
-                <Col xl={12} lg={16} md={18} sm={20} xs={22}>
-                  <div style={{display: "flex", justifyContent: "space-between", alignItems: "center"}}>
-                    <span className="Logo" >
-                      <Link to="/"><img src="/assets/images/logo.png"/></Link>
-                    </span>
-                    <FaBars onClick={()=> this.deployNav() } style={{fontSize: "30px", fill: currentLocation.inHome ? "white" : "rgb(0,201,211)"}}/>
-                  </div>
-                </Col> 
-              </Row>
-              <NavFold {...{ navDeployed, firstName, loggedIn, isAdmin }}/>
-            </NavContent>
-          )
-        }
+
+        )}
       </Media>
     )
   }
 }
 
 const NavFold = props => (
-  <StdNavFold className={props.navDeployed ? "nav-fold fold-down" : "nav-fold"}>
+  <StdNavFold className={(props.navDeployed ? "nav-fold fold-down" : "nav-fold") + (props.inHome ? " in-home" : "")}>
     <ul>
       <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
       <li className="center"> <Agregar/> </li>
@@ -192,7 +187,7 @@ const NavFold = props => (
       { props.loggedIn && props.isAdmin && <li> <Panel/> </li> }
       <li> { props.loggedIn ? <LogOut/> : <LogIn/> }</li>
     </ul>
-    <div className={"opaque"} style={{position: "absolute", top: "calc(100% + 10px)", bottom: 0, right: 0, left: 0, backgroundColor: "rgba(0,0,0,0.8)"}}></div>
+    <div className={"opaque"} style={{position: "absolute", top: "calc(100% + 20px)", bottom: 0, right: 0, left: 0, backgroundColor: "rgba(0,0,0,0.8)"}}></div>
   </StdNavFold>
 )
 

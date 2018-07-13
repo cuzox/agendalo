@@ -32,7 +32,7 @@ export const Header = styled.div`
 
     button {
       font-weight: bold; 
-      color: #003366;
+      color: #194973;
     }
   }
 
@@ -50,16 +50,10 @@ export const Month = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #003366;
+    background-color: #194973;
     padding: 8px 0;
     border-radius: 12px;
     margin: 25px 10px 0 10px;
-
-    /* @media (max-width: 576px) {
-       flex-direction: column;
-       align-items: flex-start;
-     } */
-
 
     > span{
       font-size: calc(12px + 0.3vw);
@@ -81,16 +75,12 @@ export const Month = styled.div`
     .ui.selection.active.dropdown:hover,
     .ui.selection.dropdown{
       background-color: rgb(0,201,211);
-      color: #003366 !important;
+      color: #194973 !important;
       font-weight: bold !important;
     }
 
-    .ui.selection.dropdown{
-      border-radius: 15px;
-    }
-
     .ui.dropdown .menu>.item span{
-      color: #003366 !important;
+      color: #194973 !important;
       font-weight: bold !important;
     }
 
@@ -103,7 +93,7 @@ export const Newsletter = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: #003366;
+    background-color: #194973;
     border-radius: 12px;
     padding: 20px 0 10px;
     margin: 0 10px 25px 10px;
