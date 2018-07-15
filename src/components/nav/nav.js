@@ -26,7 +26,7 @@ const NavLinks = props =>{
   return (
     <StdNavLinks>
       <span className="Logo" ><Link to="/"><img src="/assets/images/logo.png"/></Link></span>
-      <span><Link to="/lista">VER EVENTOS</Link></span>
+      <span><Link to="/actividades">VER EVENTOS</Link></span>
       {/* <span><Link to="/">CATEGORÍAS</Link></span> */}
       { !props.hideAdd &&
         <span>
@@ -181,7 +181,7 @@ class Nav extends Component{
 const NavFold = props => (
   <StdNavFold className={(props.navDeployed ? "nav-fold fold-down" : "nav-fold") + (props.inHome ? " in-home" : "")}>
     <ul>
-      <li className="center"> <Link to="/lista">VER EVENTOS</Link> </li>
+      <li className="center"> <Link to="/actividades">VER EVENTOS</Link> </li>
       <li className="center"> <Agregar/> </li>
       { props.loggedIn && <li> <Profile/> </li> }
       { props.loggedIn && props.isAdmin && <li> <Panel/> </li> }

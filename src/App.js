@@ -13,6 +13,7 @@ import Home from './pages/home/home'
 import Landing from './pages/landing/landing'
 import ActivityCrud from './pages/activity/activity-crud/activity-crud'
 import ActivityList from './pages/activity/activity-list/activity-list'
+import ActivityDetails from './pages/activity/activity-details/activity-details'
 import Profile from './pages/profile/profile'
 import ControlPanel from './pages/control-panel/control-panel'
 
@@ -56,7 +57,9 @@ class App extends Component {
                   <Route path="/registro" component={ Register }/>
                   <Route path="/agregar" component={ ActivityCrud }/>
                   <Route path="/perfil" component={ Profile }/>
-                  <Route path="/lista" component={ ActivityList }/>
+                  
+                  <Route path="/actividades" component={ ActivityList }/>
+                  <Route path="/actividades/:id" component={ ActivityDetails }/>
 
                   <Protected path="/panel" isAdmin={isAdmin} loaded={loaded} component={ ControlPanel }/>
 

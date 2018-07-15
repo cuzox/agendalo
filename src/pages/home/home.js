@@ -35,7 +35,7 @@ const Header = props =>{
     <StdHeader className={"home-header"}>
         <Row type="flex" justify="center">
           <Col xl={12} lg={16} md={18} sm={20} xs={22}>
-            <span><h3>TU AGENDA EN LINEA DE</h3></span>
+            <span><h3>TU AGENDA EN LÍNEA DE</h3></span>
             <span><h4><b>ACTIVIDADES CRISTIANAS</b></h4></span>
             <span>
               <p>

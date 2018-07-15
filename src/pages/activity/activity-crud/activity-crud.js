@@ -124,7 +124,7 @@ class ActivityCrud extends Component{
   render(){
     return (
       <MainContainer>
-        { this.props.createSuccess && <Redirect push to="/lista"/> }
+        { this.props.createSuccess && <Redirect push to="/actividades"/> }
         <Dimmer active={this.props.creating}>
           <Loader> Creando actividad... </Loader>  
         </Dimmer>
