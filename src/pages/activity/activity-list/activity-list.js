@@ -47,10 +47,10 @@ class ActivityList extends Component {
           </Col>
         </Row>
         <Row type="flex" justify="center">
-          <Col lg={10} md={12} sm={15} xs={17}>
+          <Col lg={10} md={12} sm={15} xs={20}>
             { visible.length ? (
                 visible.map(activity => 
-                  <Link key={activity.id} style={{textDecoration: "none"}} to={"/actividades/"+activity.id}>
+                  <Link key={activity.id} to={"/actividades/"+activity.id}>
                     <ActivityItem {...{activity}}/>
                   </Link>
                 )

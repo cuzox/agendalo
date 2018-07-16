@@ -27,7 +27,7 @@ export const Header = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    font-size: calc(12px + 0.3vw);;
+    font-size: calc(12px + 0.3vw);
     margin-right: calc(15px + 5vw);
 
     button {

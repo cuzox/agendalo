@@ -47,7 +47,7 @@ const Header = props =>{
               {!props.loggedIn &&
                 <div className="register">
                   <Link to="/registro">
-                    <Button className="register our-green">
+                    <Button className="our-green">
                       ¡REGISTRAME!
                     </Button>
                   </Link>

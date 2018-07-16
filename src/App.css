@@ -4,6 +4,14 @@
   box-sizing: border-box;
 }
 
+a {
+  color: inherit;
+}
+
+a:hover, a:visited, a:link, a:active {
+    text-decoration: none !important;
+}
+
 body {
   margin: 0;
   font-family: "Raleway" !important;
@@ -68,5 +76,5 @@ body.hide-overflow {
 
 .fade-enter.fade-enter-active {
   opacity: 1;
-  transition: opacity 100ms linear;
+  transition: all 100ms linear;
 }
