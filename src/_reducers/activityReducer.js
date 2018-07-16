@@ -11,7 +11,8 @@ import {
   FETCHING_ACTIVITIES,
   FETCH_ACTIVITIES_FAILED,
   FETCH_ACTIVITIES_SUCCESS,
-  ACTIVITY_RESET
+  ACTIVITY_RESET,
+  SEARCH_ACTIVITIES
 } from '../constants'
 
 const initialState = {
@@ -26,7 +27,9 @@ const initialState = {
   uploading: false,
   uploadSuccess: false,
   uploadFailed: null,
-  activities: []
+  activities: [],
+  visible: [],
+  search: ''
 }
 
 export default function reducer(state = initialState, action){
@@ -40,7 +43,8 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         fetching: false,
-        activities: action.payload
+        activities: action.payload,
+        visible: action.payload
       }
     case FETCH_ACTIVITIES_FAILED: 
       return {
@@ -108,6 +112,14 @@ export default function reducer(state = initialState, action){
         createSuccess: null,
         updateFailed: null,
         updateSuccess: null
+      }
+    case SEARCH_ACTIVITIES:
+      return {
+        ...state,
+        search: action.payload,
+        visible: state.activities.filter(act =>{
+          return act.name.toLowerCase().includes(action.payload.toLowerCase()) || !action.payload
+        })
       }
     default:
       return state

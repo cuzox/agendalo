@@ -5,6 +5,10 @@ import { Button } from 'semantic-ui-react'
 
 function ActivityItem (props){
   let { activity } = props
+  function agendalo(e){
+    e.stopPropagation()
+    e.preventDefault()
+  }
   return (
     <StdCard>
       <img alt="" src={activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
@@ -20,7 +24,7 @@ function ActivityItem (props){
             <span>Domingo 29, 5:00PM</span>
             <span>{activity.category && "#" + activity.category.name}</span>
           </div>
-          <Button basic style={{ padding: "5px 10px" }}>
+          <Button basic style={{ padding: "5px 10px" }} onClick={e => agendalo(e)}>
             <img style={{height: "30px", width: "auto"}} src="/assets/images/logo_sm_darkb.png" />
           </Button>
         </div>

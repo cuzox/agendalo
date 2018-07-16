@@ -11,7 +11,8 @@ import {
   FETCHING_ACTIVITIES,
   FETCH_ACTIVITIES_FAILED,
   FETCH_ACTIVITIES_SUCCESS,
-  ACTIVITY_RESET
+  ACTIVITY_RESET,
+  SEARCH_ACTIVITIES
 } from '../constants'
 
 import HttpClient from '../_helper/http-client'
@@ -131,4 +132,9 @@ export const uploadPhotosSucc = () =>({
 
 export const reset = () =>({
   type: ACTIVITY_RESET
+})
+
+export const searchActivities = search =>({
+  type: SEARCH_ACTIVITIES,
+  payload: search
 })
