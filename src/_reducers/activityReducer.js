@@ -11,6 +11,9 @@ import {
   FETCHING_ACTIVITIES,
   FETCH_ACTIVITIES_FAILED,
   FETCH_ACTIVITIES_SUCCESS,
+  FETCHING_ACTIVITY,
+  FETCH_ACTIVITY_FAILED,
+  FETCH_ACTIVITY_SUCCESS,
   ACTIVITY_RESET,
   SEARCH_ACTIVITIES
 } from '../constants'
@@ -34,6 +37,7 @@ const initialState = {
 
 export default function reducer(state = initialState, action){
   switch(action.type){
+    case FETCHING_ACTIVITY:
     case FETCHING_ACTIVITIES:
       return {
         ...state,
@@ -46,11 +50,18 @@ export default function reducer(state = initialState, action){
         activities: action.payload,
         visible: action.payload
       }
+    case FETCH_ACTIVITY_FAILED: 
     case FETCH_ACTIVITIES_FAILED: 
       return {
         ...state,
         fetching: false,
         fetchingFailed: action.payload
+      }
+    case FETCH_ACTIVITY_SUCCESS: 
+      return {
+        ...state,
+        fetching: false,
+        activity: action.payload
       }
     case CREATING_ACTIVITY:
       return {

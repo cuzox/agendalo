@@ -11,6 +11,9 @@ import {
   FETCHING_ACTIVITIES,
   FETCH_ACTIVITIES_FAILED,
   FETCH_ACTIVITIES_SUCCESS,
+  FETCHING_ACTIVITY,
+  FETCH_ACTIVITY_FAILED,
+  FETCH_ACTIVITY_SUCCESS,
   ACTIVITY_RESET,
   SEARCH_ACTIVITIES
 } from '../constants'
@@ -91,6 +94,31 @@ export const fetchActivities = filter => (
     })
   }
 )
+
+export const fetchingActivity = () =>({
+  type: FETCHING_ACTIVITY
+})
+
+export const fetchActivity = id => (
+  dispatch => {
+    dispatch(fetchingActivity())
+    HttpClient.get(`activities/${id}`).then(res =>{
+      dispatch(fetchActivitySucc(res.data))
+    }).catch(error =>{
+      dispatch(fetchActivityFail(error))
+    })
+  }
+)
+
+export const fetchActivityFail = error =>({
+  type: FETCH_ACTIVITY_FAILED,
+  payload: error
+})
+
+export const fetchActivitySucc = activity =>({
+  type: FETCH_ACTIVITY_SUCCESS,
+  payload: activity
+})
 
 export const updatingActivity = () =>({
   type: UPDATING_ACTIVITY

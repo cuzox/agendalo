@@ -12,7 +12,7 @@ function ActivityItem (props){
   return (
     <StdCard>
       <img alt="" src={activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
-      <div style={{display: "flex", flexDirection: "column", justifyContent: "space-between", width: "calc(100% - 170px)", margin: "10px"}}>
+      <div className="card-content">
         <h3 className="title">
           {activity.name}
         </h3>

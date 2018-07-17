@@ -32,6 +32,10 @@ class ControlPanel extends Component {
             <Icon className='adversal' />
             Publicidad
           </Menu.Item>
+          <Menu.Item name='calendar alternate' active={activeItem === 'calendar alternate'} onClick={this.handleItemClick}>
+            <Icon className='calendar alternate' />
+            Actividades
+          </Menu.Item>
         </Menu>
         <Route />
       </MainContainer>
