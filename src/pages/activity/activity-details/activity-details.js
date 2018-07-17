@@ -16,13 +16,13 @@ class ActivityList extends Component {
   }
   componentDidMount(){
     let { state } = this.props.location
-    if( state ) this.props.fetchActivitySucc(state.activity)
+    if( state && state.activity ) this.props.fetchActivitySucc(state.activity)
     else this.props.fetchActivity(this.props.match.params.id)
   }
 
   render(){
     let { activity } = this.props
-    return(
+    return activity && (
       <MainContainer>
         <h3 className="title">
           {activity.name}
@@ -32,7 +32,7 @@ class ActivityList extends Component {
         </h4>
         <img alt="" src={activity && activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
       </MainContainer>
-    )
+    ) || null
   }
 }
 
