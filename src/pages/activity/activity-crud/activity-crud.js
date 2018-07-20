@@ -135,17 +135,17 @@ class ActivityCrud extends Component{
                   <FaEdit/>
                   <span> AGREGA TU ACTIVIDAD </span>
                 </div>
-                <Input name="name" size="medium" placeholder='Nombre' />
+                <Input name="name" size="medium" placeholder='Nombre*' required/>
                 <Input name="phone" size="medium" type="number" placeholder='Teléfono' />
-                <Input name="address" size="medium" placeholder='Dirección' />
+                <Input name="address" size="medium" placeholder='Dirección*' />
                 <div style={{display: "flex"}}>
-                  <Input style={{width: "calc(50% - 5px)", marginRight: "5px"}} name="fee" size="medium" placeholder='Costo' type="number"/>
-                  <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} name="seat" size="medium" placeholder='Cupo' type="number"/>
+                  <Input style={{width: "calc(50% - 5px)", marginRight: "5px"}} name="fee" size="medium" placeholder='Costo*' type="number"/>
+                  <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} name="seating" size="medium" placeholder='Cupo*' type="number"/>
                 </div>
-                <TextArea name="description" autoHeight placeholder='Descripción' />
-                <Dropdown size="medium" placeholder='Categoría' search selection options={this.props.categories} onChange={(e, d)=>this.setState({activity: Object.assign(this.state.activity, {categoryId: d.value})})} />
+                <TextArea name="description" autoHeight placeholder='Descripción*' />
+                <Dropdown size="medium" placeholder='Categoría*' search selection options={this.props.categories} onChange={(e, d)=>this.setState({activity: Object.assign(this.state.activity, {categoryId: d.value})})} />
                 <div style={{display: "flex"}}>
-                  <DatePicker onChange={(e, d)=>this.setState({activity: {...this.state.activity, date: e.toDate()}})}  format="DD-MM-YYYY" placeholder="Fecha" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
+                  <DatePicker onChange={(e, d)=>this.setState({activity: {...this.state.activity, date: e.toDate()}})}  format="DD-MM-YYYY" placeholder="Fecha*" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
                   <TimePicker
                     size="default" 
                     minuteStep={5} 
@@ -157,7 +157,7 @@ class ActivityCrud extends Component{
                     addon={() => (
                       <Button size="small" type="primary" onClick={this.handleClose} content="Ok"/>
                     )}
-                    placeholder="Hora" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
+                    placeholder="Hora*" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
                   />
                 </div>
                 <div style={{display: "flex"}}>

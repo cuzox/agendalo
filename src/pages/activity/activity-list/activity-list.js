@@ -32,7 +32,11 @@ class ActivityList extends Component {
   }
 
   render(){
-    let { visible } = this.props
+    let { visible, categories } = this.props
+    if(categories.length) {
+      categories = JSON.parse(JSON.stringify(categories))
+      categories[0].text = "Todas"
+    }
     return(
       <MainContainer style={{justifyContent: "initial"}}>
         <Dimmer active={false}>
@@ -42,7 +46,7 @@ class ActivityList extends Component {
           <Col xl={12} lg={16} md={18} sm={20} xs={22}>
             <StdFilter className="filter">
               <Input onInput={e => this.props.searchActivities(e.target.value)} size={"medium"} icon='search' placeholder='Buscar...'/>
-              <Dropdown size={"medium"} value={0} placeholder='Categoría...' selection options={this.props.categories || []} />
+              <Dropdown size={"medium"} value={0} placeholder='Categoría...' selection options={categories || []} />
               <Dropdown size={"medium"} value={1} placeholder='Cuando...' selection options={this.times || []} />
             </StdFilter>
           </Col>

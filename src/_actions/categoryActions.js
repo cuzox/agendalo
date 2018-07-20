@@ -18,7 +18,7 @@ export function fetchCategories(){
         value: cat.id,
         text: cat.name
       }))
-      normalize.unshift({key: 0, value: 0, text: "Todas"})
+      normalize.unshift({key: 0, value: 0, text: ""})
 
       dispatch(setCategories(normalize))
     })    

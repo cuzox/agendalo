@@ -14,7 +14,7 @@ export const StdCard = styled.div`
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width: calc(100% - 170px);
+    width: calc(100% - 196px);
     margin: 8px;
   }
 

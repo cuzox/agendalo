@@ -3,7 +3,7 @@ import { Footer as StdFooter, FooterSection } from './footer.styled'
 
 function Footer(){
   return (
-    <StdFooter style={{ alignItems: "center" }}>
+    <StdFooter>
       <div style={{ margin: "0 15px" }}>
           <img style={{ height: "4rem", width: "auto"}} src="/assets/images/logo_sm_lightb.png"/>
       </div>

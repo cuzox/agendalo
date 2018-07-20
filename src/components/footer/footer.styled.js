@@ -12,12 +12,14 @@ export const Footer = styled.div`
   color: white;
   display: flex;
   justify-content: center;
+  align-items: center;
   background-color: #194973;
   border-top: 20px solid rgb(0,201,211);
   font-size: 0.9rem;
 
   @media (max-width: 500px) {
     flex-direction: column;
+    align-items: initial;
     height: 300px;
   }
 `

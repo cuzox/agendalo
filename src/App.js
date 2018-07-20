@@ -59,7 +59,7 @@ class App extends Component {
                   <Route path="/perfil" component={ Profile }/>
                   
                   <Route exact path="/actividades" component={ ActivityList }/>
-                  <Route path="/actividades/:id" component={ ActivityDetails }/>
+                  <Route exact path="/actividades/:id" component={ ActivityDetails }/>
 
                   <Protected path="/panel" isAdmin={isAdmin} loaded={loaded} component={ ControlPanel }/>
 
