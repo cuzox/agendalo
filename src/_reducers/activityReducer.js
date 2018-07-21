@@ -15,7 +15,8 @@ import {
   FETCH_ACTIVITY_FAILED,
   FETCH_ACTIVITY_SUCCESS,
   ACTIVITY_RESET,
-  SEARCH_ACTIVITIES
+  SEARCH_ACTIVITIES,
+  CREATE_NOT_LOGGED_IN
 } from '../constants'
 
 const initialState = {
@@ -30,6 +31,7 @@ const initialState = {
   uploading: false,
   uploadSuccess: false,
   uploadFailed: null,
+  attemptToCreateNotLoggedIn: false,
   activities: [],
   visible: [],
   search: ''
@@ -131,6 +133,11 @@ export default function reducer(state = initialState, action){
         visible: state.activities.filter(act =>{
           return act.name.toLowerCase().includes(action.payload.toLowerCase()) || !action.payload
         })
+      }
+    case CREATE_NOT_LOGGED_IN:
+      return {
+        ...state,
+        attemptToCreateNotLoggedIn: action.payload
       }
     default:
       return state

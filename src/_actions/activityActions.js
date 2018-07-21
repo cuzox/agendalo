@@ -15,7 +15,8 @@ import {
   FETCH_ACTIVITY_FAILED,
   FETCH_ACTIVITY_SUCCESS,
   ACTIVITY_RESET,
-  SEARCH_ACTIVITIES
+  SEARCH_ACTIVITIES,
+  CREATE_NOT_LOGGED_IN
 } from '../constants'
 
 import HttpClient from '../_helper/http-client'
@@ -165,4 +166,9 @@ export const reset = () =>({
 export const searchActivities = search =>({
   type: SEARCH_ACTIVITIES,
   payload: search
+})
+
+export const createNotLoggedIn = yesOrNah =>({
+  type: CREATE_NOT_LOGGED_IN,
+  payload: yesOrNah
 })

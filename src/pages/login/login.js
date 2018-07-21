@@ -3,8 +3,6 @@ import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router'
 
-
-// import Nav from './components/nav/nav'
 import { Link } from 'react-router-dom'
 import { Dimmer, Loader, Input, Button } from 'semantic-ui-react'
 import { MainContainer} from '../../global.styled'
@@ -19,6 +17,7 @@ import {
 } from '../../_helper/forms'
 
 import { login, reset, logout } from '../../_actions/userActions'
+import { createNotLoggedIn } from '../../_actions/activityActions'
 
 
 class Login extends Component{
@@ -53,6 +52,12 @@ class Login extends Component{
     }
   }
 
+  componentWillUnmount(){
+    if(this.props.createAttempt){
+      this.props.createNotLoggedIn(false)
+    }
+  }
+
   login(){
     const { email = '', password = '' } = this.state || {}
     let errors = {
@@ -69,7 +74,11 @@ class Login extends Component{
   render(){
     return (
       <MainContainer >
-        { this.props.loginSuccess && <Redirect push to="/"/> }
+        { this.props.loginSuccess && (
+          this.props.createAttempt ? 
+          <Redirect push to="/agregar"/> :
+          <Redirect push to="/"/>
+        )}
         <Dimmer active={ this.props.loggingIn }>
           <Loader />  
         </Dimmer>
@@ -97,13 +106,14 @@ const mapStateToProps = state => {
     loggedIn: state.user.loggedIn,
     loginSuccess: state.user.loginSuccess,
     loginFailed: state.user.loginFailed,
-    loggingIn: state.user.loggingIn
+    loggingIn: state.user.loggingIn,
+    createAttempt: state.activity.attemptToCreateNotLoggedIn
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    login, reset, logout
+    login, reset, logout, createNotLoggedIn
   }, dispatch);
 
 export default connect(

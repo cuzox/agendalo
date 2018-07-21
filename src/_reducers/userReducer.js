@@ -50,8 +50,7 @@ export default function reducer(state = initialState, action){
       }
     case LOGOUT:
       return {
-        ...state,
-        loggedIn: false,
+        ...initialState
       }
     case REGISTERING:
       return { 

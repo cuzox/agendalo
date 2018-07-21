@@ -2,20 +2,20 @@ import React, { Component } from 'react'
 import ReactDOM from 'react-dom'
 import { Redirect } from 'react-router'
 
-import { Row, Col } from 'antd'
+import { Row, Col, notification } from 'antd'
 import { Form, Input, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
 import { MainContainer } from '../../../global.styled'
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaCloudUpload from 'react-icons/lib/fa/cloud-upload'
 import FaTrash from 'react-icons/lib/fa/trash'
 import FaEye from 'react-icons/lib/fa/eye'
-import { DatePicker, TimePicker, Modal, notification } from 'antd'
+import { DatePicker, TimePicker, Modal } from 'antd'
 import { PhotoUpload, PhotoList } from './activity-crud.styled'
 import { withRouter } from 'react-router-dom'
 import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
-import { createActivity, reset } from '../../../_actions/activityActions'
+import { createActivity, reset, createNotLoggedIn } from '../../../_actions/activityActions'
 
 import uuidv4 from 'uuid/v4'
 import moment from 'moment'
@@ -47,6 +47,13 @@ class ActivityCrud extends Component{
     this.imageDropArea.current.addEventListener('click', () => this.addImages())
     this.imageDropArea.current.addEventListener('drop', e => this.dropImages(e))
     this.imageDropArea.current.addEventListener('change', e => this.dropImages(e))
+
+    if(!this.props.loggedIn) {
+      notification['warning']({
+        message: '¡Primero debes iniciar sesión!',
+      })
+      this.props.createNotLoggedIn(true)
+    }
   }
 
   componentDidUpdate(){
@@ -124,6 +131,7 @@ class ActivityCrud extends Component{
   render(){
     return (
       <MainContainer>
+        { !this.props.loggedIn && <Redirect push to="/login"/> }
         { this.props.createSuccess && <Redirect push to="/actividades"/> }
         <Dimmer active={this.props.creating}>
           <Loader> Creando actividad... </Loader>  
@@ -135,7 +143,7 @@ class ActivityCrud extends Component{
                   <FaEdit/>
                   <span> AGREGA TU ACTIVIDAD </span>
                 </div>
-                <Input name="name" size="medium" placeholder='Nombre*' required/>
+                <Input name="name" size="medium" placeholder='Nombre*'/>
                 <Input name="phone" size="medium" type="number" placeholder='Teléfono' />
                 <Input name="address" size="medium" placeholder='Dirección*' />
                 <div style={{display: "flex"}}>
@@ -193,13 +201,14 @@ const mapStateToProps = state => {
     creating: state.activity.creating || state.activity.updating || state.activity.uploading,
     createSuccess: state.activity.createSuccess && state.activity.updateSuccess && state.activity.uploadSuccess,
     createFailed: state.activity.createFailed || state.activity.updateFailed || state.activity.uploadFailed,
-    accountId: state.user.id
+    accountId: state.user.id,
+    loggedIn: state.user.loggedIn
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    createActivity, reset
+    createActivity, reset, createNotLoggedIn
   }, dispatch);
 
 export default withRouter(

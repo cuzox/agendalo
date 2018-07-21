@@ -76,11 +76,24 @@ const Panel = () => (
   </Link>
 )
 
-const LogOut = () => (
-  <Link to="/login">
-    <FaSignOut /> Cerrar sesión
-  </Link>
-)
+class LogOut extends Component{
+  constructor(props){ super(props)}
+  render(){
+    return (
+      <Link onClick={()=> this.props.logout()} to="/">
+        <FaSignOut /> Cerrar sesión
+      </Link>
+    )
+  }
+}
+
+const logoutMapDispatchToProps = dispatch =>
+  bindActionCreators(
+    { logout },
+    dispatch
+  );
+
+const ConnectedLogOut = connect(()=>{}, logoutMapDispatchToProps)(LogOut)
 
 const LogIn = () => (
   <Link to="/login">
@@ -99,7 +112,7 @@ const menu = isAdmin => (
       </Menu.Item>
     }
     <Menu.Item key="2">
-      <LogOut />
+      <ConnectedLogOut />
     </Menu.Item>
   </Menu>
 )
@@ -185,7 +198,7 @@ const NavFold = props => (
       <li className="center"> <Agregar/> </li>
       { props.loggedIn && <li> <Profile/> </li> }
       { props.loggedIn && props.isAdmin && <li> <Panel/> </li> }
-      <li> { props.loggedIn ? <LogOut/> : <LogIn/> }</li>
+      <li> { props.loggedIn ? <ConnectedLogOut/> : <LogIn/> }</li>
     </ul>
     <div className={"opaque"} style={{position: "absolute", top: "calc(100% + 20px)", bottom: 0, right: 0, left: 0, backgroundColor: "rgba(0,0,0,0.8)"}}></div>
   </StdNavFold>
