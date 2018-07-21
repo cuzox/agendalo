@@ -16,6 +16,7 @@ import ActivityList from './pages/activity/activity-list/activity-list'
 import ActivityDetails from './pages/activity/activity-details/activity-details'
 import Profile from './pages/profile/profile'
 import ControlPanel from './pages/control-panel/control-panel'
+import Terms from './pages/terms/terms'
 
 import { fetchCategories } from './_actions/categoryActions'
 import { loginSucc, reset } from './_actions/userActions'
@@ -57,6 +58,7 @@ class App extends Component {
                   <Route path="/registro" component={ Register }/>
                   <Route path="/agregar" component={ ActivityCrud }/>
                   <Route path="/perfil" component={ Profile }/>
+                  <Route path="/terminos" component={ Terms }/>
                   
                   <Route exact path="/actividades" component={ ActivityList }/>
                   <Route exact path="/actividades/:id" component={ ActivityDetails }/>

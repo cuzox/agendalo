@@ -17,11 +17,6 @@ function Footer(){
           <span> Preguntas fecuentes </span>
           <span> Mi cuenta </span>
       </FooterSection>
-      <FooterSection>
-          <span> ANUNCIATE </span>
-          <span> Artistas </span>
-          <span> Marcas </span>
-      </FooterSection>
     </StdFooter>
   );
 }

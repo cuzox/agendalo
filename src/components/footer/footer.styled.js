@@ -20,7 +20,9 @@ export const Footer = styled.div`
   @media (max-width: 500px) {
     flex-direction: column;
     align-items: initial;
+    align-items: center;
     height: 300px;
+    
   }
 `
 
@@ -35,16 +37,17 @@ export const FooterSection = styled.div`
   white-space: nowrap;
 
   @media (max-width: 500px) {
-    
     border-left: none;
-    border-top: 1px solid white;
     justify-content: center;
     padding: 0;
     margin: 0;
     margin-top: 10px;
+    align-items: center;
   }
 
   span:first-child{
+
+    align-items: center;
     font-size: 1.1em;
     margin-bottom: 5px;
     font-weight: 600;
