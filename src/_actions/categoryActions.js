@@ -23,7 +23,6 @@ export function fetchCategories(){
       let otherIndex = normalize.indexOf(normalize.filter(el => el.text == "Otro")[0])
       let other = normalize.splice(otherIndex, 1)[0]
       normalize.push(other)
-      normalize.unshift({key: 0, value: 0, text: ""})
 
       dispatch(setCategories(normalize))
     })    
