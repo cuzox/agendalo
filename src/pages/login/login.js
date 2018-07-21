@@ -49,12 +49,9 @@ class Login extends Component{
         message: 'Has iniciado sesión con exito',
       })
       this.props.reset()
-    }
-  }
-
-  componentWillUnmount(){
-    if(this.props.createAttempt){
-      this.props.createNotLoggedIn(false)
+      if(this.props.createAttempt){
+        this.props.createNotLoggedIn(false)
+      }
     }
   }
 

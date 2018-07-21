@@ -80,7 +80,7 @@ class LogOut extends Component{
   constructor(props){ super(props)}
   render(){
     return (
-      <Link onClick={()=> this.props.logout()} to="/">
+      <Link onClick={()=> this.props.logout() } to="/">
         <FaSignOut /> Cerrar sesión
       </Link>
     )
@@ -93,7 +93,7 @@ const logoutMapDispatchToProps = dispatch =>
     dispatch
   );
 
-const ConnectedLogOut = connect(()=>{}, logoutMapDispatchToProps)(LogOut)
+const ConnectedLogOut = connect(()=>({}), logoutMapDispatchToProps)(LogOut)
 
 const LogIn = () => (
   <Link to="/login">

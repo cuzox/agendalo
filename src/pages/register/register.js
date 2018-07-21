@@ -109,7 +109,8 @@ const mapStateToProps = state => {
     registerSuccess: state.user.registerSuccess,
     registerFailed: state.user.registerFailed,
     registerSuccess: state.user.registerSuccess,
-    registering: state.user.registering
+    registering: state.user.registering,
+    loggedIn: state.user.loggedIn
   })
 }
 

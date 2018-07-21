@@ -48,7 +48,7 @@ class ActivityCrud extends Component{
     this.imageDropArea.current.addEventListener('drop', e => this.dropImages(e))
     this.imageDropArea.current.addEventListener('change', e => this.dropImages(e))
 
-    if(!this.props.loggedIn) {
+    if(!this.props.loggedIn && this.props.loaded) {
       notification['warning']({
         message: '¡Primero debes iniciar sesión!',
       })
@@ -131,7 +131,7 @@ class ActivityCrud extends Component{
   render(){
     return (
       <MainContainer>
-        { !this.props.loggedIn && <Redirect push to="/login"/> }
+        { !this.props.loggedIn && this.props.loaded && <Redirect push to="/login"/> }
         { this.props.createSuccess && <Redirect push to="/actividades"/> }
         <Dimmer active={this.props.creating}>
           <Loader> Creando actividad... </Loader>  
@@ -202,7 +202,8 @@ const mapStateToProps = state => {
     createSuccess: state.activity.createSuccess && state.activity.updateSuccess && state.activity.uploadSuccess,
     createFailed: state.activity.createFailed || state.activity.updateFailed || state.activity.uploadFailed,
     accountId: state.user.id,
-    loggedIn: state.user.loggedIn
+    loggedIn: state.user.loggedIn,
+    loaded: state.app.loaded
   })
 }
 
