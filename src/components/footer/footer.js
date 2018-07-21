@@ -1,5 +1,6 @@
 import React from 'react'
 import { Footer as StdFooter, FooterSection } from './footer.styled'
+import { Link } from 'react-router-dom'
 
 function Footer(){
   return (
@@ -9,13 +10,21 @@ function Footer(){
       </div>
       <FooterSection>
           <span> SOBRE NOSOTROS </span>
-          <span> Términos y Condiciones </span>
-          <span> Escribenos </span>
+          <Link to="/terminos">
+            <span> Términos y Condiciones </span>
+          </Link>
+          <a href="mailto:info@agendalo.com.do">
+            <span> Escribenos </span>
+          </a>
       </FooterSection>
       <FooterSection>
           <span> SERVICIO AL CLIENTE </span>
-          <span> Preguntas fecuentes </span>
-          <span> Mi cuenta </span>
+          <Link to="/">
+            <span> Preguntas fecuentes </span>
+          </Link>
+          <Link to="/">
+            <span> Mi cuenta </span>
+          </Link>
       </FooterSection>
     </StdFooter>
   );

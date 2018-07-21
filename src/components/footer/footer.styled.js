@@ -45,8 +45,12 @@ export const FooterSection = styled.div`
     align-items: center;
   }
 
-  span:first-child{
+  a{
+    color: white;
+    text-decoration: none;
+  }
 
+  *:first-child{
     align-items: center;
     font-size: 1.1em;
     margin-bottom: 5px;
