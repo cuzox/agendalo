@@ -4,7 +4,8 @@ import styled from 'styled-components'
 import { MainContainer} from '../../../global.styled'
 
 export const StdMain = MainContainer.extend`
-  padding-top: 120px;
+  padding-top: 160px;
+  padding-bottom: 220px;
   justify-content: initial;
   .column {
     background-color: white;

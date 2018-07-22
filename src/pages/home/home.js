@@ -180,12 +180,17 @@ class Home extends Component{
             </Carousel>
           </Col>
         </Row>
-        {/* <Row type="flex" justify="center">
-          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
-            style={{overflow: "hidden", marginBottom: "25px"}}>
-              <iframe width="560" height="315" src="https://www.youtube.com/embed/92xFonFLEM4?rel=0&amp;showinfo=0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        <Row type="flex" justify="center">
+          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} style={{marginBottom: "25px"}}>
+            <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px", margin: "0 10px 0 10px"}}></div>
           </Col>
-        </Row> */}
+        </Row>
+        <Row type="flex" justify="center">
+          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
+            style={{overflow: "hidden", marginBottom: "25px", textAlign: "center"}}>
+              <iframe width="95%" height="315" src="https://www.youtube.com/embed/kk0WRHV_vt8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+          </Col>
+        </Row >
         { !this.props.loggedIn &&
           <Row  type="flex" justify="center">
             <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
