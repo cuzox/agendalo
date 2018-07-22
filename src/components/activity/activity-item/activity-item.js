@@ -4,13 +4,13 @@ import { Button } from 'semantic-ui-react'
 
 
 function ActivityItem (props){
-  let { activity } = props
+  let { activity, compact } = props
   function agendalo(e){
     e.stopPropagation()
     e.preventDefault()
   }
   return (
-    <StdCard>
+    <StdCard className={compact ? "compact":""}>
       <img alt="" src={activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
       <div className="card-content">
         <h3 className="title">

@@ -14,6 +14,7 @@ import {
   FETCHING_ACTIVITY,
   FETCH_ACTIVITY_FAILED,
   FETCH_ACTIVITY_SUCCESS,
+  FETCH_MY_ACTIVITIES_SUCCESS,
   ACTIVITY_RESET,
   SEARCH_ACTIVITIES,
   CREATE_NOT_LOGGED_IN
@@ -32,6 +33,7 @@ const initialState = {
   uploadSuccess: false,
   uploadFailed: null,
   attemptToCreateNotLoggedIn: false,
+  myActivities: [],
   activities: [],
   visible: [],
   search: ''
@@ -44,6 +46,12 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         fetching: true 
+      }
+    case FETCH_MY_ACTIVITIES_SUCCESS: 
+      return {
+        ...state,
+        fetching: false,
+        myActivities: action.payload
       }
     case FETCH_ACTIVITIES_SUCCESS: 
       return {

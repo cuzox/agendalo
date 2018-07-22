@@ -16,7 +16,8 @@ import {
   FETCH_ACTIVITY_SUCCESS,
   ACTIVITY_RESET,
   SEARCH_ACTIVITIES,
-  CREATE_NOT_LOGGED_IN
+  CREATE_NOT_LOGGED_IN,
+  FETCH_MY_ACTIVITIES_SUCCESS
 } from '../constants'
 
 import HttpClient from '../_helper/http-client'
@@ -95,6 +96,24 @@ export const fetchActivities = filter => (
     })
   }
 )
+
+export const fetchMyActivities = () => (
+  (dispatch, getState) => {
+    let state = getState()
+    console.log("state", state)
+    dispatch(fetchingActivities())
+    HttpClient.get(`accounts/${state.user.id}/activities`).then(res =>{
+      console.log("data", res.data)
+      dispatch(fetchingMyActivitiesSucc(res.data))
+    }).catch(error =>{
+      dispatch(fetchActivitiesFail(error))
+    })
+  }
+)
+export const fetchingMyActivitiesSucc = myActivities =>({
+  type: FETCH_MY_ACTIVITIES_SUCCESS,
+  payload: myActivities
+})
 
 export const fetchingActivity = () =>({
   type: FETCHING_ACTIVITY

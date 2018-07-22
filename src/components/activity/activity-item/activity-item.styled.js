@@ -4,8 +4,7 @@ export const StdCard = styled.div`
   display: flex;
   margin: 20px 0;
   background-color: white;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
+  border-radius: 10px;
   overflow: hidden; 
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
   cursor: pointer;
@@ -60,6 +59,16 @@ export const StdCard = styled.div`
     object-fit: cover;
   }
 
+  &.compact{
+    flex-direction: column;
+    > img {
+      width: 100%;
+    }
+    .card-content{
+      width: calc(100% - 16px);
+    }
+  }
+  
   @media (max-width: 460px) {
     flex-direction: column;
     > img {
