@@ -22,7 +22,7 @@ function Footer(){
           <Link to="/">
             <span> Preguntas fecuentes </span>
           </Link>
-          <Link to="/">
+          <Link to="/perfil">
             <span> Mi cuenta </span>
           </Link>
       </FooterSection>

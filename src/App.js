@@ -43,7 +43,7 @@ class App extends Component {
   }
 
   render() {
-    const { isAdmin, loaded } = this.props
+    const { isAdmin, loaded, loggedIn} = this.props
     return (
       <Router>
         <Route render={({ location }) => (
@@ -57,13 +57,15 @@ class App extends Component {
                   <Route path="/login" component={ Login }/> 
                   <Route path="/registro" component={ Register }/>
                   <Route path="/agregar" component={ ActivityCrud }/>
-                  <Route path="/perfil" component={ Profile }/>
+
+                  <Protected path="/perfil" {...{loaded, loggedIn}}  component={ Profile }/>
+
                   <Route path="/terminos" component={ Terms }/>
                   
                   <Route exact path="/actividades" component={ ActivityList }/>
                   <Route exact path="/actividades/:id" component={ ActivityDetails }/>
 
-                  <Protected path="/panel" isAdmin={isAdmin} loaded={loaded} component={ ControlPanel }/>
+                  <Protected path="/panel" {...{loaded, isAdmin}} component={ ControlPanel }/>
 
                   <Route render={ () => <span>404 - Esta no es la pagina que buscas</span>}/>
                 </Switch>
@@ -77,10 +79,10 @@ class App extends Component {
   }
 }
 
-const Protected = ({ component: Component, isAdmin, loaded, ...rest }) => (
+const Protected = ({ component: Component, isAdmin, loggedIn, loaded, ...rest }) => (
   <Route {...rest} 
     render={ props =>
-      isAdmin && (
+      (isAdmin || (!isAdmin && loggedIn)) && (
         <Component {...props} />
       ) || (!isAdmin && loaded) && (
         <Redirect
@@ -97,7 +99,8 @@ const Protected = ({ component: Component, isAdmin, loaded, ...rest }) => (
 const mapStateToProps = state => {
   return ({
     isAdmin: state.user.isAdmin,
-    loaded: state.app.loaded
+    loaded: state.app.loaded,
+    loggedIn: state.user.loggedIn
   })
 }
 
