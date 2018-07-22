@@ -73,7 +73,7 @@ const Header = props =>{
 const Month = props =>{
   return(
     <StdMonth>
-      <span> VER TODOS </span>
+      <span> <Link to="/actividades">VER TODOS</Link></span>
       <Dropdown className={"month-dropdown"} selection options={MONTHS} defaultValue={0}/>
     </StdMonth>
   )
@@ -188,7 +188,7 @@ class Home extends Component{
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
             style={{overflow: "hidden", marginBottom: "25px", textAlign: "center"}}>
-              <iframe width="95%" height="315" src="https://www.youtube.com/embed/kk0WRHV_vt8" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+              <iframe width="95%" height="315" src="https://www.youtube.com/embed/kk0WRHV_vt8" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
           </Col>
         </Row >
         { !this.props.loggedIn &&

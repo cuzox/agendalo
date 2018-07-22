@@ -65,6 +65,10 @@ export const Month = styled.div`
       border-radius: 5px;
       padding: 5px 8px;
       cursor: default;
+      a {
+        text-decoration: none;
+        color: white;
+      }
     }
 
     .ui.selection.dropdown {
