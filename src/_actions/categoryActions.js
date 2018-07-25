@@ -13,6 +13,10 @@ export const setCategories = categories =>({
 export function fetchCategories(){
   return dispatch =>{
     HttpClient.get('Categories').then(res => res.data).then(categories =>{
+      if(!categories.length) {
+        dispatch(setCategories(categories))
+        return
+      }
       let normalize = categories.map(cat =>({
         key: cat.id,
         value: cat.id,

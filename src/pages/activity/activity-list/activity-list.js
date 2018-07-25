@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
+import uuidv4 from 'uuid/v4'
 import { Link } from 'react-router-dom'
 
 import { MainContainer} from '../../../global.styled'
@@ -19,10 +20,10 @@ class ActivityList extends Component {
   constructor(props) {
     super(props)
     this.times = [
-      { key: 1, value: 1, text: "Esta semana"},
-      { key: 2, value: 2, text: "Proxima semana"},
-      { key: 3, value: 3, text: "Este mes"},
-      { key: 4, value: 4, text: "Proximo mes"},
+      { key: 0, value: 0, text: "Esta semana"},
+      { key: 1, value: 1, text: "Proxima semana"},
+      { key: 2, value: 2, text: "Este mes"},
+      { key: 3, value: 3, text: "Proximo mes"},
     ]
 
   }
@@ -33,10 +34,10 @@ class ActivityList extends Component {
 
   render(){
     let { visible, categories } = this.props
-    if(categories.length) {
-      categories = JSON.parse(JSON.stringify(categories))
-      categories[0].text = "Todas"
-    }
+    categories = JSON.parse(JSON.stringify(categories))
+    let allId = uuidv4()
+    categories.unshift({ key: allId, value: allId, text: "Todas" })
+
     return(
       <MainContainer style={{justifyContent: "initial"}}>
         <Dimmer active={false}>
@@ -46,8 +47,8 @@ class ActivityList extends Component {
           <Col xl={12} lg={16} md={18} sm={20} xs={22}>
             <StdFilter className="filter">
               <Input onInput={e => this.props.searchActivities(e.target.value)} size={"medium"} icon='search' placeholder='Buscar...'/>
-              <Dropdown size={"medium"} value={0} placeholder='Categoría...' selection options={categories || []} />
-              <Dropdown size={"medium"} value={1} placeholder='Cuando...' selection options={this.times || []} />
+              <Dropdown size={"medium"} value={allId} placeholder='Categoría...' selection options={categories || []} />
+              <Dropdown size={"medium"} value={0} placeholder='Cuando...' selection options={this.times || []} />
             </StdFilter>
           </Col>
         </Row>
