@@ -50,16 +50,22 @@ class ActivityList extends Component {
                 </h4>
                 <h4 className="body-text">
                   <Icon className="dollar"></Icon>
-                  {!!activity.fee || "Free"}
+                  {!!activity.fee ? activity.fee : "Gratis"}
                 </h4>
-                <h4 className="body-text">
-                  <Icon className="users"></Icon>
-                  {activity.seating || "No especificado"}
-                </h4>
-                <h4 className="body-text">
-                  <Icon className="info circle"></Icon>
-                  {activity.description}
-                </h4>
+                { activity.seating ? (
+                    <h4 className="body-text">
+                      <Icon className="users"></Icon>
+                      { activity.seating }
+                    </h4>
+                  ) : null
+                }
+                { activity.description ? (
+                    <h4 className="body-text">
+                      <Icon className="info circle"></Icon>
+                      {activity.description}
+                    </h4>
+                  ) : null
+                }
               </div>
               <Button basic style={{ padding: "5px 10px" }} onClick={e => this.agendalo(e)}>
                 <img style={{height: "30px", width: "auto", margin: "0 auto"}} src="/assets/images/logo_sm_darkb.png" />
