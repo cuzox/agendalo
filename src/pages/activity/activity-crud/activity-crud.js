@@ -137,8 +137,20 @@ class ActivityCrud extends Component{
     if(!photos.length) errors.unshift('Al menos una foto es requerida')
     if(!required.every(key => activity[key])) errors.unshift('Faltan campos requeridos')
 
-    if(this.testErrors(errors))
-      this.props.createActivity(this.props.accountId, activity, photos )
+    if(this.testErrors(errors)){
+      activity.date = moment(activity.date)
+      let time = moment(activity.time)
+      activity.date.set({
+        hour:   time.get('hour'),
+        minute: time.get('minute'),
+        second: time.get('second')
+      })
+
+      console.log("activity", activity.date.toDate())
+
+      
+      // this.props.createActivity(this.props.accountId, activity, photos )
+    }
   }
   
   render(){
