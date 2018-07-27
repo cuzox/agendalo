@@ -16,6 +16,7 @@ import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
 import { createActivity, reset, createNotLoggedIn } from '../../../_actions/activityActions'
+import { handleChange, testErrors, submitOnEnter} from '../../../_helper/forms'
 
 import uuidv4 from 'uuid/v4'
 import moment from 'moment'
@@ -34,6 +35,10 @@ class ActivityCrud extends Component{
   }
 
   componentDidMount(){
+    this.handleChange = handleChange.bind(this)
+    this.testErrors = testErrors.bind(this)
+    submitOnEnter(this, this.create)
+
     this.form = ReactDOM.findDOMNode(this.refs.form)
     ;['ondrag','ondragstart','ondragend','ondragover','ondragenter','ondragleave','ondrop'].forEach(event =>
       this.imageDropArea.current[event] = e => e.preventDefault() && e.stopPropagation()
@@ -89,7 +94,6 @@ class ActivityCrud extends Component{
   }
 
   handleOpenChange = (open) => this.setState({ open })
-
   handleClose = () => this.setState({ open: false })
 
   addImages(){
@@ -120,12 +124,21 @@ class ActivityCrud extends Component{
   }
 
   create(){
-    let activity = { ...this.state.activity }
-    ;[].forEach.call(this.form, el =>{
+    let errors = []
+    let { activity = {} } = this.state || {}
+    let photos = this.state.activityImages.map(img => img.file)
+    let required = ['name', 'organizer', 'address', 'date', 'time', 'categoryId']
+
+    Array.prototype.forEach.call(this.form, el =>{
       if(el.name) activity[el.name] = el.value
     })
-    this.setState({activity: activity})
-    this.props.createActivity(this.props.accountId, activity, this.state.activityImages.map(img => img.file))
+
+    required.forEach(key => !activity[key] && this.setState({ [key + 'Invalid']: true }))
+    if(!photos.length) errors.unshift('Al menos una foto es requerida')
+    if(!required.every(key => activity[key])) errors.unshift('Faltan campos requeridos')
+
+    if(this.testErrors(errors))
+      this.props.createActivity(this.props.accountId, activity, photos )
   }
   
   render(){
@@ -143,28 +156,40 @@ class ActivityCrud extends Component{
                   <FaEdit/>
                   <span> AGREGA TU ACTIVIDAD </span>
                 </div>
-                <Input name="name" size="medium" placeholder='Nombre*'/>
-                <Input name="phone" size="medium" placeholder='Iglesia/Organizador*' />
-                <Input name="address" size="medium" placeholder='Dirección*' />
+                <Input name="name" size="medium" placeholder='Nombre*'
+                  error={this.state && this.state.nameInvalid}
+                />
+                <Input name="organizer" size="medium" placeholder='Iglesia/Organizador*'
+                  error={this.state && this.state.organizerInvalid}
+                />
+                <Input name="address" size="medium" placeholder='Dirección*'
+                  error={this.state && this.state.addressInvalid}
+                />
                 <div style={{display: "flex"}}>
                   <Input style={{width: "calc(50% - 5px)", marginRight: "5px"}} name="fee" size="medium" placeholder='Costo' type="number"/>
                   <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} name="seating" size="medium" placeholder='Cupo' type="number"/>
                 </div>
                 <TextArea name="description" autoHeight placeholder='Descripción' />
-                <Dropdown size="medium" placeholder='Categoría*' search selection options={this.props.categories} onChange={(e, d)=>this.setState({activity: Object.assign(this.state.activity, {categoryId: d.value})})} />
+                <Dropdown size="medium" placeholder='Categoría*' 
+                  search selection options={this.props.categories} 
+                  onChange={(e, d)=> this.handleChange('categoryId', d.value, 'activity') } 
+                  error={this.state && this.state.categoryIdInvalid}
+                />
                 <div style={{display: "flex"}}>
-                  <DatePicker onChange={(e, d)=>this.setState({activity: {...this.state.activity, date: e.toDate()}})}  format="DD-MM-YYYY" placeholder="Fecha*" style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default" />
+                  <DatePicker 
+                    onChange={(e, d)=> this.handleChange('date', e ? e.toDate() : '', 'activity') }
+                    format="DD-MM-YYYY" placeholder="Fecha*" 
+                    style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default"
+                  />
                   <TimePicker
-                    size="default" 
-                    minuteStep={5} 
+                    size="default"
+                    minuteStep={5}
                     use12Hours format="h:mm A"
-                    defaultOpenValue={moment('12:00 AM', 'HH:mm A')}
-                    open={this.state.open}
-                    onOpenChange={this.handleOpenChange}
-                    onChange={(e, d)=>this.setState({activity: {...this.state.activity, time: e.toDate()}})}
-                    addon={() => (
-                      <Button size="small" type="primary" onClick={this.handleClose} content="Ok"/>
-                    )}
+                    defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
+                    open={ this.state.open } onClick={this.handleClose}
+                    onOpenChange={ this.handleOpenChange }
+                    onChange={(e, d)=> this.handleChange('time', e ? e.toDate() : '', 'activity') }
+                    addon={() => <Button size="small" type="primary" content="Ok"/> }
                     placeholder="Hora*" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
                   />
                 </div>

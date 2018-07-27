@@ -3,43 +3,36 @@ import { notification } from 'antd';
 
 import uuidv4 from 'uuid/v4'
 
-export function handleInputChange(e){
-  if(!e.target.name) throw new Error("Input field does not contain name attribute")
+export function handleChange(name, value, embed){
   this.setState({
-    [e.target.name]: e.target.value, 
-    [e.target.name + 'Invalid']: false
+    [embed]: {
+      ...(this.state ? this.state[embed] : []),
+      [name]: value
+    },
+    [name + 'Invalid']: false
   })
 }
 
-export function emailValidate(email){
-  let sec = { email: [] }
+export function validEmail(email = ''){
   let emailValidator = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-  if(!email.match(emailValidator)) sec.email.push('Email: formato incorecto')
-  return sec
+  return !email.match(emailValidator) ? ['Email: formato incorecto'] : []
 }
 
-export function testErrors(errors, before = [], after = []){
-  for(let key in errors) if(errors[key].length) this.setState({[key + "Invalid"]: true})
-
-  let formattedErrors = Object.keys(errors).reduce((c, e)=> c.concat(errors[e]), [])
-  
-  before.forEach( e => e && formattedErrors.unshift(e))
-  after.forEach( e => e && formattedErrors.push(e))
-
-  if(formattedErrors.length){
+export function testErrors(errors){
+  if(errors.length){
     notification['error']({
       message: 'Error de validación',
-      description: <div>{formattedErrors.reduce((c,e) => c.push(<span key={uuidv4()}>{e}<br/></span>) && c, [])}</div>
+      description: <div>{errors.reduce((c,e) => c.push(<span key={uuidv4()}>{e}<br/></span>) && c, [])}</div>
     })
     return false
   }
   return true
 }
 
-export function passwordValidate(password){
-  let sec = { password: [] }
-  if(password.length < 8) sec.password.push('Contraseña: debe tener al menos 8 caracteres')
-  if(!password.match(/[0-9]/)) sec.password.push('Contraseña: debe contener numeros')
+export function passwordValidate(password = ''){
+  let sec = []
+  if(password.length < 8) sec.push('Contraseña: debe tener al menos 8 caracteres')
+  if(!password.match(/[0-9]/)) sec.push('Contraseña: debe contener numeros')
   return sec
 }
 

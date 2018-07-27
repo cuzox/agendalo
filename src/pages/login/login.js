@@ -10,8 +10,8 @@ import { Row, Col, notification } from 'antd';
 
 import FaSignIn from 'react-icons/lib/fa/sign-in'
 import { 
-  handleInputChange, 
-  emailValidate, 
+  handleChange, 
+  validEmail, 
   testErrors, 
   submitOnEnter
 } from '../../_helper/forms'
@@ -32,7 +32,7 @@ class Login extends Component{
         message: 'Has cerrado sesión'
       })
     }
-    this.handleInputChange = handleInputChange.bind(this)
+    this.handleChange = handleChange.bind(this)
     this.testErrors = testErrors.bind(this)
     submitOnEnter(this, this.login)
   }
@@ -56,16 +56,25 @@ class Login extends Component{
   }
 
   login(){
-    const { email = '', password = '' } = this.state || {}
-    let errors = {
-      ...emailValidate(email)
-    } 
-    let before = (!email || !password) && ["Faltan campos requeridos"] || []
+    let errors = []
+    let { user = {}} = this.state || {}
+    let required = ['email', 'password']
+    let validate = {
+      'email': validEmail(user['email'])
+    }
+    
+    required.forEach(key => !user[key] && this.setState({ [key + 'Invalid']: true }))
 
-    if(this.testErrors(errors, before))
-      this.props.login({
-        email, password
-      })
+    Object.keys(validate).forEach(key =>{
+      if(Array.isArray(validate[key]) && validate[key].length){
+        this.setState({[key + 'Invalid']: true})
+        errors.push(...validate[key])
+      }
+    })
+
+    if(!required.every(key => user[key])) errors.unshift('Faltan campos requeridos')
+
+    if(this.testErrors(errors)) this.props.login(user)
   }
 
   render(){
@@ -85,8 +94,14 @@ class Login extends Component{
               <FaSignIn/>  
               <span> INICIA SESION </span>
             </div>
-            <Input size="big" placeholder='E-mail' name="email" error={this.state && this.state.emailInvalid} onChange={ e => this.handleInputChange(e) }/>
-            <Input size="big" placeholder='Contraseña' name= "password" type="password" onChange={ e => this.handleInputChange(e) }/>
+            <Input size="big" placeholder='E-mail' name='email'
+              error={this.state && this.state.emailInvalid} 
+              onChange={ e => this.handleChange('email', e.target.value, 'user') }
+            />
+            <Input size="big" placeholder='Contraseña' name= 'password' 
+              error={this.state && this.state.passwordInvalid}
+              type="password" onChange={ e => this.handleChange('password', e.target.value, 'user') }
+            />
             <Button onClick={() => this.login()} style={{color: "white"}} content="¡Entrar!" className="our-green"/>
             <div className="center-text" style={{textAlign: "center"}}>
               ¿No tienes cuenta? <Link to="/registro">Click aquí</Link>
