@@ -37,9 +37,10 @@ export const createActivitySucc = activity =>({
   payload: activity
 })
 
-export const createActivity = (accountId, activity, photos) => (
-  dispatch => {
+export const createActivity = (activity, photos) => (
+  (dispatch, getState) => {
     let url = HttpClient.url()
+    let accountId = getState().user.id
     dispatch(creatingActivity())
     HttpClient.post(`Accounts/${accountId}/Activities`, activity).then(res =>{
       let newActivity = res.data

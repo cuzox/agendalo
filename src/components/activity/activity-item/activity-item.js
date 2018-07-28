@@ -1,6 +1,8 @@
 import React from 'react'
 import { StdCard } from './activity-item.styled'
 import { Button } from 'semantic-ui-react'
+import moment from 'moment'
+
 
 
 function ActivityItem (props){
@@ -21,7 +23,7 @@ function ActivityItem (props){
         </h4>
         <div style={{display: "flex", justifyContent: "space-between"}}>
           <div style={{display: "flex", flexDirection: "column"}}>
-            <span style={{color: "black"}}>Domingo 29, 5:00PM</span>
+            <span style={{color: "black"}}>{moment(activity.date).format('dddd M, H:mm A')}</span>
             <span style={{color: "black"}}>{activity.category && "#" + activity.category.name}</span>
           </div>
           <Button basic style={{ padding: "5px 10px" }} onClick={e => agendalo(e)}>

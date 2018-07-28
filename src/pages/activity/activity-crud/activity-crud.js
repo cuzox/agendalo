@@ -129,10 +129,6 @@ class ActivityCrud extends Component{
     let photos = this.state.activityImages.map(img => img.file)
     let required = ['name', 'organizer', 'address', 'date', 'time', 'categoryId']
 
-    Array.prototype.forEach.call(this.form, el =>{
-      if(el.name) activity[el.name] = el.value
-    })
-
     required.forEach(key => !activity[key] && this.setState({ [key + 'Invalid']: true }))
     if(!photos.length) errors.unshift('Al menos una foto es requerida')
     if(!required.every(key => activity[key])) errors.unshift('Faltan campos requeridos')
@@ -145,11 +141,12 @@ class ActivityCrud extends Component{
         minute: time.get('minute'),
         second: time.get('second')
       })
+      activity.date = activity.date.toDate()
 
-      console.log("activity", activity.date.toDate())
-
+      let newActivity = JSON.parse(JSON.stringify(activity))
+      delete newActivity.time
       
-      // this.props.createActivity(this.props.accountId, activity, photos )
+      this.props.createActivity(newActivity, photos )
     }
   }
   
@@ -161,7 +158,6 @@ class ActivityCrud extends Component{
         <Dimmer active={this.props.creating}>
           <Loader> Creando actividad... </Loader>  
         </Dimmer>
-        <Form ref="form">
           <Row type="flex" justify="center">
             <Col lg={7} md={10} sm={13} xs={18} style={{display: "flex", flexDirection: "column"}} className="col-space">
                 <div className="center-text" style={{textAlign: "center"}}>
@@ -170,18 +166,31 @@ class ActivityCrud extends Component{
                 </div>
                 <Input name="name" size="medium" placeholder='Nombre*'
                   error={this.state && this.state.nameInvalid}
+                  onChange={ e => this.handleChange('name', e.target.value, 'activity') }
                 />
                 <Input name="organizer" size="medium" placeholder='Iglesia/Organizador*'
                   error={this.state && this.state.organizerInvalid}
+                  onChange={ e => this.handleChange('organizer', e.target.value, 'activity') }
                 />
                 <Input name="address" size="medium" placeholder='Dirección*'
                   error={this.state && this.state.addressInvalid}
+                  onChange={ e => this.handleChange('address', e.target.value, 'activity') }
                 />
                 <div style={{display: "flex"}}>
-                  <Input style={{width: "calc(50% - 5px)", marginRight: "5px"}} name="fee" size="medium" placeholder='Costo' type="number"/>
-                  <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} name="seating" size="medium" placeholder='Cupo' type="number"/>
+                  <Input style={{width: "calc(50% - 5px)", marginRight: "5px"}} 
+                    name="fee" size="medium" placeholder='Costo' type="number"
+                    onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
+                  />
+                  <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} 
+                    name="seating" size="medium" placeholder='Cupo' type="number"
+                    onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
+                  />
                 </div>
-                <TextArea name="description" autoHeight placeholder='Descripción' />
+                <Form>
+                  <TextArea name="description" autoHeight placeholder='Descripción'
+                    onChange={ e => this.handleChange('fee', e.target.value, 'activity') } 
+                  />
+                </Form>
                 <Dropdown size="medium" placeholder='Categoría*' 
                   search selection options={this.props.categories} 
                   onChange={(e, d)=> this.handleChange('categoryId', d.value, 'activity') } 
@@ -201,7 +210,7 @@ class ActivityCrud extends Component{
                     open={ this.state.open } onClick={this.handleClose}
                     onOpenChange={ this.handleOpenChange }
                     onChange={(e, d)=> this.handleChange('time', e ? e.toDate() : '', 'activity') }
-                    addon={() => <Button size="small" type="primary" content="Ok"/> }
+                    addon={() => <Button onClick={this.handleClose} size="small" type="primary" content="Ok"/> }
                     placeholder="Hora*" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
                   />
                 </div>
@@ -226,7 +235,6 @@ class ActivityCrud extends Component{
                 <Button onClick={()=>this.create()} style={{color: "white"}} content="¡Crear!" className="our-green"/>
             </Col>
           </Row>
-        </Form>
       </MainContainer>
     )
   }
@@ -238,7 +246,6 @@ const mapStateToProps = state => {
     creating: state.activity.creating || state.activity.updating || state.activity.uploading,
     createSuccess: state.activity.createSuccess && state.activity.updateSuccess && state.activity.uploadSuccess,
     createFailed: state.activity.createFailed || state.activity.updateFailed || state.activity.uploadFailed,
-    accountId: state.user.id,
     loggedIn: state.user.loggedIn,
     loaded: state.app.loaded
   })
