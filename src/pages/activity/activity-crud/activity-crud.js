@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 import { Redirect } from 'react-router'
 
 import { Row, Col, notification } from 'antd'
-import { Form, Input, Button, TextArea, Dropdown, Dimmer, Loader } from 'semantic-ui-react'
+import { Form, Input, Button, TextArea, Dropdown, Dimmer, Loader, Label} from 'semantic-ui-react'
 import { MainContainer } from '../../../global.styled'
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaCloudUpload from 'react-icons/lib/fa/cloud-upload'
@@ -31,7 +31,7 @@ class ActivityCrud extends Component{
     this.imagesInput = React.createRef()
     this.imageDropArea = React.createRef()
     this.dropdownValue = {}
-    this.state = { open: false, activityImages: [], activity: {}}
+    this.state = { openOne: false, openTwo: false, activityImages: [], activity: {}}
   }
 
   componentDidMount(){
@@ -93,8 +93,7 @@ class ActivityCrud extends Component{
     });
   }
 
-  handleOpenChange = (open) => this.setState({ open })
-  handleClose = () => this.setState({ open: false })
+  handleClose = which => this.setState({ [which]: false })
 
   addImages(){
     this.imagesInput.current.click()
@@ -127,26 +126,33 @@ class ActivityCrud extends Component{
     let errors = []
     let { activity = {} } = this.state || {}
     let photos = this.state.activityImages.map(img => img.file)
-    let required = ['name', 'organizer', 'address', 'date', 'time', 'categoryId']
+    let required = [
+      'name', 'organizer', 'address', 'fromDate', 'fromTime', 'toDate', 'toTime', 'categoryId'
+    ]
 
     required.forEach(key => !activity[key] && this.setState({ [key + 'Invalid']: true }))
     if(!photos.length) errors.unshift('Al menos una foto es requerida')
     if(!required.every(key => activity[key])) errors.unshift('Faltan campos requeridos')
 
     if(this.testErrors(errors)){
-      activity.date = moment(activity.date)
-      let time = moment(activity.time)
-      activity.date.set({
-        hour:   time.get('hour'),
-        minute: time.get('minute'),
-        second: time.get('second')
-      })
-      activity.date = activity.date.toDate()
-
       let newActivity = JSON.parse(JSON.stringify(activity))
-      delete newActivity.time
+      newActivity.date = []
+      Array.from([['fromDate', 'fromTime'], ['toDate', 'toTime']]).forEach(pair =>{
+        newActivity[pair[0]] = moment(newActivity[pair[0]])
+        let time = moment(newActivity[pair[1]])
+        newActivity[pair[0]].set({
+          hour:   time.get('hour'),
+          minute: time.get('minute'),
+          second: time.get('second')
+        })
+        newActivity[pair[0]] = newActivity[pair[0]].toDate()
+  
+        newActivity.date.push(newActivity[pair[0]])
+        delete newActivity[pair[0]]
+        delete newActivity[pair[1]]
+      })
       
-      this.props.createActivity(newActivity, photos )
+      this.props.createActivity(activity, photos )
     }
   }
   
@@ -159,7 +165,7 @@ class ActivityCrud extends Component{
           <Loader> Creando actividad... </Loader>  
         </Dimmer>
           <Row type="flex" justify="center">
-            <Col lg={7} md={10} sm={13} xs={18} style={{display: "flex", flexDirection: "column"}} className="col-space">
+            <Col xxl={7} xl={8} lg={10} md={12} sm={15} xs={20} style={{display: "flex", flexDirection: "column"}} className="col-space">
                 <div className="center-text" style={{textAlign: "center"}}>
                   <FaEdit/>
                   <span> AGREGA TU ACTIVIDAD </span>
@@ -197,23 +203,43 @@ class ActivityCrud extends Component{
                   error={this.state && this.state.categoryIdInvalid}
                 />
                 <div style={{display: "flex"}}>
-                  <DatePicker 
-                    onChange={(e, d)=> this.handleChange('date', e ? e.toDate() : '', 'activity') }
-                    format="DD-MM-YYYY" placeholder="Fecha*" 
-                    style={{width: "calc(50% - 5px)", marginRight: "5px"}} size="default"
-                  />
-                  <TimePicker
-                    size="default"
-                    minuteStep={5}
-                    use12Hours format="h:mm A"
-                    defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
-                    open={ this.state.open } onClick={this.handleClose}
-                    onOpenChange={ this.handleOpenChange }
-                    onChange={(e, d)=> this.handleChange('time', e ? e.toDate() : '', 'activity') }
-                    addon={() => <Button onClick={this.handleClose} size="small" type="primary" content="Ok"/> }
-                    placeholder="Hora*" style={{width: "calc(50% - 5px)", marginLeft: "5px"}}
-                  />
-                </div>
+                  <div style={{flexDirection: "column"}}>
+                    <Label style={{width: "100px"}} pointing='below'>Desde</Label>
+                    <div style={{display: "flex"}}>
+                      <DatePicker 
+                        onChange={(e, d)=> this.handleChange('fromDate', e ? e.toDate() : '', 'activity') }
+                        format="DD-MM-YYYY" placeholder="Fecha*" 
+                        style={{width: "calc(50% - 3px)", marginRight: "3px"}} size="default"
+                      />
+                      <TimePicker
+                        size="default" minuteStep={5} use12Hours format="h:mm A"
+                        defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
+                        open={ this.state.openOne } onClick={()=> this.handleClose('openOne')} onOpenChange={ openOne => this.setState({ openOne }) }
+                        onChange={(e, d)=> this.handleChange('fromTime', e ? e.toDate() : '', 'activity') }
+                        addon={() => <Button onClick={()=> this.handleClose('openOne')} size="small" type="primary" content="Ok"/> }
+                        placeholder="Hora*" style={{width: "calc(50% - 6px)", margin: "0 3px"}}
+                      />
+                    </div>
+                  </div>
+                  <div style={{flexDirection: "column"}}>
+                    <Label style={{width: "100px"}} pointing='below'>Hasta</Label>
+                    <div style={{display: "flex"}}>
+                      <DatePicker 
+                        onChange={(e, d)=> this.handleChange('toDate', e ? e.toDate() : '', 'activity') }
+                        format="DD-MM-YYYY" placeholder="Fecha*" 
+                        style={{width: "calc(50% - 6px)", margin: "0 3px"}} size="default"
+                      />
+                      <TimePicker
+                        size="default" minuteStep={5} use12Hours format="h:mm A"
+                        defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
+                        open={ this.state.openTwo } onClick={()=> this.handleClose('openTwo')} onOpenChange={ openTwo => this.setState({ openTwo }) }
+                        onChange={(e, d)=> this.handleChange('toTime', e ? e.toDate() : '', 'activity') }
+                        addon={() => <Button onClick={()=> this.handleClose('openTwo')} size="small" type="primary" content="Ok"/> }
+                        placeholder="Hora*" style={{width: "calc(50% - 3px)", marginLeft: "3px"}}
+                      />
+                    </div>
+                  </div>
+                  </div>
                 <div style={{display: "flex"}}>
                   <PhotoUpload innerRef={this.imageDropArea}>
                     <FaCloudUpload style={{width: "30px", height: "30px", color: "#b1b1b1"}}/>
