@@ -101,10 +101,8 @@ export const fetchActivities = filter => (
 export const fetchMyActivities = () => (
   (dispatch, getState) => {
     let state = getState()
-    console.log("state", state)
     dispatch(fetchingActivities())
     HttpClient.get(`accounts/${state.user.id}/activities`).then(res =>{
-      console.log("data", res.data)
       dispatch(fetchingMyActivitiesSucc(res.data))
     }).catch(error =>{
       dispatch(fetchActivitiesFail(error))

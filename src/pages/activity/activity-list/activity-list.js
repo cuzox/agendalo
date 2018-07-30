@@ -29,7 +29,7 @@ class ActivityList extends Component {
   }
   
   componentDidMount(){
-    this.props.fetchActivities({order: "created desc"})
+    this.props.fetchActivities()
   }
 
   render(){

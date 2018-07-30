@@ -15,7 +15,15 @@ import { withRouter } from 'react-router-dom'
 import { bindActionCreators} from 'redux'
 import { connect } from 'react-redux'
 
-import { createActivity, reset, createNotLoggedIn } from '../../../_actions/activityActions'
+import { 
+  createActivity, 
+  reset, 
+  createNotLoggedIn, 
+  fetchActivity, 
+  fetchActivitySucc,
+  updateActivity 
+} from '../../../_actions/activityActions'
+
 import { handleChange, testErrors, submitOnEnter} from '../../../_helper/forms'
 
 import uuidv4 from 'uuid/v4'
@@ -31,13 +39,22 @@ class ActivityCrud extends Component{
     this.imagesInput = React.createRef()
     this.imageDropArea = React.createRef()
     this.dropdownValue = {}
-    this.state = { openOne: false, openTwo: false, activityImages: [], activity: {}}
+    this.state = { 
+      openOne: false, openTwo: false, activityImages: [], activity: {}, editing: false
+    }
   }
 
   componentDidMount(){
     this.handleChange = handleChange.bind(this)
     this.testErrors = testErrors.bind(this)
     submitOnEnter(this, this.create)
+
+    if(this.props.match.params.id){
+      this.setState({ editing: true })
+      let { state } = this.props.location
+      if( state && state.activity ) this.props.fetchActivitySucc(state.activity)
+      else this.props.fetchActivity(this.props.match.params.id)
+    }
 
     this.form = ReactDOM.findDOMNode(this.refs.form)
     ;['ondrag','ondragstart','ondragend','ondragover','ondragenter','ondragleave','ondrop'].forEach(event =>
@@ -124,7 +141,7 @@ class ActivityCrud extends Component{
 
   create(){
     let errors = []
-    let { activity = {} } = this.state || {}
+    let { activity = {}, editing = false } = this.state || {}
     let photos = this.state.activityImages.map(img => img.file)
     let required = [
       'name', 'organizer', 'address', 'fromDate', 'fromTime', 'toDate', 'toTime', 'categoryId'
@@ -150,13 +167,18 @@ class ActivityCrud extends Component{
         newActivity.date.push(newActivity[pair[0]])
         delete newActivity[pair[0]]
         delete newActivity[pair[1]]
+
+        if(editing)
+          this.props.updateActivity(newActivity, photos)
+        else
+          this.props.createActivity(newActivity, photos )
       })
-      
-      this.props.createActivity(activity, photos )
     }
   }
   
   render(){
+    let { editing = false } = this.state || {}
+    let { activity = {} } = this.props
     return (
       <MainContainer>
         { !this.props.loggedIn && this.props.loaded && <Redirect push to="/login"/> }
@@ -170,24 +192,26 @@ class ActivityCrud extends Component{
                   <FaEdit/>
                   <span> AGREGA TU ACTIVIDAD </span>
                 </div>
-                <Input name="name" size="medium" placeholder='Nombre*'
+                <Input value={editing ? activity.name : ''} name="name" size="medium" placeholder='Nombre*'
                   error={this.state && this.state.nameInvalid}
                   onChange={ e => this.handleChange('name', e.target.value, 'activity') }
                 />
-                <Input name="organizer" size="medium" placeholder='Iglesia/Organizador*'
-                  error={this.state && this.state.organizerInvalid}
+                <Input value={editing ? activity.organizer : ''} name="organizer" size="medium" placeholder='Iglesia/Organizador*'
+                  error={this.state && this.state.organizer}
                   onChange={ e => this.handleChange('organizer', e.target.value, 'activity') }
                 />
-                <Input name="address" size="medium" placeholder='Dirección*'
+                <Input value={editing ? activity.address : ''} name="address" size="medium" placeholder='Dirección*'
                   error={this.state && this.state.addressInvalid}
                   onChange={ e => this.handleChange('address', e.target.value, 'activity') }
                 />
                 <div style={{display: "flex"}}>
-                  <Input style={{width: "calc(50% - 5px)", marginRight: "5px"}} 
+                  <Input value={editing ? activity.fee : ''} 
+                    style={{width: "calc(50% - 5px)", marginRight: "5px"}} 
                     name="fee" size="medium" placeholder='Costo' type="number"
                     onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
                   />
                   <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} 
+                    value={editing ? activity.seating : ''}
                     name="seating" size="medium" placeholder='Cupo' type="number"
                     onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
                   />
@@ -258,7 +282,7 @@ class ActivityCrud extends Component{
                     }
                   </PhotoList>
                 </div>
-                <Button onClick={()=>this.create()} style={{color: "white"}} content="¡Crear!" className="our-green"/>
+                <Button onClick={()=>this.create()} style={{color: "white"}} content={editing ? "¡Actualizar!" : "¡Crear!"} className="our-green"/>
             </Col>
           </Row>
       </MainContainer>
@@ -273,13 +297,19 @@ const mapStateToProps = state => {
     createSuccess: state.activity.createSuccess && state.activity.updateSuccess && state.activity.uploadSuccess,
     createFailed: state.activity.createFailed || state.activity.updateFailed || state.activity.uploadFailed,
     loggedIn: state.user.loggedIn,
-    loaded: state.app.loaded
+    loaded: state.app.loaded,
+    activity: state.activity.activity
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    createActivity, reset, createNotLoggedIn
+    createActivity, 
+    reset, 
+    createNotLoggedIn, 
+    fetchActivity, 
+    fetchActivitySucc,
+    updateActivity 
   }, dispatch);
 
 export default withRouter(

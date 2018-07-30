@@ -12,16 +12,10 @@ import { Row, Col } from 'antd'
 class Profile extends Component {
   constructor(props) {
     super(props)
-    this.state = {
-      fetched: false
-    }
   }
 
-  componentDidUpdate(){
-    if(this.props.loaded && !this.state.fetched ){
-      this.setState({fetched: true})
+  componentDidMount(){
       this.props.fetchMyActivities()
-    }
   }
 
   render(){
@@ -34,7 +28,7 @@ class Profile extends Component {
             <h2><b>MIS PUBLICADAS</b></h2>
             <StdActivityList >
             { this.props.myActivities.map(act =>(
-                <ActivityItem compact key={act.id} activity={act}/>
+                <ActivityItem compact profile key={act.id} activity={act}/>
               ))
             }
             </StdActivityList>

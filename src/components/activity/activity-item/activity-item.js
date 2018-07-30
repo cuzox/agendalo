@@ -1,13 +1,16 @@
 import React from 'react'
 import { StdCard } from './activity-item.styled'
-import { Button } from 'semantic-ui-react'
+import { Button, Icon } from 'semantic-ui-react'
+import { Link } from 'react-router-dom'
 import moment from 'moment'
 
 
 
+
+
 function ActivityItem (props){
-  let { activity, compact } = props
-  function agendalo(e){
+  let { activity, compact, profile } = props
+  function edit(e){
     e.stopPropagation()
     e.preventDefault()
   }
@@ -23,11 +26,18 @@ function ActivityItem (props){
         </h4>
         <div style={{display: "flex", justifyContent: "space-between"}}>
           <div style={{display: "flex", flexDirection: "column"}}>
-            <span style={{color: "black"}}>{moment(activity.date).format('dddd M, H:mm A')}</span>
+            <span style={{color: "black"}}>{moment(activity.date[0]).format('dddd M, H:mm A')}</span>
             <span style={{color: "black"}}>{activity.category && "#" + activity.category.name}</span>
           </div>
-          <Button basic style={{ padding: "5px 10px" }} onClick={e => agendalo(e)}>
-            <img style={{height: "30px", width: "auto"}} src="/assets/images/logo_sm_darkb.png" />
+          <Button basic style={{ padding: "5px 10px" }} onClick={e => edit(e)}>
+            { profile ? (
+                <Link to={{pathname: "/agregar/"+activity.id, state: {activity}}} >
+                  <Icon style={{margin: "0", width: "30px"}} className="edit outline"></Icon>
+                </Link>
+              ) : (
+                <img style={{height: "30px", width: "auto"}} src="/assets/images/logo_sm_darkb.png" />
+              )
+            }
           </Button>
         </div>
       </div>

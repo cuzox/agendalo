@@ -56,16 +56,15 @@ class App extends Component {
                   <Route path="/landing" component={ Landing }/>             
                   <Route path="/login" component={ Login }/> 
                   <Route path="/registro" component={ Register }/>
-                  <Route path="/agregar" component={ ActivityCrud }/>
-
-                  <Protected path="/perfil" {...{loaded, loggedIn}}  component={ Profile }/>
-
                   <Route path="/terminos" component={ Terms }/>
-                  
-                  <Route exact path="/actividades" component={ ActivityList }/>
-                  <Route exact path="/actividades/:id" component={ ActivityDetails }/>
 
                   <Protected path="/panel" {...{loaded, isAdmin}} component={ ControlPanel }/>
+                  <Protected path="/perfil" {...{loaded, loggedIn}}  component={ Profile }/>
+                  
+                  <Route exact path="/agregar" component={ ActivityCrud }/>
+                  <Route exact path="/agregar/:id" component={ ActivityCrud }/>
+                  <Route exact path="/actividades" component={ ActivityList }/>
+                  <Route exact path="/actividades/:id" component={ ActivityDetails }/>
 
                   <Route render={ () => <span>404 - Esta no es la pagina que buscas</span>}/>
                 </Switch>
