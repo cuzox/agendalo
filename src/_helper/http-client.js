@@ -15,6 +15,9 @@ const HttpClient = {
   put: (endpoint, data) => {
     return axios.put(`${url}/${endpoint}${buildQuery()}`, data)
   },
+  delete: endpoint => {
+    return axios.delete(`${url}/${endpoint}${buildQuery()}`)
+  },
   form: (endpoint, data, filenames) => {
     let formData = new FormData()
     Object.keys(data).forEach((key, i) => formData.append(key, data[key], filenames[i]))

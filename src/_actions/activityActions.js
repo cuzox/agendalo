@@ -45,7 +45,6 @@ export const createActivity = (activity, photos) => (
     HttpClient.post(`Accounts/${accountId}/Activities`, activity).then(res =>{
       let newActivity = res.data
       dispatch(createActivitySucc(newActivity))
-      console.log("photos", photos)
       let files = {}, filenames = []
       photos.forEach((photo, i) => {
         filenames.push(`${newActivity.id}_${uuidv4()}.${photo.name.split('.').pop()}`)
@@ -60,7 +59,8 @@ export const createActivity = (activity, photos) => (
       })
 
       dispatch(updatingActivity())
-      HttpClient.patch(`Activities/${newActivity.id}`, {
+      HttpClient.put(`Activities/${newActivity.id}`, {
+        ...newActivity,
         photos: filenames.map(filename => `${url}/Containers/${accountId}/download/${filename}`)
       }).then(updatedActivity=>{      
         dispatch(updateActivitySucc(updatedActivity))
@@ -153,16 +153,46 @@ export const updateActivitySucc = activity =>({
   payload: activity
 })
 
-export const updateActivity = activity => (
-  dispatch => {
+export const updateActivity = (activity, photos) => 
+  (dispatch, getState) => {
+    let url = HttpClient.url()
+    let accountId = getState().user.id
+
+    let files = {}, newFilenames = [], oldFilenames = []
+    photos.forEach((photo, i) => {
+      if(photo.deleted){
+        HttpClient.delete(`Containers/${accountId}/files/${photo.src.split('/').pop()}`)
+      }else if(photo.link){
+        oldFilenames.push(photo.src)
+      } else {
+        newFilenames.push(`${activity.id}_${uuidv4()}.${photo.file.name.split('.').pop()}`)
+        files["nomatter" + i] = photo.file
+      }
+    })
+
+    if(Object.keys(files).length){
+      dispatch(uploadingPhotos())
+      HttpClient.form(`Containers/${accountId}/upload`, files, newFilenames).then(()=>{
+        dispatch(uploadPhotosSucc())
+      }).catch(error=>{
+        dispatch(uploadPhotosFail(error))
+      })
+    }
+
     dispatch(updatingActivity())
-    HttpClient.patch('activities', activity).then(updatedActivity =>{
+    HttpClient.put(`Activities/${activity.id}`, {
+      ...activity,
+      photos: [
+        ...newFilenames.map(filename => `${url}/Containers/${accountId}/download/${filename}`),
+        ...oldFilenames
+      ]
+    }).then(updatedActivity=>{      
       dispatch(updateActivitySucc(updatedActivity))
-    }).catch(error =>{
+    }).catch(error=>{
       dispatch(updateActivityFail(error))
     })
   }
-)
+
 
 export const uploadingPhotos = () =>({
   type: UPLOADING_PHOTOS

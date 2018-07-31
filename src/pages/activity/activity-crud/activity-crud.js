@@ -34,15 +34,31 @@ const confirm = Modal.confirm;
 
 
 class ActivityCrud extends Component{
-  constructor(props){
-    super(props)
-    this.imagesInput = React.createRef()
-    this.imageDropArea = React.createRef()
-    this.dropdownValue = {}
-    this.state = { 
-      openOne: false, openTwo: false, activityImages: [], activity: {}, editing: false
+  state = { 
+    openOne: false, 
+    openTwo: false, 
+    activityImages: [], 
+    editing: false, 
+    activityLoaded: false,
+    activity: {
+      name: '',
+      description: '',
+      organizer: '', 
+      address: '',
+      fee: '', 
+      description: '',
+      seating: '', 
+      categoryId: '',
+      fromDate: null, 
+      fromTime: null,
+      toDate: null,
+      toTime: null
     }
   }
+
+  imagesInput = React.createRef()
+  imageDropArea = React.createRef()
+  dropdownValue = {}
 
   componentDidMount(){
     this.handleChange = handleChange.bind(this)
@@ -88,9 +104,30 @@ class ActivityCrud extends Component{
     }
     if(this.props.createSuccess){
       notification['success']({
-        message: 'Actividad creada con exito'
+        message: this.state.editing ? 'Actividad actualizada con exito' : 'Actividad creada con exito'
       })
       this.props.reset()
+    }
+
+    if(this.state.editing && !this.state.activityLoaded){
+      let loadedActivity = { ...this.props.activity }
+      let dates = { 
+        fromDate: moment(loadedActivity.date[0]),
+        fromTime: moment(loadedActivity.date[0]),
+        toDate: moment(loadedActivity.date[1]),
+        toTime: moment(loadedActivity.date[1])
+      }
+      loadedActivity.photos.forEach(photo =>{
+        this.setState({
+          activityImages: this.state.activityImages.concat([{
+            key: uuidv4(),
+            link: true,
+            deleted: false,
+            src: photo
+          }])
+        })
+      })
+      this.setState({ activity: { ...loadedActivity, ...dates }, activityLoaded: true })
     }
   }
 
@@ -103,9 +140,18 @@ class ActivityCrud extends Component{
       okType: 'danger',
       cancelText: 'No',
       onOk() {
-        that.setState({
-          activityImages: that.state.activityImages.filter(el => el.key !== key)
-        })
+        let copy = [ ...that.state.activityImages]
+        let i = copy.reduce((c, e, i) => e.key == key ? i : c, null)
+        if(copy[i].link){
+          copy[i].deleted = true
+          that.setState({
+            activityImages: copy
+          })
+        }else{
+          that.setState({
+            activityImages: copy.filter(el => el.key !== key)
+          })
+        }
       }
     });
   }
@@ -127,7 +173,8 @@ class ActivityCrud extends Component{
               activityImages: this.state.activityImages.concat([{
                 key: uuidv4(),
                 file: file,
-                src: e.target.result
+                src: e.target.result,
+                link: false
               }])
             })
           }
@@ -141,18 +188,17 @@ class ActivityCrud extends Component{
 
   create(){
     let errors = []
-    let { activity = {}, editing = false } = this.state || {}
-    let photos = this.state.activityImages.map(img => img.file)
+    let { activityImages: photos } = this.state
     let required = [
       'name', 'organizer', 'address', 'fromDate', 'fromTime', 'toDate', 'toTime', 'categoryId'
     ]
 
-    required.forEach(key => !activity[key] && this.setState({ [key + 'Invalid']: true }))
+    required.forEach(key => !this.state.activity[key] && this.setState({ [key + 'Invalid']: true }))
     if(!photos.length) errors.unshift('Al menos una foto es requerida')
-    if(!required.every(key => activity[key])) errors.unshift('Faltan campos requeridos')
+    if(!required.every(key => this.state.activity[key])) errors.unshift('Faltan campos requeridos')
 
     if(this.testErrors(errors)){
-      let newActivity = JSON.parse(JSON.stringify(activity))
+      let newActivity = JSON.parse(JSON.stringify(this.state.activity))
       newActivity.date = []
       Array.from([['fromDate', 'fromTime'], ['toDate', 'toTime']]).forEach(pair =>{
         newActivity[pair[0]] = moment(newActivity[pair[0]])
@@ -167,24 +213,23 @@ class ActivityCrud extends Component{
         newActivity.date.push(newActivity[pair[0]])
         delete newActivity[pair[0]]
         delete newActivity[pair[1]]
-
-        if(editing)
-          this.props.updateActivity(newActivity, photos)
-        else
-          this.props.createActivity(newActivity, photos )
       })
+
+      if(this.state.editing)
+        this.props.updateActivity(newActivity, photos)
+      else
+        this.props.createActivity(newActivity, photos.map(p => p.file))
     }
   }
   
   render(){
-    let { editing = false } = this.state || {}
-    let { activity = {} } = this.props
+    let { activity, editing } = this.state
     return (
       <MainContainer>
         { !this.props.loggedIn && this.props.loaded && <Redirect push to="/login"/> }
-        { this.props.createSuccess && <Redirect push to="/actividades"/> }
+        { this.props.createSuccess && <Redirect push to={editing ? "/perfil" : "/actividades"}/> }
         <Dimmer active={this.props.creating}>
-          <Loader> Creando actividad... </Loader>  
+          <Loader> { editing ? "Actualizando actividad..." : "Creando actividad" } </Loader>  
         </Dimmer>
           <Row type="flex" justify="center">
             <Col xxl={7} xl={8} lg={10} md={12} sm={15} xs={20} style={{display: "flex", flexDirection: "column"}} className="col-space">
@@ -192,37 +237,39 @@ class ActivityCrud extends Component{
                   <FaEdit/>
                   <span> AGREGA TU ACTIVIDAD </span>
                 </div>
-                <Input value={editing ? activity.name : ''} name="name" size="medium" placeholder='Nombre*'
+                <Input value={activity.name} name="name" size="medium" placeholder='Nombre*'
                   error={this.state && this.state.nameInvalid}
                   onChange={ e => this.handleChange('name', e.target.value, 'activity') }
                 />
-                <Input value={editing ? activity.organizer : ''} name="organizer" size="medium" placeholder='Iglesia/Organizador*'
-                  error={this.state && this.state.organizer}
+                <Input value={activity.organizer} name="organizer" size="medium" placeholder='Iglesia/Organizador*'
+                  error={this.state && this.state.organizerInvalid}
                   onChange={ e => this.handleChange('organizer', e.target.value, 'activity') }
                 />
-                <Input value={editing ? activity.address : ''} name="address" size="medium" placeholder='Dirección*'
+                <Input value={activity.address} name="address" size="medium" placeholder='Dirección*'
                   error={this.state && this.state.addressInvalid}
                   onChange={ e => this.handleChange('address', e.target.value, 'activity') }
                 />
                 <div style={{display: "flex"}}>
-                  <Input value={editing ? activity.fee : ''} 
+                  <Input value={activity.fee} 
                     style={{width: "calc(50% - 5px)", marginRight: "5px"}} 
                     name="fee" size="medium" placeholder='Costo' type="number"
                     onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
                   />
                   <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} 
-                    value={editing ? activity.seating : ''}
+                    value={activity.seating}
                     name="seating" size="medium" placeholder='Cupo' type="number"
                     onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
                   />
                 </div>
                 <Form>
                   <TextArea name="description" autoHeight placeholder='Descripción'
+                    value={activity.description}
                     onChange={ e => this.handleChange('fee', e.target.value, 'activity') } 
                   />
                 </Form>
                 <Dropdown size="medium" placeholder='Categoría*' 
-                  search selection options={this.props.categories} 
+                  search selection options={this.props.categories}
+                  value={activity.categoryId}
                   onChange={(e, d)=> this.handleChange('categoryId', d.value, 'activity') } 
                   error={this.state && this.state.categoryIdInvalid}
                 />
@@ -230,12 +277,14 @@ class ActivityCrud extends Component{
                   <div style={{flexDirection: "column"}}>
                     <Label style={{width: "100px"}} pointing='below'>Desde</Label>
                     <div style={{display: "flex"}}>
-                      <DatePicker 
+                      <DatePicker
+                        value={activity.fromDate}
                         onChange={(e, d)=> this.handleChange('fromDate', e ? e.toDate() : '', 'activity') }
                         format="DD-MM-YYYY" placeholder="Fecha*" 
                         style={{width: "calc(50% - 3px)", marginRight: "3px"}} size="default"
                       />
                       <TimePicker
+                        value={activity.fromTime}
                         size="default" minuteStep={5} use12Hours format="h:mm A"
                         defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
                         open={ this.state.openOne } onClick={()=> this.handleClose('openOne')} onOpenChange={ openOne => this.setState({ openOne }) }
@@ -248,12 +297,14 @@ class ActivityCrud extends Component{
                   <div style={{flexDirection: "column"}}>
                     <Label style={{width: "100px"}} pointing='below'>Hasta</Label>
                     <div style={{display: "flex"}}>
-                      <DatePicker 
+                      <DatePicker
+                        value={activity.toDate}
                         onChange={(e, d)=> this.handleChange('toDate', e ? e.toDate() : '', 'activity') }
                         format="DD-MM-YYYY" placeholder="Fecha*" 
                         style={{width: "calc(50% - 6px)", margin: "0 3px"}} size="default"
                       />
                       <TimePicker
+                        value={activity.toTime}
                         size="default" minuteStep={5} use12Hours format="h:mm A"
                         defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
                         open={ this.state.openTwo } onClick={()=> this.handleClose('openTwo')} onOpenChange={ openTwo => this.setState({ openTwo }) }
@@ -272,12 +323,14 @@ class ActivityCrud extends Component{
                   </PhotoUpload>
                   <PhotoList>
                     {
-                      this.state.activityImages.map( (el, key) =>
-                        <div key={el.key}>
-                          <img alt="" src={ el.src }/>
-                          <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
-                          {/* <FaEye className="eye"/> */}
-                        </div>
+                      this.state.activityImages.map( el =>
+                        (!el.link || (el.link && !el.deleted)) && (
+                          <div key={el.key}>
+                            <img alt="" src={ el.src }/>
+                            <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
+                            {/* <FaEye className="eye"/> */}
+                          </div>
+                        )
                       )
                     }
                   </PhotoList>
@@ -294,7 +347,7 @@ const mapStateToProps = state => {
   return ({
     categories: state.category.categories,
     creating: state.activity.creating || state.activity.updating || state.activity.uploading,
-    createSuccess: state.activity.createSuccess && state.activity.updateSuccess && state.activity.uploadSuccess,
+    createSuccess: state.activity.createSuccess || state.activity.updateSuccess,
     createFailed: state.activity.createFailed || state.activity.updateFailed || state.activity.uploadFailed,
     loggedIn: state.user.loggedIn,
     loaded: state.app.loaded,
@@ -304,12 +357,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    createActivity, 
-    reset, 
-    createNotLoggedIn, 
-    fetchActivity, 
+    createActivity,
+    reset,
+    createNotLoggedIn,
+    fetchActivity,
     fetchActivitySucc,
-    updateActivity 
+    updateActivity
   }, dispatch);
 
 export default withRouter(
