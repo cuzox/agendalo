@@ -183,8 +183,8 @@ export const updateActivity = (activity, photos) =>
     HttpClient.put(`Activities/${activity.id}`, {
       ...activity,
       photos: [
-        ...newFilenames.map(filename => `${url}/Containers/${accountId}/download/${filename}`),
-        ...oldFilenames
+        ...oldFilenames,
+        ...newFilenames.map(filename => `${url}/Containers/${accountId}/download/${filename}`)
       ]
     }).then(updatedActivity=>{      
       dispatch(updateActivitySucc(updatedActivity))

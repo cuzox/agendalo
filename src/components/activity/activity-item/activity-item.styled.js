@@ -8,6 +8,7 @@ export const StdCard = styled.div`
   overflow: hidden; 
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
   cursor: pointer;
+  max-height: 320px;
 
   .card-content{
     display: flex;

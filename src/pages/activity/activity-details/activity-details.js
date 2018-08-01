@@ -39,14 +39,18 @@ class ActivityList extends Component {
             <div className="body">
               <div>
                 <h3 className="body-title">
-                  {activity.name} 
+                  { activity.name } 
                   {activity.category && activity.category.name ? 
                     <span style={{color: "gray", fontSize: "0.7em"}}>&nbsp; | &nbsp;&nbsp;&nbsp;{activity.category.name}</span> : null
                   }
                 </h3>
                 <h4 className="body-text">
+                  <Icon className="home"></Icon>
+                  { activity.organizer }
+                </h4>
+                <h4 className="body-text">
                   <Icon className="map marker alternate"></Icon>
-                  {activity.address}
+                  { activity.address }
                 </h4>
                 <h4 className="body-text">
                   <Icon className="dollar"></Icon>

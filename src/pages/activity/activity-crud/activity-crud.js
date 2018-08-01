@@ -117,16 +117,15 @@ class ActivityCrud extends Component{
         toDate: moment(loadedActivity.date[1]),
         toTime: moment(loadedActivity.date[1])
       }
-      loadedActivity.photos.forEach(photo =>{
-        this.setState({
-          activityImages: this.state.activityImages.concat([{
-            key: uuidv4(),
-            link: true,
-            deleted: false,
-            src: photo
-          }])
-        })
+      this.setState({
+        activityImages: loadedActivity.photos.map(p => ({
+          key: uuidv4(),
+          link: true,
+          deleted: false,
+          src: p
+        }))
       })
+      delete loadedActivity.photos
       this.setState({ activity: { ...loadedActivity, ...dates }, activityLoaded: true })
     }
   }
