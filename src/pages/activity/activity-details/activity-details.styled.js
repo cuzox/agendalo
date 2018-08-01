@@ -30,3 +30,14 @@ export const StdMain = MainContainer.extend`
     margin-bottom: 20px;
   }
 `
+
+export const StdActivityList = styled.div`
+  display: flex;
+  flex-grow: 0;
+  overflow: auto;
+  >*{
+    width: 250px;
+    min-width: 250px;
+    margin: 10px !important;
+  }
+`

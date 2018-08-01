@@ -3,11 +3,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
-import { StdMain as MainContainer } from './activity-details.styled'
-import { fetchActivity, fetchActivitySucc } from '../../../_actions/activityActions'
+import { StdMain as MainContainer, StdActivityList } from './activity-details.styled'
+import { fetchActivity, fetchActivitySucc, fetchActivities } from '../../../_actions/activityActions'
 
 import { Dimmer, Loader, Button, Icon } from 'semantic-ui-react'
 import { Row, Col } from 'antd';
+
+import ActivityItem from '../../../components/activity/activity-item/activity-item'
 
 class ActivityList extends Component {
   constructor(props) {
@@ -21,6 +23,7 @@ class ActivityList extends Component {
     let { state } = this.props.location
     if( state && state.activity ) this.props.fetchActivitySucc(state.activity)
     else this.props.fetchActivity(this.props.match.params.id)
+    if(!this.props.actitivies) this.props.fetchActivities()
   }
 
 
@@ -77,6 +80,13 @@ class ActivityList extends Component {
             </div>
           </Col>
         </Row>
+        <h2 style={{marginTop: "50px", paddingLeft: "10px"}}>Más Actividades</h2>
+        <StdActivityList>
+          { this.props.activities.map(act =>(
+              <ActivityItem compact profile key={act.id} activity={act}/>
+            ))
+          }
+        </StdActivityList>
       </MainContainer>
     ) || null
   }
@@ -84,13 +94,14 @@ class ActivityList extends Component {
 
 const mapStateToProps = state => {
   return ({
-    activity: state.activity.activity
+    activity: state.activity.activity,
+    activities: state.activity.activities
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    fetchActivity, fetchActivitySucc
+    fetchActivity, fetchActivitySucc, fetchActivities
   }, dispatch);
 
 export default connect(
