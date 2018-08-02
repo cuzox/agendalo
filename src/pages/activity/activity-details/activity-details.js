@@ -9,6 +9,8 @@ import { fetchActivity, fetchActivitySucc, fetchActivities } from '../../../_act
 import { Dimmer, Loader, Button, Icon } from 'semantic-ui-react'
 import { Row, Col } from 'antd';
 
+
+import { Link } from 'react-router-dom'
 import ActivityItem from '../../../components/activity/activity-item/activity-item'
 
 class ActivityList extends Component {
@@ -80,13 +82,19 @@ class ActivityList extends Component {
             </div>
           </Col>
         </Row>
-        <h2 style={{marginTop: "50px", paddingLeft: "10px"}}>Más Actividades</h2>
-        <StdActivityList>
-          { this.props.activities.map(act =>(
-              <ActivityItem compact profile key={act.id} activity={act}/>
-            ))
-          }
-        </StdActivityList>
+        <Row type="flex" justify="center">
+          <Col xxl={18} xl={18} lg={24} md={24} sm={24} xs={24}>
+            <h2 style={{marginTop: "50px", paddingLeft: "10px"}}>Más Actividades</h2>
+            <StdActivityList>
+              { this.props.activities.filter(act => act.id != activity.id).map(act =>(
+                <Link key={act.id} to={{pathname: "/actividades/"+act.id, state: {act}}}>
+                  <ActivityItem compact activity={act}/>
+                </Link>
+                ))
+              }
+            </StdActivityList>
+          </Col>
+        </Row>
       </MainContainer>
     ) || null
   }

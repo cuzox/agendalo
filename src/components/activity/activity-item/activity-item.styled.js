@@ -9,6 +9,11 @@ export const StdCard = styled.div`
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
   cursor: pointer;
   max-height: 320px;
+  transition: all .2s ease-in-out;
+
+  &:hover{
+    transform: scale(1.02)
+  }
 
   .card-content{
     display: flex;
@@ -62,12 +67,18 @@ export const StdCard = styled.div`
 
   &.compact{
     flex-direction: column;
+    width: 250px;
+    min-width: 250px;
     > img {
       width: 100%;
     }
     .card-content{
       width: calc(100% - 16px);
     }
+  }
+
+  &.margin{
+    margin: 20px 5px;
   }
   
   @media (max-width: 460px) {

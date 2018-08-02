@@ -3,6 +3,7 @@ import styled from 'styled-components'
 export const StdActivityList = styled.div`
   display: flex;
   flex-wrap: wrap;
+  flex-grow: 0;
   overflow: auto;
   height: 600px;
   padding: 10px;

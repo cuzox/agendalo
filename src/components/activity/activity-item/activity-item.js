@@ -9,13 +9,13 @@ import moment from 'moment'
 
 
 function ActivityItem (props){
-  let { activity, compact, profile } = props
+  let { activity, compact, profile, margin } = props
   function edit(e){
     e.stopPropagation()
     e.preventDefault()
   }
   return (
-    <StdCard className={compact ? "compact":""}>
+    <StdCard className={compact ? "compact":"" + margin ? " margin":""}>
       <img alt="" src={activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
       <div className="card-content">
         <h3 className="title">

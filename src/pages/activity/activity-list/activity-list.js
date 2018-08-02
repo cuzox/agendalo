@@ -53,23 +53,25 @@ class ActivityList extends Component {
           </Col>
         </Row>
         <Row type="flex" justify="center">
-          <Col xxl={8} lg={10} md={12} sm={15} xs={20}>
-            { visible.length ? (
-                visible.map((activity, i) => 
-                  <Link key={activity.id} to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
-                    <ActivityItem {...{activity}}/>
-                    { (i+1)%3 == 0 && i!=0 && (
-                      <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
-                    )}
-                  </Link>
+          { [0,1].map(n =>
+            <Col xxl={6} lg={8} md={11} sm={20} xs={20} key={n}>
+              { visible.length ? (
+                  visible.map((activity, i) => ((i+n) % 2 == 0) ? (
+                    <Link key={activity.id} to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
+                      <ActivityItem {...{activity}} margin/>
+                      {/* { (i+1)%3 == 0 && i!=0 && (
+                        <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
+                      )} */}
+                    </Link>
+                  ) : null )
+                ) : (
+                  <div style={{textAlign: "center", marginTop: "20px"}} >
+                    No hay actividades para mostrar
+                  </div>
                 )
-              ) : (
-                <div style={{textAlign: "center", marginTop: "20px"}} >
-                  No hay actividades para mostrar
-                </div>
-              )
-            }
-          </Col>
+              }
+            </Col>
+          )}
         </Row>
       </MainContainer>
     )

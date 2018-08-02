@@ -36,8 +36,6 @@ export const StdActivityList = styled.div`
   flex-grow: 0;
   overflow: auto;
   >*{
-    width: 250px;
-    min-width: 250px;
     margin: 10px !important;
   }
 `
