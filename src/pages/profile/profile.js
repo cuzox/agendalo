@@ -3,22 +3,23 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import { MainContainer} from '../../global.styled'
-import { fetchMyActivities } from '../../_actions/activityActions'
+import { fetchMyActivities, fetchScheduledActivities } from '../../_actions/activityActions'
 import ActivityItem from '../../components/activity/activity-item/activity-item'
 import { StdActivityList } from './profile.styled'
 
 import { Row, Col } from 'antd'
 
 
-import { Tab } from 'semantic-ui-react'
+import { Dimmer, Loader, Tab } from 'semantic-ui-react'
 
 class Profile extends Component {
   constructor(props) {
     super(props)
   }
 
-    componentDidMount(){
-      this.props.fetchMyActivities()
+  componentDidMount(){
+    this.props.fetchMyActivities()
+    this.props.fetchScheduledActivities()
   }
 
   render(){
@@ -26,16 +27,27 @@ class Profile extends Component {
       { menuItem: 'MIS AGENDADAS', render: () => 
         <Tab.Pane attached={false}>
           <StdActivityList >
-            No has agendado actividades
+            { this.props.scheduled.length ? (
+                this.props.scheduled.map(act =>(
+                  <ActivityItem compact unschedule key={act.id} activity={act}/>
+                ))
+              ) : (
+                <b>No has publicado actividades</b>
+              )
+            }
           </StdActivityList>
         </Tab.Pane> 
       },
       { menuItem: 'MIS PUBLICADAS', render: () => 
         <Tab.Pane attached={false}>
           <StdActivityList >
-          { this.props.myActivities.map(act =>(
-              <ActivityItem compact profile key={act.id} activity={act}/>
-            ))
+          { this.props.myActivities.length ? (
+              this.props.myActivities.map(act =>(
+                <ActivityItem compact edit key={act.id} activity={act}/>
+              ))
+            ) : (
+              <b>No has agendado actividades</b>
+            )
           }
           </StdActivityList>
         </Tab.Pane> 
@@ -43,6 +55,9 @@ class Profile extends Component {
     ]
     return(
       <MainContainer>
+        <Dimmer active={this.props.fetching}>
+          <Loader />
+        </Dimmer>
         <div style={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#e7e7e7", padding: "20px", marginBottom: "20px"}}>
           <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <img style={{ height: "100px", width: "100px" }}src="/assets/images/user.png"/>
@@ -71,13 +86,15 @@ const mapStateToProps = state => {
   return ({
     userName: `${state.user.firstName} ${state.user.lastName}`,
     loaded: state.app.loaded,
-    myActivities: state.activity.myActivities
+    myActivities: state.activity.myActivities,
+    scheduled: state.activity.scheduledActivities,
+    fetching: state.activity.fetching
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    fetchMyActivities
+    fetchMyActivities, fetchScheduledActivities
   }, dispatch);
 
 export default connect(

@@ -14,10 +14,14 @@ import {
   FETCHING_ACTIVITY,
   FETCH_ACTIVITY_FAILED,
   FETCH_ACTIVITY_SUCCESS,
+  SCHEDULING_ACTIVITY,
+  SCHEDULE_ACTIVITY_SUCC,
+  SCHEDULE_ACTIVITY_FAIL,
   ACTIVITY_RESET,
   SEARCH_ACTIVITIES,
   CREATE_NOT_LOGGED_IN,
-  FETCH_MY_ACTIVITIES_SUCCESS
+  FETCH_MY_ACTIVITIES_SUCCESS,
+  FETCH_SCHEDULED_ACTIVITIES_SUCC
 } from '../constants'
 
 import HttpClient from '../_helper/http-client'
@@ -109,9 +113,27 @@ export const fetchMyActivities = () => (
     })
   }
 )
+
 export const fetchingMyActivitiesSucc = myActivities =>({
   type: FETCH_MY_ACTIVITIES_SUCCESS,
   payload: myActivities
+})
+
+export const fetchScheduledActivities = () => (
+  (dispatch, getState) => {
+    let accountId = getState().user.id
+    dispatch(fetchingActivities())
+    HttpClient.get(`/Accounts/${accountId}/savedActivities`).then(res =>{
+      dispatch(fetchScheduledActivitiesSucc(res.data))
+    }).catch(error =>{
+      dispatch(fetchActivitiesFail(error))
+    })
+  }
+)
+
+export const fetchScheduledActivitiesSucc = scheduledActivities =>({
+  type: FETCH_SCHEDULED_ACTIVITIES_SUCC,
+  payload: scheduledActivities
 })
 
 export const fetchingActivity = () =>({
@@ -151,6 +173,19 @@ export const updateActivityFail = err =>({
 export const updateActivitySucc = activity =>({
   type: UPDATE_ACTIVITY_SUCCESS,
   payload: activity
+})
+
+export const schedulingActivity = () =>({
+  type: SCHEDULING_ACTIVITY
+})
+
+export const scheduleActivitySucc = () =>({
+  type: SCHEDULE_ACTIVITY_SUCC
+})
+
+export const scheduleActivityFail = err =>({
+  type: SCHEDULE_ACTIVITY_FAIL,
+  payload: err
 })
 
 export const updateActivity = (activity, photos) => 
@@ -193,7 +228,16 @@ export const updateActivity = (activity, photos) =>
     })
   }
 
-
+export const scheduleActivity = id =>
+  (dispatch, getState) => {
+    let accountId = getState().user.id
+    dispatch(schedulingActivity())
+    HttpClient.put(`/Accounts/${accountId}/savedActivities/rel/${id}`).then(()=>{
+      dispatch(scheduleActivitySucc())
+    }).catch( err =>{
+      dispatch(scheduleActivityFail())
+    })
+  }
 export const uploadingPhotos = () =>({
   type: UPLOADING_PHOTOS
 })

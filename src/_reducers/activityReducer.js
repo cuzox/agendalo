@@ -15,6 +15,10 @@ import {
   FETCH_ACTIVITY_FAILED,
   FETCH_ACTIVITY_SUCCESS,
   FETCH_MY_ACTIVITIES_SUCCESS,
+  FETCH_SCHEDULED_ACTIVITIES_SUCC,
+  SCHEDULING_ACTIVITY,
+  SCHEDULE_ACTIVITY_SUCC,
+  SCHEDULE_ACTIVITY_FAIL,
   ACTIVITY_RESET,
   SEARCH_ACTIVITIES,
   CREATE_NOT_LOGGED_IN
@@ -32,8 +36,11 @@ const initialState = {
   uploading: false,
   uploadSuccess: false,
   uploadFailed: null,
+  scheduleSucc: false,
+  scheduleFail: null,
   attemptToCreateNotLoggedIn: false,
   myActivities: [],
+  scheduledActivities: [],
   activities: [],
   visible: [],
   search: ''
@@ -53,7 +60,13 @@ export default function reducer(state = initialState, action){
         fetching: false,
         myActivities: action.payload
       }
-    case FETCH_ACTIVITIES_SUCCESS: 
+    case FETCH_SCHEDULED_ACTIVITIES_SUCC: 
+      return {
+        ...state,
+        fetching: false,
+        scheduledActivities: action.payload
+      }
+    case FETCH_ACTIVITIES_SUCCESS:
       return {
         ...state,
         fetching: false,
@@ -90,6 +103,7 @@ export default function reducer(state = initialState, action){
         creating: false,
         createFailed: action.payload
       }
+    case SCHEDULING_ACTIVITY:
     case UPDATING_ACTIVITY:
       return {
         ...state,
@@ -106,6 +120,18 @@ export default function reducer(state = initialState, action){
         ...state,
         updating: false,
         updateFailed: action.payload
+      }
+    case SCHEDULE_ACTIVITY_SUCC:
+      return {
+        ...state,
+        updating: false,
+        scheduleSucc: true
+      }
+    case SCHEDULE_ACTIVITY_FAIL:
+      return {
+        ...state,
+        updating: false,
+        scheduleFail: action.payload
       }
     case UPLOADING_PHOTOS:
       return {
@@ -132,7 +158,9 @@ export default function reducer(state = initialState, action){
         createFailed: null,
         createSuccess: null,
         updateFailed: null,
-        updateSuccess: null
+        updateSuccess: null,
+        scheduleSucc: false,
+        scheduleFail: null
       }
     case SEARCH_ACTIVITIES:
       return {

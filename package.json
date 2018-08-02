@@ -9,6 +9,7 @@
     "moment": "^2.22.0",
     "npm-run-all": "^4.1.2",
     "react": "^16.3.0",
+    "react-big-calendar": "^0.19.2",
     "react-dom": "^16.3.0",
     "react-icons": "^2.2.7",
     "react-media": "^1.8.0",
