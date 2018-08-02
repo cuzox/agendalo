@@ -21,7 +21,8 @@ import {
   SEARCH_ACTIVITIES,
   CREATE_NOT_LOGGED_IN,
   FETCH_MY_ACTIVITIES_SUCCESS,
-  FETCH_SCHEDULED_ACTIVITIES_SUCC
+  FETCH_SCHEDULED_ACTIVITIES_SUCC,
+  REMOVE_SCHEDULED_ACTIVITY
 } from '../constants'
 
 import HttpClient from '../_helper/http-client'
@@ -175,6 +176,18 @@ export const updateActivitySucc = activity =>({
   payload: activity
 })
 
+export const removeScheduledActivitySucc = id => ({
+  type: REMOVE_SCHEDULED_ACTIVITY,
+  payload: id
+})
+
+export const removeScheduledActivity = id =>
+  (dispatch, getState)=>{
+    let accountId = getState().user.id
+    dispatch(removeScheduledActivitySucc(id))
+    HttpClient.delete(`/Accounts/${accountId}/savedActivities/rel/${id}`)
+  }
+
 export const schedulingActivity = () =>({
   type: SCHEDULING_ACTIVITY
 })
@@ -238,6 +251,7 @@ export const scheduleActivity = id =>
       dispatch(scheduleActivityFail())
     })
   }
+
 export const uploadingPhotos = () =>({
   type: UPLOADING_PHOTOS
 })

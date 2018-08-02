@@ -8,9 +8,9 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
-import { scheduleActivity, reset } from '../../../_actions/activityActions'
+import { scheduleActivity, reset, removeScheduledActivity } from '../../../_actions/activityActions'
 
-import {  Popconfirm, message, notification } from 'antd'
+import {  Popconfirm, notification } from 'antd'
 
 
 class ActivityItem extends Component{
@@ -34,28 +34,32 @@ class ActivityItem extends Component{
     e.stopPropagation()
     e.preventDefault()
   }
+
+  unschedule(){
+    this.props.removeScheduledActivity(this.props.activity.id)
+    notification['success']({
+      message: '¡Actividad borrada!',
+    })
+  }
   
   getButton(){
     let { activity, edit, unschedule } = this.props
     let type =  (edit && "edit") || (unschedule && "unschedule") || ""
 
-    function doIt(){
-      notification['success']({
-        message: '¡Actividad borrada!',
-      })
-    }
-
     switch(type){
       case 'edit':
         return (
           <Link to={{pathname: "/agregar/"+activity.id, state: {activity}}} >
-            <Icon style={{margin: "0", width: "30px"}} className="edit outline"></Icon>
+            <Icon 
+              style={{margin: "0", width: "30px", fontSize: "25px"}} 
+              className="edit outline">
+            </Icon>
           </Link>
         )
       case 'unschedule':
         return (
           <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
-            onConfirm={unschedule} okText="Si" cancelText="No">
+            onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
             <Icon 
               style={{margin: "0", width: "30px", fontSize: "25px"}} 
               className="calendar times outline">
@@ -73,7 +77,7 @@ class ActivityItem extends Component{
   }
   
   render(){
-    let { activity, compact, margin, fetching } = this.props
+    let { activity, compact, margin } = this.props
     return (
       <StdCard className={compact ? "compact":"" + margin ? " margin":""}>
         { this.props.scheduleSucc && <Redirect push to="/perfil"/> }
@@ -102,8 +106,6 @@ class ActivityItem extends Component{
 
 const mapStateToProps = state => {
   return ({
-    updating: state.activity.updating,
-    fetching: state.activity.fetching,
     scheduleSucc: state.activity.scheduleSucc,
     scheduleFail: state.activity.scheduleFail
   })
@@ -111,7 +113,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    scheduleActivity, reset
+    scheduleActivity, reset, removeScheduledActivity
   }, dispatch);
 
 export default connect(

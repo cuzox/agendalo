@@ -65,7 +65,7 @@ class Profile extends Component {
           </div>
           <div style={{display: "flex", flexDirection: "column", alignItems: "center", marginLeft: "20px"}}>
             <span style={{fontSize: "16px", padding: "8px"}} >
-              <b>Agendadas: {0}</b>
+              <b>Agendadas: {this.props.scheduledActivities.length}</b>
             </span>
             <span style={{fontSize: "16px", padding: "8px"}}>
               <b>Publicadas: {this.props.myActivities.length}</b>

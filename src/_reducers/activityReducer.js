@@ -21,7 +21,8 @@ import {
   SCHEDULE_ACTIVITY_FAIL,
   ACTIVITY_RESET,
   SEARCH_ACTIVITIES,
-  CREATE_NOT_LOGGED_IN
+  CREATE_NOT_LOGGED_IN,
+  REMOVE_SCHEDULED_ACTIVITY
 } from '../constants'
 
 const initialState = {
@@ -132,6 +133,11 @@ export default function reducer(state = initialState, action){
         ...state,
         updating: false,
         scheduleFail: action.payload
+      }
+    case REMOVE_SCHEDULED_ACTIVITY:
+      return {
+        ...state,
+        scheduledActivities: state.scheduledActivities.filter( act => act.id != action.payload )
       }
     case UPLOADING_PHOTOS:
       return {
