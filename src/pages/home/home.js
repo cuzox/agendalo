@@ -157,7 +157,7 @@ class Home extends Component{
 
   render(){
     return (
-      <MainContainer style={{paddingTop: "0px" }}>
+      <MainContainer className={"no-trans"} style={{paddingTop: "0px" }}>
         <Header loggedIn={this.props.loggedIn}/>
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
@@ -185,12 +185,6 @@ class Home extends Component{
             <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px", margin: "0 10px 0 10px"}}></div>
           </Col>
         </Row>
-        <Row type="flex" justify="center">
-          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
-            style={{overflow: "hidden", marginBottom: "25px", textAlign: "center"}}>
-              <iframe width="95%" height="315" src="https://www.youtube.com/embed/kk0WRHV_vt8" frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
-          </Col>
-        </Row >
         { !this.props.loggedIn &&
           <Row  type="flex" justify="center">
             <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>

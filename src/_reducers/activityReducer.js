@@ -97,7 +97,7 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         creating: false,
-        createSuccess: action.payload
+        createSuccess: true
       }
     case CREATE_ACTIVITY_FAILED: 
       return {
@@ -163,7 +163,7 @@ export default function reducer(state = initialState, action){
         uploadFailed: null,
         uploadSuccess: false,
         createFailed: null,
-        createSuccess: null,
+        createSuccess: false,
         updateFailed: null,
         updateSuccess: null,
         scheduleSucc: false,

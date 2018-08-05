@@ -49,29 +49,22 @@ export const createActivity = (activity, photos) => (
     dispatch(creatingActivity())
     HttpClient.post(`Accounts/${accountId}/Activities`, activity).then(res =>{
       let newActivity = res.data
-      dispatch(createActivitySucc(newActivity))
       let files = {}, filenames = []
       photos.forEach((photo, i) => {
-        filenames.push(`${newActivity.id}_${photo.key}.${photo.name.split('.').pop()}`)
+        filenames.push(`${newActivity.id}_${photo.key}.${photo.file.name.split('.').pop()}`)
         files["nomatter" + i] = photo.file
       })
 
-      dispatch(uploadingPhotos())
-      HttpClient.form(`Containers/${accountId}/upload`, files, filenames).then(()=>{
-        dispatch(uploadPhotosSucc())
-      }).catch(error=>{
-        dispatch(uploadPhotosFail(error))
+      Promise.all([
+        HttpClient.form(`Containers/${accountId}/upload`, files, filenames),
+        HttpClient.put(`Activities/${newActivity.id}`, {
+          ...newActivity,
+          photos: filenames.map(filename => `${url}/Containers/${accountId}/download/${filename}`)
+        })
+      ]).then(res => {
+        dispatch(createActivitySucc())
       })
 
-      dispatch(updatingActivity())
-      HttpClient.put(`Activities/${newActivity.id}`, {
-        ...newActivity,
-        photos: filenames.map(filename => `${url}/Containers/${accountId}/download/${filename}`)
-      }).then(updatedActivity=>{      
-        dispatch(updateActivitySucc(updatedActivity))
-      }).catch(error=>{
-        dispatch(updateActivityFail(error))
-      })
     }).catch(error=>{
       dispatch(createActivityFail(error))
     })

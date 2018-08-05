@@ -187,7 +187,7 @@ class ActivityCrud extends Component{
 
   create(){
     let errors = []
-    let { activityImages: photos } = this.state
+    let { activityImages: photos, editing } = this.state
     let required = [
       'name', 'organizer', 'address', 'fromDate', 'fromTime', 'toDate', 'toTime', 'categoryId'
     ]
@@ -214,10 +214,7 @@ class ActivityCrud extends Component{
         delete newActivity[pair[1]]
       })
 
-      if(this.state.editing)
-        this.props.updateActivity(newActivity, photos)
-      else
-        this.props.createActivity(newActivity, photos)
+      this.props[editing ? "updateActivity" : "createActivity"](newActivity, photos)
     }
   }
   
@@ -249,14 +246,16 @@ class ActivityCrud extends Component{
                   onChange={ e => this.handleChange('address', e.target.value, 'activity') }
                 />
                 <div style={{display: "flex"}}>
-                  <Input value={activity.fee} 
+                  <Dropdown size="medium" placeholder='Categoría*'
                     style={{width: "calc(50% - 5px)", marginRight: "5px"}} 
-                    name="fee" size="medium" placeholder='Costo' type="number"
-                    onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
+                    search selection options={this.props.categories}
+                    value={activity.categoryId}
+                    onChange={(e, d)=> this.handleChange('categoryId', d.value, 'activity') } 
+                    error={this.state && this.state.categoryIdInvalid}
                   />
-                  <Input style={{width: "calc(50% - 5px)", marginLeft: "5px"}} 
-                    value={activity.seating}
-                    name="seating" size="medium" placeholder='Cupo' type="number"
+                  <Input value={activity.fee} 
+                    style={{width: "calc(50% - 5px)", marginLeft: "5px"}} 
+                    name="fee" size="medium" placeholder='Costo' type="number"
                     onChange={ e => this.handleChange('fee', e.target.value, 'activity') }
                   />
                 </div>
@@ -266,12 +265,6 @@ class ActivityCrud extends Component{
                     onChange={ e => this.handleChange('description', e.target.value, 'activity') } 
                   />
                 </Form>
-                <Dropdown size="medium" placeholder='Categoría*' 
-                  search selection options={this.props.categories}
-                  value={activity.categoryId}
-                  onChange={(e, d)=> this.handleChange('categoryId', d.value, 'activity') } 
-                  error={this.state && this.state.categoryIdInvalid}
-                />
                 <div style={{display: "flex"}}>
                   <div style={{flexDirection: "column"}}>
                     <Label basic style={{width: "100px"}} pointing='below'>Desde</Label>

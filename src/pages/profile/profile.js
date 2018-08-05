@@ -55,10 +55,7 @@ class Profile extends Component {
     ]
     return(
       <MainContainer>
-        <Dimmer active={this.props.fetching}>
-          <Loader />
-        </Dimmer>
-        <div style={{display: "flex", justifyContent: "center", alignItems: "center", backgroundColor: "#e7e7e7", padding: "20px", marginBottom: "20px"}}>
+        <div style={{display: "flex", justifyContent: "center", alignItems: "center", padding: "20px", marginBottom: "20px"}}>
           <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <img style={{ height: "100px", width: "100px" }}src="/assets/images/user.png"/>
             <span><b>{this.props.userName}</b></span>

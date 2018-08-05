@@ -9,7 +9,7 @@ export const StdCard = styled.div`
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
   cursor: pointer;
   max-height: 320px;
-  transition: all .2s ease-in-out;
+  /* transition: all .2s ease-in-out; */
 
   &:hover{
     transform: scale(1.02);
