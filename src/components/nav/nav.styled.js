@@ -29,21 +29,21 @@ export const NavContent = styled.div`
   z-index: 2;
   background-color: #194973;
   border-bottom: 20px solid rgb(0,201,211);
-  /* transition: height 200ms linear; */
+  transition: height 200ms ease;
   .Logo {
     z-index: 2;  
     img{ 
-      /* transition: width 180ms linear;  */
+      transition: width 200ms ease; 
       width: 150px; 
     }
   }
 
-  /* &.in-home,&.compact-top{
-    transition: height 100ms linear;
+  &.in-home,&.compact-top{
+    transition: height 200ms ease;
     .Logo img{ 
-      transition: width 100ms ease-in-out; 
+      transition: width 200ms ease; 
     }
-  } */
+  }
 
   &.in-home.compact-top{
     .Logo img{ 
@@ -67,7 +67,7 @@ export const NavContent = styled.div`
   &.compact-top{
     justify-content: space-between;
     padding-top: 10px 0;
-    /* transition: background-color 200ms ease-in; */
+    transition: background-color 200ms ease;
   }
 `
 
@@ -84,7 +84,7 @@ export const NavFold = styled.div`
   visibility: hidden;
   z-index: -1;
   transform: translateY(-20px);
-  /* transition: all 200ms ease-in; */
+  transition: all 200ms ease;
   border-bottom: 20px solid rgb(0,201,211);
   margin-top: 20px;
 

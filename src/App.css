@@ -71,12 +71,11 @@ body.hide-overflow {
 
 .fade-enter:not(.no-trans) {
   opacity: 0;
-  z-index: 1;
-  transform: translate(20px);
+  transform: translate(10px);
 }
 
 .fade-enter.fade-enter-active:not(.no-trans) {
   opacity: 1;
-  transition: all 300ms ease;
+  transition: all 500ms ease;
   transform: translate(0)
 }
