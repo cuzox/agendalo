@@ -10,14 +10,14 @@ class Terms extends Component {
 
   render(){
     return(
-      <MainContainer style={{alignItems: "center", justifyContent: "initial"}}>
+      <MainContainer className="more-space" style={{alignItems: "center", justifyContent: "initial"}}>
         <Row type="flex" justify="center">
           <Col xl={12} lg={16} md={18} sm={20} xs={22}>
             <div style={{margin: "20px"}}>
               <h2 style={{textAlign: "center"}} >Términos y Condiciones</h2>
               <h3>Sobre el contenido</h3>
               <p>
-                Para publicar contenido en nuestro portal cada empresa deberá pasar por un proceso de verificación el cual no ayudará a evitar la colocación de informaciones falsas o inexactas para perjudicar alguna institución.
+                {/* Para publicar contenido en nuestro portal cada empresa deberá pasar por un proceso de verificación el cual no ayudará a evitar la colocación de informaciones falsas o inexactas para perjudicar alguna institución. */}
                 <br/><br/>
                 Todo el contenido provisto por los usuarios, pasa a ser propiedad de agendalo.com.do, sin retribución alguna directa, y nos autoriza a mostrar, distribuir y aprovechar por cualquier vía que agendalo.com.do considere.
                 <br/><br/> 
@@ -55,7 +55,7 @@ class Terms extends Component {
                 <br/><br/>
                 Nos reservamos el derecho de eliminar o suspender la cuenta de aquellos usuarios, incluyendo todo su contenido provisto, que actúen de manera incongruente con estos términos y condiciones. Aplica principalmente si son cuentas falsas para hacer spam, difamar, o si se crean para ofender al resto de la comunidad.
                 <br/><br/>
-                Si tienes alguna pregunta que no hayamos respondido en esta página, por favor escríbenos.
+                {/* Si tienes alguna pregunta que no hayamos respondido en esta página, por favor escríbenos. */}
               </p>
             </div>
           </Col>

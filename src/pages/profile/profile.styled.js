@@ -7,7 +7,9 @@ export const StdActivityList = styled.div`
   overflow: auto;
   height: 600px;
   padding: 10px;
-  background-color: #e7e7e7;
+  background-color: #f5f5f5;
+  border:none;
+  margin-bottom: 50px;
   >*{
     width: 250px;
     min-width: 250px;
