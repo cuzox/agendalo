@@ -4,13 +4,20 @@ import { notification } from 'antd';
 import uuidv4 from 'uuid/v4'
 
 export function handleChange(name, value, embed){
-  this.setState({
-    [embed]: {
-      ...(this.state ? this.state[embed] : []),
-      [name]: value
-    },
-    [name + 'Invalid']: false
-  })
+  if(embed){
+    this.setState({
+      [embed]: {
+        ...(this.state ? this.state[embed] : {}),
+        [name]: value
+      },
+      [name + 'Invalid']: false
+    })
+  } else {
+    this.setState({
+      [name]: value,
+      [name + 'Invalid']: false
+    })
+  }
 }
 
 export function validEmail(email = ''){

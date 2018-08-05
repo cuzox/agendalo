@@ -20,9 +20,9 @@ import {
   SCHEDULE_ACTIVITY_SUCC,
   SCHEDULE_ACTIVITY_FAIL,
   ACTIVITY_RESET,
-  SEARCH_ACTIVITIES,
   CREATE_NOT_LOGGED_IN,
-  REMOVE_SCHEDULED_ACTIVITY
+  REMOVE_SCHEDULED_ACTIVITY,
+  FILTER_ACTIVITIES
 } from '../constants'
 
 const initialState = {
@@ -44,7 +44,8 @@ const initialState = {
   scheduledActivities: [],
   activities: [],
   visible: [],
-  search: ''
+  search: '',
+  filter: {}
 }
 
 export default function reducer(state = initialState, action){
@@ -168,13 +169,22 @@ export default function reducer(state = initialState, action){
         scheduleSucc: false,
         scheduleFail: null
       }
-    case SEARCH_ACTIVITIES:
+    case FILTER_ACTIVITIES:
+      const filter = {
+        ...state.filter,
+        ...action.payload
+      }
+
       return {
         ...state,
-        search: action.payload,
-        visible: state.activities.filter(act =>{
-          return act.name.toLowerCase().includes(action.payload.toLowerCase()) || !action.payload
-        })
+        filter,
+        visible: state.activities.filter(act =>
+          Object.keys(filter).every(key => 
+            typeof filter[key] == "number" && filter[key] == act[key] ||
+            typeof filter[key] == "string" && act[key].toLowerCase().includes(filter[key].toLowerCase()) ||
+            !filter[key]
+          )
+        )
       }
     case CREATE_NOT_LOGGED_IN:
       return {

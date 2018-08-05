@@ -5,11 +5,16 @@ export const MainContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   padding-top: 120px;
-  padding-bottom: 180px;
+  padding-bottom: 160px;
   min-height: 100vh;
 
   &.space{
     padding-top: 140px;
+    padding-bottom: 180px;
+  }
+  &.more-space{
+    padding-top: 200px;
+    padding-bottom: 240px
   }
 
   @media (max-width: 500px) {

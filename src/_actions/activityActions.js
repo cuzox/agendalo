@@ -18,11 +18,11 @@ import {
   SCHEDULE_ACTIVITY_SUCC,
   SCHEDULE_ACTIVITY_FAIL,
   ACTIVITY_RESET,
-  SEARCH_ACTIVITIES,
   CREATE_NOT_LOGGED_IN,
   FETCH_MY_ACTIVITIES_SUCCESS,
   FETCH_SCHEDULED_ACTIVITIES_SUCC,
-  REMOVE_SCHEDULED_ACTIVITY
+  REMOVE_SCHEDULED_ACTIVITY,
+  FILTER_ACTIVITIES
 } from '../constants'
 
 import HttpClient from '../_helper/http-client'
@@ -52,8 +52,8 @@ export const createActivity = (activity, photos) => (
       dispatch(createActivitySucc(newActivity))
       let files = {}, filenames = []
       photos.forEach((photo, i) => {
-        filenames.push(`${newActivity.id}_${uuidv4()}.${photo.name.split('.').pop()}`)
-        files["nomatter" + i] = photo
+        filenames.push(`${newActivity.id}_${photo.key}.${photo.name.split('.').pop()}`)
+        files["nomatter" + i] = photo.file
       })
 
       dispatch(uploadingPhotos())
@@ -252,16 +252,16 @@ export const scheduleActivity = id =>
     })
   }
 
-export const uploadingPhotos = () =>({
+export const uploadingPhotos = () => ({
   type: UPLOADING_PHOTOS
 })
 
-export const uploadPhotosFail = err =>({
+export const uploadPhotosFail = err => ({
   type: UPLOAD_PHOTOS_FAILED,
   payload: err
 })
 
-export const uploadPhotosSucc = () =>({
+export const uploadPhotosSucc = () => ({
   type: UPLOAD_PHOTOS_SUCCESS
 })
 
@@ -269,12 +269,12 @@ export const reset = () =>({
   type: ACTIVITY_RESET
 })
 
-export const searchActivities = search =>({
-  type: SEARCH_ACTIVITIES,
-  payload: search
+export const filterActivities = filter => ({
+  type: FILTER_ACTIVITIES,
+  payload: filter
 })
 
-export const createNotLoggedIn = yesOrNah =>({
+export const createNotLoggedIn = yesOrNah => ({
   type: CREATE_NOT_LOGGED_IN,
   payload: yesOrNah
 })

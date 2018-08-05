@@ -12,7 +12,7 @@ export const StdCard = styled.div`
   transition: all .2s ease-in-out;
 
   &:hover{
-    transform: scale(1.02)
+    transform: scale(1.02);
   }
 
   .card-content{

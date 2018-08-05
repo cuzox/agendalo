@@ -217,14 +217,14 @@ class ActivityCrud extends Component{
       if(this.state.editing)
         this.props.updateActivity(newActivity, photos)
       else
-        this.props.createActivity(newActivity, photos.map(p => p.file))
+        this.props.createActivity(newActivity, photos)
     }
   }
   
   render(){
     let { activity, editing } = this.state
     return (
-      <MainContainer>
+      <MainContainer className="more-space">
         { !this.props.loggedIn && this.props.loaded && <Redirect push to="/login"/> }
         { this.props.createSuccess && <Redirect push to={editing ? "/perfil" : "/actividades"}/> }
         <Dimmer active={this.props.creating}>
@@ -263,7 +263,7 @@ class ActivityCrud extends Component{
                 <Form>
                   <TextArea name="description" autoHeight placeholder='Descripción'
                     value={activity.description}
-                    onChange={ e => this.handleChange('fee', e.target.value, 'activity') } 
+                    onChange={ e => this.handleChange('description', e.target.value, 'activity') } 
                   />
                 </Form>
                 <Dropdown size="medium" placeholder='Categoría*' 
@@ -274,11 +274,11 @@ class ActivityCrud extends Component{
                 />
                 <div style={{display: "flex"}}>
                   <div style={{flexDirection: "column"}}>
-                    <Label style={{width: "100px"}} pointing='below'>Desde</Label>
+                    <Label basic style={{width: "100px"}} pointing='below'>Desde</Label>
                     <div style={{display: "flex"}}>
                       <DatePicker
                         value={activity.fromDate}
-                        onChange={(e, d)=> this.handleChange('fromDate', e ? e.toDate() : '', 'activity') }
+                        onChange={(e, d)=> this.handleChange('fromDate', e || null, 'activity') }
                         format="DD-MM-YYYY" placeholder="Fecha*" 
                         style={{width: "calc(50% - 3px)", marginRight: "3px"}} size="default"
                       />
@@ -286,19 +286,20 @@ class ActivityCrud extends Component{
                         value={activity.fromTime}
                         size="default" minuteStep={5} use12Hours format="h:mm A"
                         defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
-                        open={ this.state.openOne } onClick={()=> this.handleClose('openOne')} onOpenChange={ openOne => this.setState({ openOne }) }
-                        onChange={(e, d)=> this.handleChange('fromTime', e ? e.toDate() : '', 'activity') }
+                        open={ this.state.openOne } onClick={()=> this.handleClose('openOne')} 
+                        onOpenChange={ openOne => this.setState({ openOne }) }
+                        onChange={(e, d)=> this.handleChange('fromTime', e || null, 'activity') }
                         addon={() => <Button onClick={()=> this.handleClose('openOne')} size="small" type="primary" content="Ok"/> }
                         placeholder="Hora*" style={{width: "calc(50% - 6px)", margin: "0 3px"}}
                       />
                     </div>
                   </div>
                   <div style={{flexDirection: "column"}}>
-                    <Label style={{width: "100px"}} pointing='below'>Hasta</Label>
+                    <Label basic style={{width: "100px"}} pointing='below'>Hasta</Label>
                     <div style={{display: "flex"}}>
                       <DatePicker
                         value={activity.toDate}
-                        onChange={(e, d)=> this.handleChange('toDate', e ? e.toDate() : '', 'activity') }
+                        onChange={(e, d)=> this.handleChange('toDate', e || null, 'activity') }
                         format="DD-MM-YYYY" placeholder="Fecha*" 
                         style={{width: "calc(50% - 6px)", margin: "0 3px"}} size="default"
                       />
@@ -307,7 +308,7 @@ class ActivityCrud extends Component{
                         size="default" minuteStep={5} use12Hours format="h:mm A"
                         defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
                         open={ this.state.openTwo } onClick={()=> this.handleClose('openTwo')} onOpenChange={ openTwo => this.setState({ openTwo }) }
-                        onChange={(e, d)=> this.handleChange('toTime', e ? e.toDate() : '', 'activity') }
+                        onChange={(e, d)=> this.handleChange('toTime', e || null, 'activity') }
                         addon={() => <Button onClick={()=> this.handleClose('openTwo')} size="small" type="primary" content="Ok"/> }
                         placeholder="Hora*" style={{width: "calc(50% - 3px)", marginLeft: "3px"}}
                       />

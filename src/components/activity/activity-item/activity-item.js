@@ -9,7 +9,6 @@ import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
 import { scheduleActivity, reset, removeScheduledActivity } from '../../../_actions/activityActions'
-
 import {  Popconfirm, notification } from 'antd'
 
 
