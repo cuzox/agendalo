@@ -98,7 +98,7 @@ class ActivityList extends Component {
           )}
         </Row>
         <div style={{display: "flex", justifyContent: "center"}}>
-          <Pagination defaultActivePage={5} totalPages={10}/>
+          <Pagination defaultActivePage={5} totalPages={10} boundaryRange={0} ellipsisItem={null}/>
         </div>
       </MainContainer>
     )
