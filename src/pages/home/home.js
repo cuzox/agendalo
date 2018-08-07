@@ -58,7 +58,7 @@ const Header = props =>{
               }
               <span className="video-link">
                 <a href="https://www.youtube.com/watch?v=RPhmAjNhp28/">
-                  ¿CÓMO FUNCTIONA?
+                  ¿CÓMO FUNCIONA?
                 </a>
                 <FaPlayCircleO/>
               </span>

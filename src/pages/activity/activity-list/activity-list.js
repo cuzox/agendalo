@@ -21,10 +21,12 @@ class ActivityList extends Component {
     { key: 3, value: 3, text: "Proximo mes"}
   ]
   updatedCategories = false
+  itemsPerPage = 6;
   state = {
     categoryId: 0,
     date: 1,
-    categories: []
+    categories: [],
+    activePage: 1
   }
   
   componentDidMount(){
@@ -51,7 +53,7 @@ class ActivityList extends Component {
 
   render(){
     let { visible } = this.props
-    let { categoryId, date, categories } = this.state
+    let { categoryId, date, categories, activePage } = this.state
 
     return(
       <MainContainer className="more-space" style={{justifyContent: "initial"}}>
@@ -75,11 +77,13 @@ class ActivityList extends Component {
             </StdFilter>
           </Col>
         </Row>
-        <Row type="flex" justify="center">
+        <Row type="flex" justify="center" style={{minHeight: "590px"}}>
           { [0,1].map(n =>
             <Col xxl={6} lg={8} md={11} sm={20} xs={20} key={n}>
               { visible.length ? (
-                  visible.map((activity, i) => ((i+n) % 2 == 0) && 
+                  visible.slice(
+                    ((activePage-1)*this.itemsPerPage), ((activePage-1)*this.itemsPerPage) + this.itemsPerPage
+                  ).map((activity, i) => ((i+n) % 2 == 0) && 
                     <Link key={activity.id} to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
                       <ActivityItem {...{activity}} margin/>
                       {/* { (i+1)%3 == 0 && i!=0 && (
@@ -97,9 +101,15 @@ class ActivityList extends Component {
             </Col>
           )}
         </Row>
-        <div style={{display: "flex", justifyContent: "center"}}>
-          <Pagination defaultActivePage={5} totalPages={10} boundaryRange={0} ellipsisItem={null}/>
-        </div>
+        { visible.length > this.itemsPerPage &&
+          <div style={{display: "flex", justifyContent: "center"}}>
+            <Pagination {...{activePage}} 
+              totalPages={Math.ceil(visible.length/this.itemsPerPage)} 
+              boundaryRange={0} ellipsisItem={null}
+              onPageChange={(e, { activePage }) => this.setState({ activePage })}
+            />
+          </div>
+        }
       </MainContainer>
     )
   }

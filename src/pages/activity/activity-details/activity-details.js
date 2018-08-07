@@ -83,8 +83,8 @@ class ActivityList extends Component {
           </Col>
         </Row>
         <Row type="flex" justify="center">
-          <Col xxl={18} xl={18} lg={24} md={24} sm={24} xs={24}>
-            <h2 style={{marginTop: "50px", paddingLeft: "10px"}}>Más Actividades</h2>
+          <Col xl={12} lg={16} md={18} sm={20} xs={22}>
+            <h2 style={{marginTop: "50px", paddingLeft: "10px"}}>¡También puedes agendar!</h2>
             <StdActivityList>
               { this.props.activities.filter(act => act.id != activity.id).map(act =>(
                 <Link key={act.id} to={{pathname: "/actividades/"+act.id, state: {act}}}>
