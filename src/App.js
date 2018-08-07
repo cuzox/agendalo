@@ -59,6 +59,8 @@ class App extends Component {
                   <Route path="/terminos" component={ Terms }/>
 
                   <Protected path="/panel" {...{loaded, isAdmin}} component={ ControlPanel }/>
+                  <Protected path="/panel/actividades" {...{loaded, isAdmin}} component={ ActivityList }/>
+
                   <Protected path="/perfil" {...{loaded, loggedIn}}  component={ Profile }/>
                   
                   <Route exact path="/agregar" component={ ActivityCrud }/>

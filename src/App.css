@@ -16,6 +16,7 @@ body {
   margin: 0;
   font-family: "Raleway" !important;
   overflow: overlay;
+  background: #F5F5F5;
 }
 
 body.hide-overflow {

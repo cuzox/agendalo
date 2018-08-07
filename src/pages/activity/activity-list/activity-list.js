@@ -14,6 +14,9 @@ import { Dimmer, Loader, Input, Dropdown, Pagination } from 'semantic-ui-react'
 import { Row, Col } from 'antd';
 import { StdFilter } from './activity-list.styled'
 
+import query from 'query-string'
+import store from '../../../store'
+
 class ActivityList extends Component {
   dates = [
     { key: 1, value: 1, text: "Esta semana"},
@@ -26,11 +29,22 @@ class ActivityList extends Component {
     categoryId: 0,
     date: 1,
     categories: [],
-    activePage: 1
+    activePage: 1,
+    name: ''
   }
   
   componentDidMount(){
     this.props.fetchActivities()
+    if(this.props.location && this.props.location.search){
+      const unsub = store.subscribe(() => {
+        let { visible } = store.getState().activity
+        if(visible.length){
+          unsub()
+          const { search, date } = query.parse(this.props.location.search)
+          if(search) this.handleChange('name', search )
+        }
+      })
+    }
   }
 
   handleChange(name, value){
@@ -38,6 +52,8 @@ class ActivityList extends Component {
     this.setState(build)
     this.props.filterActivities(build)
   }
+
+  
 
   componentDidUpdate(){
     if(this.props.categories.length && !this.updatedCategories){
@@ -52,31 +68,36 @@ class ActivityList extends Component {
   }
 
   render(){
-    let { visible } = this.props
-    let { categoryId, date, categories, activePage } = this.state
+    let { visible, panel } = this.props
+    let { categoryId, date, categories, activePage, name } = this.state
 
     return(
-      <MainContainer className="more-space" style={{justifyContent: "initial"}}>
+      <MainContainer className="more-space">
         <Dimmer active={false}>
           <Loader />  
         </Dimmer>
-        <Row type="flex" justify="center">
-          <Col xl={12} lg={16} md={18} sm={20} xs={22}>
-            <StdFilter className="filter">
-              <Input onInput={e => this.props.filterActivities({ name: e.target.value })} size={"medium"} icon='search' placeholder='Buscar...'/>
-              <Dropdown size={"medium"}
-                onChange={(e, d)=> this.handleChange('categoryId', d.value) } 
-                value={categoryId} placeholder='Categoría...' 
-                selection options={categories || []} 
-              />
-              <Dropdown size={"medium"} 
-                onChange={(e, d)=> this.handleChange('date', d.value) }
-                value={date} placeholder='Cuando...' 
-                selection options={this.dates || []} 
-              />
-            </StdFilter>
-          </Col>
-        </Row>
+        { !this.props.panel &&
+          <Row type="flex" justify="center">
+            <Col xl={12} lg={16} md={18} sm={20} xs={22}>
+              <StdFilter className="filter">
+                <Input onInput={e => this.handleChange('name', e.target.value )} 
+                  size={"medium"} icon='search' placeholder='Buscar...'
+                  value={name}
+                />
+                <Dropdown size={"medium"}
+                  onChange={(e, d)=> this.handleChange('categoryId', d.value) }
+                  value={categoryId} placeholder='Categoría...' 
+                  selection options={categories || []}
+                />
+                <Dropdown size={"medium"}
+                  onChange={(e, d)=> this.handleChange('date', d.value) }
+                  value={date} placeholder='Cuando...'
+                  selection options={this.dates || []}
+                />
+              </StdFilter>
+            </Col>
+          </Row>
+        }
         <Row type="flex" justify="center" style={{minHeight: "590px"}}>
           { [0,1].map(n =>
             <Col xxl={6} lg={8} md={11} sm={20} xs={20} key={n}>
@@ -85,7 +106,7 @@ class ActivityList extends Component {
                     ((activePage-1)*this.itemsPerPage), ((activePage-1)*this.itemsPerPage) + this.itemsPerPage
                   ).map((activity, i) => ((i+n) % 2 == 0) && 
                     <Link key={activity.id} to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
-                      <ActivityItem {...{activity}} margin/>
+                      <ActivityItem {...{activity}} remove={panel} margin/>
                       {/* { (i+1)%3 == 0 && i!=0 && (
                         <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
                       )} */}
@@ -101,15 +122,13 @@ class ActivityList extends Component {
             </Col>
           )}
         </Row>
-        { visible.length > this.itemsPerPage &&
-          <div style={{display: "flex", justifyContent: "center"}}>
-            <Pagination {...{activePage}} 
-              totalPages={Math.ceil(visible.length/this.itemsPerPage)} 
-              boundaryRange={0} ellipsisItem={null}
-              onPageChange={(e, { activePage }) => this.setState({ activePage })}
-            />
-          </div>
-        }
+        <div style={{display: "flex", justifyContent: "center"}}>
+          <Pagination {...{activePage}} 
+            totalPages={Math.ceil(visible.length/this.itemsPerPage)} 
+            boundaryRange={0} ellipsisItem={null}
+            onPageChange={(e, { activePage }) => this.setState({ activePage })}
+          />
+        </div>
       </MainContainer>
     )
   }

@@ -12,24 +12,16 @@ import {
   Month as StdMonth,
   Newsletter as StdNewsletter
 } from './home.styled'
-import { Button, Dropdown, Input,} from 'semantic-ui-react'
+import { Button, Dropdown, Input, Select} from 'semantic-ui-react'
 import { Row, Col, Carousel, Alert, notification} from 'antd'
+
 
 import axios from 'axios'
 
-const MONTHS = [
-  { text: "Enero", value: 0 },
-  { text: "Febrero", value: 1 },
-  { text: "Marzo", value: 2 },
-  { text: "Abril", value: 3 },
-  { text: "Mayo", value: 4 },
-  { text: "Junio", value: 5 },
-  { text: "Julio", value: 6 },
-  { text: "Agosto", value: 7 },
-  { text: "Septiembre", value: 8 },
-  { text: "Octubre", value: 9 },
-  { text: "Noviembre", value: 10 },
-  { text: "Diciembre", value: 11 }
+const dates = [
+  { key: 1, value: 1, text: "Esta semana"},
+  { key: 2, value: 2, text: "Este mes"},
+  { key: 3, value: 3, text: "Proximo mes"}
 ]
 
 const Header = props =>{
@@ -70,13 +62,33 @@ const Header = props =>{
   )
 }
 
-const Month = props =>{
-  return(
-    <StdMonth>
-      <span> <Link to="/actividades">VER TODOS</Link></span>
-      <Dropdown className={"month-dropdown"} selection options={MONTHS} defaultValue={0}/>
-    </StdMonth>
-  )
+class Month extends Component{
+  state = {
+    search: '',
+    date: 1
+  }
+  render(){
+    let { search, date } = this.state
+    return(
+      <StdMonth>
+        <Input style={{width: "100%"}}
+          onInput={e => this.setState({ search: e.target.value })}
+          type='text' placeholder='Search...' value={search} action>
+          <input style={{width: "40%"}} />
+          <Select
+            style={{width: "40%", whiteSpace: "nowrap"}}
+            onChange={(e, d)=> this.setState({date: d.value })}
+            compact options={dates} defaultValue={1}
+          />
+          <Button style={{width: "20%"}} type='submit'>
+            <Link to={{pathname:"/actividades", search: `?search=${search}&date=${date}`}}>
+                BUSCAR
+            </Link>
+          </Button>
+        </Input>
+      </StdMonth>
+    )
+  }
 }
 
 class Newsletter extends Component{
@@ -160,7 +172,7 @@ class Home extends Component{
       <MainContainer className={"no-trans"} style={{paddingTop: "0px" }}>
         <Header loggedIn={this.props.loggedIn}/>
         <Row type="flex" justify="center">
-          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22}>
+          <Col xxl={6} xl={8} lg={10} md={12} sm={18} xs={20}>
             <Month/>
           </Col>
         </Row>

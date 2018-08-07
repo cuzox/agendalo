@@ -50,46 +50,39 @@ export const Month = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #194973;
-    padding: 8px 0;
-    border-radius: 12px;
-    margin: 25px 10px 0 10px;
+    padding-top: 20px;
 
-    > span{
-      font-size: calc(12px + 0.3vw);
+    .ui.dropdown .item span{
       white-space: nowrap;
-      font-weight: bolder;
-      margin-right: 20px;
+    }
+
+    .ui.button, .ui.button:hover, .ui.button:visited{
+      background: rgb(0,201,211) !important;
+      color: #f3f3f3 !important;
+    }
+
+    .ui.button{
+      position: relative;
+      width: 100px;
+    }
+
+    a{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: absolute;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
       color: white;
-      border: 1px solid white;
-      border-radius: 5px;
-      padding: 5px 8px;
-      cursor: default;
-      a {
-        text-decoration: none;
+      &:hover{
         color: white;
       }
     }
 
-    .ui.selection.dropdown {
-      min-width: calc(120px + 5vw)
-    }
-
-    .ui.selection.active.dropdown .menu,
-    .ui.selection.active.dropdown:hover,
-    .ui.selection.dropdown{
-      background-color: rgb(0,201,211);
-      color: #194973 !important;
-      font-weight: bold !important;
-    }
-
-    .ui.dropdown .menu>.item span{
-      color: #194973 !important;
-      font-weight: bold !important;
-    }
-
-    .ui.selection.visible.dropdown>.text{
-      font-weight: bold !important;
+    .ui.button:active{
+      background: #02bec7 !important;
     }
 `
 

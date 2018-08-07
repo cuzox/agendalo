@@ -12,6 +12,9 @@ export const StdFilter = styled.div`
 
   @media (max-width: 700px) {
     flex-direction: column;
+    > *{
+      width: 100%;
+    }
     > *:not(:last-child){
       margin-right: 0;
     }

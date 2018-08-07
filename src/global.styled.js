@@ -17,6 +17,12 @@ export const MainContainer = styled.div`
     padding-bottom: 240px
   }
 
+  @media (max-width: 700px) {
+    padding-bottom: 300px;
+    &.space{ padding-bottom: 320px; }
+    &.more-space{ padding-bottom: 380px }
+  }
+
   @media (max-width: 500px) {
     padding-bottom: 300px;
   }

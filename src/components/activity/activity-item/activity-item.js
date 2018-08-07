@@ -41,9 +41,13 @@ class ActivityItem extends Component{
     })
   }
   
+  remove(){
+
+  }
+  
   getButton(){
-    let { activity, edit, unschedule } = this.props
-    let type =  (edit && "edit") || (unschedule && "unschedule") || ""
+    let { activity, edit, unschedule, remove } = this.props
+    let type =  (edit && "edit") || (unschedule && "unschedule")|| (remove && "remove") || ""
 
     switch(type){
       case 'edit':
@@ -59,9 +63,19 @@ class ActivityItem extends Component{
         return (
           <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
             onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
-            <Icon 
+            <Icon
               style={{margin: "0", width: "30px", fontSize: "25px"}} 
               className="calendar times outline">
+            </Icon>
+          </Popconfirm>
+        )
+      case 'remove':
+        return (
+          <Popconfirm placement="top" title={"¿Borrar actividad?"}
+            onConfirm={()=>this.remove()} okText="Si" cancelText="No">
+            <Icon
+              style={{margin: "0", width: "30px", fontSize: "25px"}}
+              className="trash">
             </Icon>
           </Popconfirm>
         )
