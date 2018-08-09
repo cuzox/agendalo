@@ -265,49 +265,47 @@ class ActivityCrud extends Component{
                     onChange={ e => this.handleChange('description', e.target.value, 'activity') } 
                   />
                 </Form>
-                <div style={{display: "flex"}}>
-                  <div style={{flexDirection: "column"}}>
-                    <Label basic style={{width: "100px"}} pointing='below'>Desde</Label>
-                    <div style={{display: "flex"}}>
-                      <DatePicker
-                        value={activity.fromDate}
-                        onChange={(e, d)=> this.handleChange('fromDate', e || null, 'activity') }
-                        format="DD-MM-YYYY" placeholder="Fecha*" 
-                        style={{width: "calc(50% - 3px)", marginRight: "3px"}} size="default"
-                      />
-                      <TimePicker
-                        value={activity.fromTime}
-                        size="default" minuteStep={5} use12Hours format="h:mm A"
-                        defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
-                        open={ this.state.openOne } onClick={()=> this.handleClose('openOne')} 
-                        onOpenChange={ openOne => this.setState({ openOne }) }
-                        onChange={(e, d)=> this.handleChange('fromTime', e || null, 'activity') }
-                        addon={() => <Button onClick={()=> this.handleClose('openOne')} size="small" type="primary" content="Ok"/> }
-                        placeholder="Hora*" style={{width: "calc(50% - 6px)", margin: "0 3px"}}
-                      />
-                    </div>
+                <div style={{display: "flex", flexDirection: "column"}}>
+                  <Label basic style={{width: "100px"}} pointing='below'>Desde</Label>
+                  <div style={{display: "flex"}}>
+                    <DatePicker
+                      value={activity.fromDate}
+                      onChange={(e, d)=> this.handleChange('fromDate', e || null, 'activity') }
+                      format="DD-MM-YYYY" placeholder="Fecha*" 
+                      style={{width: "calc(50% - 3px)", marginRight: "3px"}} size="default"
+                    />
+                    <TimePicker
+                      value={activity.fromTime}
+                      size="default" minuteStep={5} use12Hours format="h:mm A"
+                      defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
+                      open={ this.state.openOne } onClick={()=> this.handleClose('openOne')} 
+                      onOpenChange={ openOne => this.setState({ openOne }) }
+                      onChange={(e, d)=> this.handleChange('fromTime', e || null, 'activity') }
+                      addon={() => <Button onClick={()=> this.handleClose('openOne')} size="small" type="primary" content="Ok"/> }
+                      placeholder="Hora*" style={{width: "calc(50% - 6px)", margin: "0 3px"}}
+                    />
                   </div>
-                  <div style={{flexDirection: "column"}}>
-                    <Label basic style={{width: "100px"}} pointing='below'>Hasta</Label>
-                    <div style={{display: "flex"}}>
-                      <DatePicker
-                        value={activity.toDate}
-                        onChange={(e, d)=> this.handleChange('toDate', e || null, 'activity') }
-                        format="DD-MM-YYYY" placeholder="Fecha*" 
-                        style={{width: "calc(50% - 6px)", margin: "0 3px"}} size="default"
-                      />
-                      <TimePicker
-                        value={activity.toTime}
-                        size="default" minuteStep={5} use12Hours format="h:mm A"
-                        defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
-                        open={ this.state.openTwo } onClick={()=> this.handleClose('openTwo')} onOpenChange={ openTwo => this.setState({ openTwo }) }
-                        onChange={(e, d)=> this.handleChange('toTime', e || null, 'activity') }
-                        addon={() => <Button onClick={()=> this.handleClose('openTwo')} size="small" type="primary" content="Ok"/> }
-                        placeholder="Hora*" style={{width: "calc(50% - 3px)", marginLeft: "3px"}}
-                      />
-                    </div>
+                </div>
+                <div style={{display: "flex", flexDirection: "column"}}>
+                  <Label basic style={{width: "100px"}} pointing='below'>Hasta</Label>
+                  <div style={{display: "flex"}}>
+                    <DatePicker
+                      value={activity.toDate}
+                      onChange={(e, d)=> this.handleChange('toDate', e || null, 'activity') }
+                      format="DD-MM-YYYY" placeholder="Fecha*" 
+                      style={{width: "calc(50% - 6px)", margin: "0 3px"}} size="default"
+                    />
+                    <TimePicker
+                      value={activity.toTime}
+                      size="default" minuteStep={5} use12Hours format="h:mm A"
+                      defaultOpenValue={ moment('12:00 AM', 'HH:mm A') }
+                      open={ this.state.openTwo } onClick={()=> this.handleClose('openTwo')} onOpenChange={ openTwo => this.setState({ openTwo }) }
+                      onChange={(e, d)=> this.handleChange('toTime', e || null, 'activity') }
+                      addon={() => <Button onClick={()=> this.handleClose('openTwo')} size="small" type="primary" content="Ok"/> }
+                      placeholder="Hora*" style={{width: "calc(50% - 3px)", marginLeft: "3px"}}
+                    />
                   </div>
-                  </div>
+                </div>
                 <div style={{display: "flex"}}>
                   <PhotoUpload innerRef={this.imageDropArea}>
                     <FaCloudUpload style={{width: "30px", height: "30px", color: "#b1b1b1"}}/>

@@ -22,6 +22,9 @@ import {
   FETCH_MY_ACTIVITIES_SUCCESS,
   FETCH_SCHEDULED_ACTIVITIES_SUCC,
   REMOVE_SCHEDULED_ACTIVITY,
+  REMOVING_ACTIVITY,
+  REMOVE_ACTIVITY_SUCC,
+  REMOVE_ACTIVITY_FAIL,
   FILTER_ACTIVITIES
 } from '../constants'
 
@@ -270,4 +273,19 @@ export const filterActivities = filter => ({
 export const createNotLoggedIn = yesOrNah => ({
   type: CREATE_NOT_LOGGED_IN,
   payload: yesOrNah
+})
+
+export const removingActivity = id => 
+  dispatch => {
+    let promises = []
+    // HttpClient.delete()
+  }
+
+export const removeActivityFail = error =>({
+  type: REMOVE_ACTIVITY_FAIL,
+  payload: error
+})
+
+export const removeActivitySucc = () =>({
+  type: REMOVE_ACTIVITY_SUCC
 })

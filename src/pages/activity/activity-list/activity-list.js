@@ -72,7 +72,7 @@ class ActivityList extends Component {
     let { categoryId, date, categories, activePage, name } = this.state
 
     return(
-      <MainContainer className="more-space">
+      <MainContainer className={panel ? "standalone" : "more-space" }>
         <Dimmer active={false}>
           <Loader />  
         </Dimmer>

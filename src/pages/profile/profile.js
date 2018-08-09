@@ -5,6 +5,7 @@ import { bindActionCreators} from 'redux'
 import { MainContainer} from '../../global.styled'
 import { fetchMyActivities, fetchScheduledActivities } from '../../_actions/activityActions'
 import ActivityItem from '../../components/activity/activity-item/activity-item'
+import ActivityList from '../activity/activity-list/activity-list'
 import { StdActivityList } from './profile.styled'
 
 import { Row, Col } from 'antd'
