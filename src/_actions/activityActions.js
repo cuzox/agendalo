@@ -275,11 +275,19 @@ export const createNotLoggedIn = yesOrNah => ({
   payload: yesOrNah
 })
 
-export const removingActivity = id => 
-  dispatch => {
-    let promises = []
-    // HttpClient.delete()
-  }
+export const removeActivity = id => 
+  (dispatch, getState) => 
+    new Promise((succ, fail) => {
+      dispatch(removingActivity())
+      let accountId = getState().user.id 
+      HttpClient.delete(`Accounts/${accountId}/activities/${id}`).then(()=>{
+        dispatch(removeActivitySucc())
+        succ()
+      }).catch(()=> 
+        dispatch(removeActivityFail())
+      )
+    })
+  
 
 export const removeActivityFail = error =>({
   type: REMOVE_ACTIVITY_FAIL,
@@ -288,4 +296,8 @@ export const removeActivityFail = error =>({
 
 export const removeActivitySucc = () =>({
   type: REMOVE_ACTIVITY_SUCC
+})
+
+export const removingActivity = () =>({
+  type: REMOVING_ACTIVITY
 })

@@ -8,7 +8,7 @@ import moment from 'moment'
 import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 
-import { scheduleActivity, reset, removeScheduledActivity } from '../../../_actions/activityActions'
+import { scheduleActivity, reset, removeScheduledActivity, removeActivity, fetchActivities } from '../../../_actions/activityActions'
 import {  Popconfirm, notification } from 'antd'
 
 
@@ -41,8 +41,10 @@ class ActivityItem extends Component{
     })
   }
   
-  remove(){
-
+  remove(id){
+    this.props.removeActivity(id).then(()=>{
+      this.props.fetchActivities()
+    })
   }
   
   getButton(){
@@ -72,7 +74,7 @@ class ActivityItem extends Component{
       case 'remove':
         return (
           <Popconfirm placement="top" title={"¿Borrar actividad?"}
-            onConfirm={()=>this.remove()} okText="Si" cancelText="No">
+            onConfirm={()=>this.remove(activity.id)} okText="Si" cancelText="No">
             <Icon
               style={{margin: "0", width: "30px", fontSize: "25px"}}
               className="trash">
@@ -107,7 +109,7 @@ class ActivityItem extends Component{
               <span style={{color: "black"}}>{moment(activity.date[0]).format('dddd M, H:mm A')}</span>
               <span style={{color: "black"}}>{activity.category && "#" + activity.category.name}</span>
             </div>
-            <Button basic style={{ padding: "5px 10px" }} onClick={e => this.edit(e)}>
+            <Button basic style={{ padding: "5px 10px", width: "50px", height: "50px"}} onClick={e => this.edit(e)}>
               { this.getButton() }
             </Button>
           </div>
@@ -120,13 +122,19 @@ class ActivityItem extends Component{
 const mapStateToProps = state => {
   return ({
     scheduleSucc: state.activity.scheduleSucc,
-    scheduleFail: state.activity.scheduleFail
+    scheduleFail: state.activity.scheduleFail,
+    removing: state.activity.removing,
+    removeSucc: state.activity.removeSucc
   })
 }
 
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
-    scheduleActivity, reset, removeScheduledActivity
+    scheduleActivity, 
+    reset, 
+    removeScheduledActivity, 
+    removeActivity,
+    fetchActivities
   }, dispatch);
 
 export default connect(

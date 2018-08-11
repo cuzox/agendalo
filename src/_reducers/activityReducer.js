@@ -22,7 +22,10 @@ import {
   ACTIVITY_RESET,
   CREATE_NOT_LOGGED_IN,
   REMOVE_SCHEDULED_ACTIVITY,
-  FILTER_ACTIVITIES
+  FILTER_ACTIVITIES,
+  REMOVE_ACTIVITY_FAIL,
+  REMOVE_ACTIVITY_SUCC,
+  REMOVING_ACTIVITY
 } from '../constants'
 
 const initialState = {
@@ -45,7 +48,10 @@ const initialState = {
   activities: [],
   visible: [],
   search: '',
-  filter: {}
+  filter: {},
+  removing: false,
+  removeSucc: false,
+  removeFail: null
 }
 
 export default function reducer(state = initialState, action){
@@ -167,7 +173,9 @@ export default function reducer(state = initialState, action){
         updateFailed: null,
         updateSuccess: null,
         scheduleSucc: false,
-        scheduleFail: null
+        scheduleFail: null,
+        removeFail: null,
+        removeSucc: false
       }
     case FILTER_ACTIVITIES:
       const filter = {
@@ -190,6 +198,23 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         attemptToCreateNotLoggedIn: action.payload
+      }
+    case REMOVING_ACTIVITY:
+      return {
+        ...state,
+        removing: true
+      }
+    case REMOVE_ACTIVITY_SUCC:
+      return {
+        ...state,
+        removing: false,
+        removingSucc: true
+      }
+    case REMOVE_ACTIVITY_FAIL:
+      return {
+        ...state,
+        removing: false,
+        error: action.payload
       }
     default:
       return state

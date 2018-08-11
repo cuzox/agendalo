@@ -22,7 +22,7 @@ class ControlPanel extends Component {
   render(){
     const { activeItem } = this.state
     return(
-      <React.Fragment>
+      <div>
         <div style={{paddingTop:"120px", display: "flex", justifyContent: "center"}}>
           <Menu compact icon='labeled'>
             <Menu.Item name='gamepad' active={activeItem === 'gamepad'} onClick={this.handleItemClick}>
@@ -40,7 +40,7 @@ class ControlPanel extends Component {
           </Menu>
         </div>
         <ActivityList panel/>
-      </React.Fragment>
+      </div>
     )
   }
 }
