@@ -12,8 +12,9 @@ import {
   Month as StdMonth,
   Newsletter as StdNewsletter
 } from './home.styled'
-import { Button, Dropdown, Input, Select} from 'semantic-ui-react'
-import { Row, Col, Carousel, Alert, notification} from 'antd'
+import { Button, Input, Select} from 'semantic-ui-react'
+import { Row, Col, Alert, notification} from 'antd'
+import { Carousel } from 'element-react'
 
 
 import axios from 'axios'
@@ -179,22 +180,22 @@ class Home extends Component{
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
             style={{overflow: "hidden", margin: "25px 0"}}>
-            <Carousel vertical autoplay effect="fade">
-              <div style={{height: "400px", borderRadius: "12px"}}>
-                <h3>1</h3>
-              </div>
-              <div style={{height: "400px", borderRadius: "12px"}}>
-                <h3>2</h3>
-              </div>
-              <div style={{height: "400px", borderRadius: "12px"}}>
-                <h3>3</h3>
-              </div>
+            <Carousel interval="4000" height="300px">
+              {
+                [1,2,3].map((item, index) => {
+                  return (
+                    <Carousel.Item key={index}>
+                      <div style={{backgroundColor: `rgb(100,100,18${item})`, height: "100%"} }>{item}</div>
+                    </Carousel.Item>
+                  )
+                })
+              }
             </Carousel>
           </Col>
         </Row>
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} style={{marginBottom: "25px"}}>
-            <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px", margin: "0 10px 0 10px"}}></div>
+            <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
           </Col>
         </Row>
         { !this.props.loggedIn &&

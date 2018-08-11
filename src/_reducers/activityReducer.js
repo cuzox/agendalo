@@ -208,7 +208,9 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         removing: false,
-        removingSucc: true
+        removingSucc: true,
+        activities: state.activities.filter( act => act.id != action.payload ),
+        visible: state.visible.filter( act => act.id != action.payload )
       }
     case REMOVE_ACTIVITY_FAIL:
       return {

@@ -37,14 +37,12 @@ class ActivityItem extends Component{
   unschedule(){
     this.props.removeScheduledActivity(this.props.activity.id)
     notification['success']({
-      message: '¡Actividad borrada!',
+      message: '¡Actividad quitada!',
     })
   }
   
   remove(id){
-    this.props.removeActivity(id).then(()=>{
-      this.props.fetchActivities()
-    })
+    this.props.removeActivity(id)
   }
   
   getButton(){
@@ -65,28 +63,34 @@ class ActivityItem extends Component{
         return (
           <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
             onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
-            <Icon
-              style={{margin: "0", width: "30px", fontSize: "25px"}} 
-              className="calendar times outline">
-            </Icon>
+            <div className="schedule">
+                <Icon
+                  style={{margin: "0", fontSize: "20px"}} 
+                  className="calendar times outline">
+                </Icon>
+            </div>
           </Popconfirm>
         )
       case 'remove':
         return (
           <Popconfirm placement="top" title={"¿Borrar actividad?"}
             onConfirm={()=>this.remove(activity.id)} okText="Si" cancelText="No">
-            <Icon
-              style={{margin: "0", width: "30px", fontSize: "25px"}}
-              className="trash">
-            </Icon>
+            <div className="schedule">
+              <Icon
+                style={{margin: "0", fontSize: "20px"}}
+                className="trash">
+              </Icon>
+            </div>
           </Popconfirm>
         )
       default: /* schedule */
         return (
-          <img onClick={()=>this.props.scheduleActivity(activity.id)}
-            style={{height: "30px", width: "auto"}} 
-            src="/assets/images/logo_sm_darkb.png"
-          />
+          <div className="schedule" onClick={()=>this.props.scheduleActivity(activity.id)}>
+            <img 
+              style={{height: "30px", width: "auto"}} 
+              src="/assets/images/logo_sm_darkb.png"
+            />
+          </div>
         )
     }
   }
@@ -104,12 +108,12 @@ class ActivityItem extends Component{
           <h4 className="body">
             {activity.description}
           </h4>
-          <div style={{display: "flex", justifyContent: "space-between"}}>
+          <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
             <div style={{display: "flex", flexDirection: "column"}}>
               <span style={{color: "black"}}>{moment(activity.date[0]).format('dddd M, H:mm A')}</span>
               <span style={{color: "black"}}>{activity.category && "#" + activity.category.name}</span>
             </div>
-            <Button basic style={{ padding: "5px 10px", width: "50px", height: "50px"}} onClick={e => this.edit(e)}>
+            <Button basic className="action-button" onClick={e => this.edit(e)}>
               { this.getButton() }
             </Button>
           </div>

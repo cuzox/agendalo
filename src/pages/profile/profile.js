@@ -55,7 +55,7 @@ class Profile extends Component {
       }
     ]
     return(
-      <MainContainer>
+      <MainContainer className="pad">
         <div style={{display: "flex", justifyContent: "center", alignItems: "center", padding: "20px", marginBottom: "20px"}}>
           <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
             <img style={{ height: "100px", width: "100px" }}src="/assets/images/user.png"/>

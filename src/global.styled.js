@@ -3,9 +3,12 @@ import styled from "styled-components";
 export const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
-  padding-top: 120px;
   padding-bottom: 160px;
   min-height: 100vh;
+
+  &.pad{
+    padding-top: 120px;
+  }
 
   &.center{
     justify-content: center;

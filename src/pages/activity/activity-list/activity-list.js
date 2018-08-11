@@ -68,7 +68,7 @@ class ActivityList extends Component {
   }
 
   render(){
-    let { visible, panel } = this.props
+    let { visible, panel, compact } = this.props
     let { categoryId, date, categories, activePage, name } = this.state
 
     return(
@@ -76,51 +76,48 @@ class ActivityList extends Component {
         <Dimmer active={false}>
           <Loader />  
         </Dimmer>
-        { !this.props.panel &&
-          <Row type="flex" justify="center">
-            <Col xl={12} lg={16} md={18} sm={20} xs={22}>
-              <StdFilter className="filter">
-                <Input onInput={e => this.handleChange('name', e.target.value )} 
-                  size={"medium"} icon='search' placeholder='Buscar...'
-                  value={name}
-                />
-                <Dropdown size={"medium"}
-                  onChange={(e, d)=> this.handleChange('categoryId', d.value) }
-                  value={categoryId} placeholder='Categoría...' 
-                  selection options={categories || []}
-                />
-                <Dropdown size={"medium"}
-                  onChange={(e, d)=> this.handleChange('date', d.value) }
-                  value={date} placeholder='Cuando...'
-                  selection options={this.dates || []}
-                />
-              </StdFilter>
-            </Col>
-          </Row>
-        }
+        <Row type="flex" justify="center">
+          <Col xl={12} lg={16} md={18} sm={20} xs={22}>
+            <StdFilter className="filter">
+              <Input onInput={e => this.handleChange('name', e.target.value )} 
+                size={"medium"} icon='search' placeholder='Buscar...'
+                value={name}
+              />
+              <Dropdown size={"medium"}
+                onChange={(e, d)=> this.handleChange('categoryId', d.value) }
+                value={categoryId} placeholder='Categoría...' 
+                selection options={categories || []}
+              />
+              <Dropdown size={"medium"}
+                onChange={(e, d)=> this.handleChange('date', d.value) }
+                value={date} placeholder='Cuando...'
+                selection options={this.dates || []}
+              />
+            </StdFilter>
+          </Col>
+        </Row>
         <Row type="flex" justify="center" style={{minHeight: "590px"}}>
-          { [0,1].map(n =>
-            <Col xxl={6} lg={8} md={11} sm={20} xs={20} key={n}>
-              { visible.length ? (
-                  visible.slice(
-                    ((activePage-1)*this.itemsPerPage), ((activePage-1)*this.itemsPerPage) + this.itemsPerPage
-                  ).map((activity, i) => ((i+n) % 2 == 0) && 
-                    <Link key={activity.id} to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
-                      <ActivityItem {...{activity}} remove={panel} margin/>
-                      {/* { (i+1)%3 == 0 && i!=0 && (
-                        <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
-                      )} */}
-                    </Link>
-                  )
-                ) : (
-                  (n == 0) && 
+            <Col xxl={13} xl={17} lg={20} md={20} sm={20} xs={20}>
+              <div style={{display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
+                { visible.length ? (
+                    visible.slice(
+                      ((activePage-1)*this.itemsPerPage), ((activePage-1)*this.itemsPerPage) + this.itemsPerPage
+                    ).map((activity, i) =>  
+                      <Link key={activity.id} to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
+                        <ActivityItem {...{activity}} remove={panel} {...{compact}} margin/>
+                        {/* { (i+1)%3 == 0 && i!=0 && (
+                          <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
+                        )} */}
+                      </Link>
+                    )
+                  ) : (
                     <div style={{textAlign: "center", marginTop: "20px"}} >
                       No hay actividades para mostrar
                     </div>
-                )
-              }
+                  )
+                }
+              </div>
             </Col>
-          )}
         </Row>
         <div style={{display: "flex", justifyContent: "center"}}>
           <Pagination {...{activePage}} 
@@ -136,7 +133,6 @@ class ActivityList extends Component {
 
 const mapStateToProps = state => {
   return ({
-    activities: state.activity.activities,
     visible: state.activity.visible,
     categories: state.category.categories,
   })

@@ -73,7 +73,7 @@ class Register extends Component{
     if(!this.mainContainer.current.querySelector("input[name='terms']").checked) 
       errors.push('Debes aceptar los Terminos y Condiciones')
 
-    if(this.testErrors(errors)) this.props.login(user)
+    if(this.testErrors(errors)) this.props.register(user)
   }
 
   render(){

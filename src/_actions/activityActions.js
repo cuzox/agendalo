@@ -281,7 +281,7 @@ export const removeActivity = id =>
       dispatch(removingActivity())
       let accountId = getState().user.id 
       HttpClient.delete(`Accounts/${accountId}/activities/${id}`).then(()=>{
-        dispatch(removeActivitySucc())
+        dispatch(removeActivitySucc(id))
         succ()
       }).catch(()=> 
         dispatch(removeActivityFail())
@@ -294,8 +294,9 @@ export const removeActivityFail = error =>({
   payload: error
 })
 
-export const removeActivitySucc = () =>({
-  type: REMOVE_ACTIVITY_SUCC
+export const removeActivitySucc = id =>({
+  type: REMOVE_ACTIVITY_SUCC,
+  payload: id
 })
 
 export const removingActivity = () =>({

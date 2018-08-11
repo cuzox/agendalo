@@ -27,7 +27,6 @@ export const StdMain = MainContainer.extend`
   }
   img{
     width: 100%;
-    margin-bottom: 20px;
   }
 `
 

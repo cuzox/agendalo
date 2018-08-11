@@ -7,6 +7,8 @@ import App from './App'
 import 'semantic-ui-css/semantic.min.css'
 import 'antd/dist/antd.css'
 
+import 'element-theme-default';
+
 import { LocaleProvider } from 'antd';
 import es_ES from 'antd/lib/locale-provider/es_ES';
 import 'moment/locale/es';

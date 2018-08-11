@@ -2,13 +2,14 @@ import styled from 'styled-components'
 
 export const StdCard = styled.div`
   display: flex;
-  margin: 20px 0;
+  margin: 10px 5px;
   background-color: white;
   border-radius: 10px;
   overflow: hidden; 
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
   cursor: pointer;
   max-height: 320px;
+  max-width: 400px;
   transition: all .2s ease;
 
   &:hover{
@@ -78,7 +79,25 @@ export const StdCard = styled.div`
   }
 
   &.margin{
-    margin: 20px 5px;
+    margin: 10px 5px;
+  }
+
+  .action-button{
+    width: 40px;
+    height: 40px;
+    position: relative;
+    margin: 0 !important;
+
+    .schedule{
+      position: absolute;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      top: 0;
+      left: 0;
+      bottom: 0;
+      right: 0;
+    }
   }
   
   @media (max-width: 460px) {
