@@ -14,6 +14,8 @@ import { Dimmer, Loader, Input, Dropdown, Pagination } from 'semantic-ui-react'
 import { Row, Col } from 'antd';
 import { StdFilter } from './activity-list.styled'
 
+import { Layout } from 'element-react'
+
 import query from 'query-string'
 import store from '../../../store'
 
@@ -24,7 +26,6 @@ class ActivityList extends Component {
     { key: 3, value: 3, text: "Proximo mes"}
   ]
   updatedCategories = false
-  itemsPerPage = 6;
   state = {
     categoryId: 0,
     date: 1,
@@ -68,8 +69,13 @@ class ActivityList extends Component {
   }
 
   render(){
-    let { visible, panel, compact } = this.props
-    let { categoryId, date, categories, activePage, name } = this.state
+    const { visible, panel, compact } = this.props
+    const { categoryId, date, categories, activePage, name } = this.state
+    const cols = {xl: 12, lg: 20, md: 18, sm: 20, xs: 20 }
+    const compactCols = { xxl: 8, xl: 8, lg: 12, md: 11, sm: 11, xs: 20 }
+    const ipp = 6
+    const cls = compact ? compactCols : cols
+
 
     return(
       <MainContainer className={panel ? "standalone" : "more-space" }>
@@ -97,31 +103,33 @@ class ActivityList extends Component {
           </Col>
         </Row>
         <Row type="flex" justify="center" style={{minHeight: "590px"}}>
-            <Col xxl={13} xl={17} lg={20} md={20} sm={20} xs={20}>
-              <div style={{display: "flex", justifyContent: "center", flexWrap: "wrap"}}>
-                { visible.length ? (
-                    visible.slice(
-                      ((activePage-1)*this.itemsPerPage), ((activePage-1)*this.itemsPerPage) + this.itemsPerPage
-                    ).map((activity, i) =>  
-                      <Link key={activity.id} to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
+          <Col xxl={16} xl={16} lg={14} md={24} sm={24} xs={24}>
+            <Row type="flex" justify="center" gutter={15}>
+              { visible.length ? (
+                  visible.slice(
+                    ((activePage-1)*ipp), ((activePage-1)*ipp) + ipp
+                  ).map((activity, i) =>  
+                    <Col key={activity.id} {...cls}>
+                      <Link to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
                         <ActivityItem {...{activity}} remove={panel} {...{compact}} margin/>
                         {/* { (i+1)%3 == 0 && i!=0 && (
                           <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
                         )} */}
                       </Link>
-                    )
-                  ) : (
-                    <div style={{textAlign: "center", marginTop: "20px"}} >
-                      No hay actividades para mostrar
-                    </div>
+                    </Col>
                   )
-                }
-              </div>
-            </Col>
+                ) : (
+                  <div style={{textAlign: "center", marginTop: "20px"}} >
+                    No hay actividades para mostrar
+                  </div>
+                )
+              }
+            </Row>
+          </Col>
         </Row>
-        <div style={{display: "flex", justifyContent: "center"}}>
+        <div style={{display: "flex", justifyContent: "center", marginTop: "20px"}}>
           <Pagination {...{activePage}} 
-            totalPages={Math.ceil(visible.length/this.itemsPerPage)} 
+            totalPages={Math.ceil(visible.length/ipp)} 
             boundaryRange={0} ellipsisItem={null}
             onPageChange={(e, { activePage }) => this.setState({ activePage })}
           />

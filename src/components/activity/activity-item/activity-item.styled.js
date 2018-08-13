@@ -2,15 +2,14 @@ import styled from 'styled-components'
 
 export const StdCard = styled.div`
   display: flex;
-  margin: 10px 5px;
   background-color: white;
   border-radius: 10px;
   overflow: hidden; 
   box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
   cursor: pointer;
   max-height: 320px;
-  max-width: 400px;
   transition: all .2s ease;
+  margin: 8px 0;
 
   &:hover{
     transform: scale(1.02);
@@ -68,7 +67,6 @@ export const StdCard = styled.div`
 
   &.compact{
     flex-direction: column;
-    width: 250px;
     min-width: 250px;
     > img {
       width: 100%;
@@ -78,9 +76,7 @@ export const StdCard = styled.div`
     }
   }
 
-  &.margin{
-    margin: 10px 5px;
-  }
+  
 
   .action-button{
     width: 40px;
@@ -100,7 +96,7 @@ export const StdCard = styled.div`
     }
   }
   
-  @media (max-width: 460px) {
+  @media (max-width: 450px) {
     flex-direction: column;
     > img {
       width: 100%;

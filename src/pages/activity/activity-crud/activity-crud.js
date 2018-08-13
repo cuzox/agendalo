@@ -200,16 +200,16 @@ class ActivityCrud extends Component{
       let newActivity = JSON.parse(JSON.stringify(this.state.activity))
       newActivity.date = []
       Array.from([['fromDate', 'fromTime'], ['toDate', 'toTime']]).forEach(pair =>{
-        newActivity[pair[0]] = moment(newActivity[pair[0]])
-        let time = moment(newActivity[pair[1]])
-        newActivity[pair[0]].set({
+        let date = moment(newActivity[pair[0]])
+        const time = moment(newActivity[pair[1]])
+        date.set({
           hour:   time.get('hour'),
           minute: time.get('minute'),
           second: time.get('second')
         })
-        newActivity[pair[0]] = newActivity[pair[0]].toDate()
+        date = date.utcOffset('-0400').toDate()
   
-        newActivity.date.push(newActivity[pair[0]])
+        newActivity.date.push(date)
         delete newActivity[pair[0]]
         delete newActivity[pair[1]]
       })
