@@ -112,10 +112,10 @@ class ActivityCrud extends Component{
     if(this.state.editing && !this.state.activityLoaded){
       let loadedActivity = { ...this.props.activity }
       let dates = { 
-        fromDate: moment(loadedActivity.date[0]),
-        fromTime: moment(loadedActivity.date[0]),
-        toDate: moment(loadedActivity.date[1]),
-        toTime: moment(loadedActivity.date[1])
+        fromDate: moment(loadedActivity.fromDate),
+        fromTime: moment(loadedActivity.fromDate),
+        toDate: moment(loadedActivity.toDate),
+        toTime: moment(loadedActivity.toDate)
       }
       this.setState({
         activityImages: loadedActivity.photos.map(p => ({
@@ -207,10 +207,8 @@ class ActivityCrud extends Component{
           minute: time.get('minute'),
           second: time.get('second')
         })
-        date = date.utcOffset('-0400').toDate()
-  
-        newActivity.date.push(date)
-        delete newActivity[pair[0]]
+
+        newActivity[pair[0]] =  date.utcOffset('-0400').toDate()
         delete newActivity[pair[1]]
       })
 

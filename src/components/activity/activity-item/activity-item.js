@@ -110,7 +110,8 @@ class ActivityItem extends Component{
           </h4>
           <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
             <div style={{display: "flex", flexDirection: "column"}}>
-              <span style={{color: "black"}}>{moment(activity.date[0]).utcOffset('-0400').format('dddd M, H:mm A')}</span>
+              <span style={{color: "black"}}>{moment(activity.fromDate).utcOffset('-0400').format('D [de] MMMM')}</span>
+              <span style={{color: "black"}}>{moment(activity.fromDate).utcOffset('-0400').format('dddd[,] H:mm A')}</span>
               <span style={{color: "black"}}>{activity.category && "#" + activity.category.name}</span>
             </div>
             <Button basic className="action-button" onClick={e => this.edit(e)}>

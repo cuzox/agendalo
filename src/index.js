@@ -12,8 +12,14 @@ import 'element-theme-default';
 import { LocaleProvider } from 'antd';
 import es_ES from 'antd/lib/locale-provider/es_ES';
 import 'moment/locale/es';
+import moment from 'moment'
 
 import registerServiceWorker from './registerServiceWorker'
+
+moment.updateLocale('es', {
+  months: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+  weekdays: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"]
+});
 
 ReactDOM.render(
   <Provider store={ store }>
