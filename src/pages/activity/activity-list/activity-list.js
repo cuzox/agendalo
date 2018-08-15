@@ -69,7 +69,7 @@ class ActivityList extends Component {
   }
 
   render(){
-    const { visible, panel, compact } = this.props
+    const { visible, panel, compact, buttons } = this.props
     const { categoryId, date, categories, activePage, name } = this.state
     const cols = {xl: 12, lg: 20, md: 18, sm: 20, xs: 20 }
     const compactCols = { xxl: 8, xl: 8, lg: 12, md: 11, sm: 11, xs: 20 }
@@ -111,7 +111,7 @@ class ActivityList extends Component {
                   ).map((activity, i) =>  
                     <Col key={activity.id} {...cls}>
                       <Link to={{pathname: "/actividades/"+activity.id, state: {activity}}}>
-                        <ActivityItem {...{activity}} remove={panel} {...{compact}} margin/>
+                        <ActivityItem {...{activity, compact, buttons}} remove={panel} margin/>
                         {/* { (i+1)%3 == 0 && i!=0 && (
                           <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
                         )} */}

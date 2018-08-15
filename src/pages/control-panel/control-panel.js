@@ -39,7 +39,7 @@ class ControlPanel extends Component {
             </Menu.Item>
           </Menu>
         </div>
-        <ActivityList panel compact/>
+        <ActivityList panel compact buttons={["edit", "remove"]}/>
       </MainContainer>
     )
   }

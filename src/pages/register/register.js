@@ -78,7 +78,7 @@ class Register extends Component{
 
   render(){
     return (
-      <MainContainer innerRef={ this.mainContainer} className="center">
+      <MainContainer innerRef={ this.mainContainer} className="center more-space">
           { this.props.registerSuccess && <Redirect push to="/login"/> }
           <Dimmer active={this.props.registering}>
             <Loader />

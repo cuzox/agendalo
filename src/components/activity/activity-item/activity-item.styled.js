@@ -82,14 +82,14 @@ export const StdCard = styled.div`
     width: 40px;
     height: 40px;
     position: relative;
-    margin: 0 !important;
+    margin: 0 0 0 5px !important;
 
-    .schedule{
+    .action-icon{
       position: absolute;
       display: flex;
       justify-content: center;
       align-items: center;
-      top: 0;
+      top: 8px;
       left: 0;
       bottom: 0;
       right: 0;

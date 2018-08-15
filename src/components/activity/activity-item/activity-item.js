@@ -45,58 +45,67 @@ class ActivityItem extends Component{
     this.props.removeActivity(id)
   }
   
-  getButton(){
-    let { activity, edit, unschedule, remove } = this.props
-    let type =  (edit && "edit") || (unschedule && "unschedule")|| (remove && "remove") || ""
+  getButton(type){
+    let { activity } = this.props
 
     switch(type){
       case 'edit':
         return (
-          <Link to={{pathname: "/agregar/"+activity.id, state: {activity}}} >
-            <Icon 
-              style={{margin: "0", width: "30px", fontSize: "25px"}} 
-              className="edit outline">
-            </Icon>
-          </Link>
+          <Button basic className="action-button">
+            <Link to={{pathname: "/agregar/"+activity.id, state: {activity}}} >
+              <div style={{color: "#469c56"}} className="action-icon">
+                <Icon 
+                  style={{margin: "0", width: "30px", fontSize: "25px"}} 
+                  className="edit outline">
+                </Icon>
+              </div>
+            </Link> 
+          </Button>
         )
       case 'unschedule':
         return (
-          <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
-            onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
-            <div className="schedule">
-                <Icon
-                  style={{margin: "0", fontSize: "20px"}} 
-                  className="calendar times outline">
-                </Icon>
-            </div>
-          </Popconfirm>
+          <Button basic className="action-button">
+            <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
+              onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
+              <div className="schedule">
+                  <Icon
+                    style={{margin: "0", fontSize: "20px"}} 
+                    className="calendar times outline">
+                  </Icon>
+              </div>
+            </Popconfirm>
+          </Button>
         )
       case 'remove':
         return (
-          <Popconfirm placement="top" title={"¿Borrar actividad?"}
-            onConfirm={()=>this.remove(activity.id)} okText="Si" cancelText="No">
-            <div className="schedule">
-              <Icon
-                style={{margin: "0", fontSize: "20px"}}
-                className="trash">
-              </Icon>
-            </div>
-          </Popconfirm>
+          <Button basic className="action-button">
+            <Popconfirm placement="top" title={"¿Borrar actividad?"}
+              onConfirm={()=>this.remove(activity.id)} okText="Si" cancelText="No">
+              <div style={{color: "#f94141"}} className="action-icon">
+                <Icon
+                  style={{margin: "0", fontSize: "20px"}}
+                  className="trash">
+                </Icon>
+              </div>
+            </Popconfirm>
+          </Button> 
         )
       default: /* schedule */
         return (
-          <div className="schedule" onClick={()=>this.props.scheduleActivity(activity.id)}>
-            <img 
-              style={{height: "30px", width: "auto"}} 
-              src="/assets/images/logo_sm_darkb.png"
-            />
-          </div>
+          <Button basic className="action-button">
+            <div style={{top: 0}} className="action-icon" onClick={()=>this.props.scheduleActivity(activity.id)}>
+              <img 
+                style={{height: "30px", width: "auto"}} 
+                src="/assets/images/logo_sm_darkb.png"
+              />
+            </div>
+          </Button> 
         )
     }
   }
   
   render(){
-    let { activity, compact, margin } = this.props
+    let { activity, compact, margin, buttons = [] } = this.props
     return (
       <StdCard className={compact ? "compact":"" + margin ? " margin":""}>
         { this.props.scheduleSucc && <Redirect push to="/perfil"/> }
@@ -114,9 +123,9 @@ class ActivityItem extends Component{
               <span style={{color: "black"}}>{moment(activity.fromDate).utcOffset('-0400').format('dddd[,] H:mm A')}</span>
               <span style={{color: "black"}}>{activity.category && "#" + activity.category.name}</span>
             </div>
-            <Button basic className="action-button" onClick={e => this.edit(e)}>
-              { this.getButton() }
-            </Button>
+            <div style={{display: "flex"}}>
+              { buttons.length ? buttons.map(btn => this.getButton(btn)) : this.getButton() }
+            </div>
           </div>
         </div>
       </StdCard>

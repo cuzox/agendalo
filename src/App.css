@@ -70,6 +70,10 @@ body.hide-overflow {
   border-radius: 0 !important;
 }
 
+.ui.selection.dropdown {
+  min-width: initial !important;
+}
+
 .fade-enter:not(.no-trans) {
   opacity: 0;
   transform: translate(10px);

@@ -244,7 +244,7 @@ class ActivityCrud extends Component{
                   onChange={ e => this.handleChange('address', e.target.value, 'activity') }
                 />
                 <div style={{display: "flex"}}>
-                  <Dropdown size="medium" placeholder='Categoría*'
+                  <Dropdown size="medium" placeholder="Categoría*"
                     style={{width: "calc(50% - 5px)", marginRight: "5px"}} 
                     search selection options={this.props.categories}
                     value={activity.categoryId}
@@ -307,7 +307,7 @@ class ActivityCrud extends Component{
                 <div style={{display: "flex"}}>
                   <PhotoUpload innerRef={this.imageDropArea}>
                     <FaCloudUpload style={{width: "30px", height: "30px", color: "#b1b1b1"}}/>
-                    <span style={{fontSize: "0.8em", color: "#b1b1b1", textAlign: "center"}}>Arrastra imagenes o haz click aquí</span>
+                    <span style={{fontSize: "0.8em", color: "#b1b1b1", textAlign: "center"}}>Arrastra <br/> imagenes o haz click aquí</span>
                     <input ref={this.imagesInput} type="file" style={{display: "none"}} multiple/>
                   </PhotoUpload>
                   <PhotoList>

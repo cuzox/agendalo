@@ -79,7 +79,7 @@ class Login extends Component{
 
   render(){
     return (
-      <MainContainer className="center" >
+      <MainContainer className="center more-space" >
         { this.props.loginSuccess && (
           this.props.createAttempt ? 
           <Redirect push to="/agregar"/> :
