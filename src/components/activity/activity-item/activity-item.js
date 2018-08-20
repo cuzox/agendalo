@@ -67,7 +67,7 @@ class ActivityItem extends Component{
           <Button basic className="action-button">
             <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
               onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
-              <div className="schedule">
+              <div className="action-icon">
                   <Icon
                     style={{margin: "0", fontSize: "20px"}} 
                     className="calendar times outline">

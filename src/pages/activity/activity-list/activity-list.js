@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 
 import { MainContainer} from '../../../global.styled'
 
-import { fetchActivities, filterActivities } from '../../../_actions/activityActions'
+import { fetchActivities, filterActivities, fetchActivitiesSucc } from '../../../_actions/activityActions'
 import ActivityItem from '../../../components/activity/activity-item/activity-item'
 
 import { Dimmer, Loader, Input, Dropdown, Pagination } from 'semantic-ui-react'
@@ -35,7 +35,8 @@ class ActivityList extends Component {
   }
   
   componentDidMount(){
-    this.props.fetchActivities()
+    const { list } = this.props
+    list ? this.props.fetchActivitiesSucc(list) : this.props.fetchActivities()
     if(this.props.location && this.props.location.search){
       const unsub = store.subscribe(() => {
         let { visible } = store.getState().activity
@@ -149,7 +150,8 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch =>
   bindActionCreators({
     fetchActivities,
-    filterActivities
+    filterActivities,
+    fetchActivitiesSucc
   }, dispatch);
 
 export default connect(

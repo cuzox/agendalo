@@ -27,25 +27,19 @@ class Profile extends Component {
     let panes = [
       { menuItem: 'MIS AGENDADAS', render: () => 
         <Tab.Pane attached={false}>
-          <StdActivityList >
-            { this.props.scheduled.length ? (
-                this.props.scheduled.map(act =>(
-                  <ActivityItem compact unschedule key={act.id} activity={act}/>
-                ))
-              ) : (
-                <b>No has publicado actividades</b>
-              )
-            }
-          </StdActivityList>
+          { this.props.scheduled.length ? (
+              <ActivityList panel compact buttons={["unschedule"]} list={ this.props.scheduled }/>
+            ) : (
+              <b>No has publicado actividades</b>
+            )
+          }
         </Tab.Pane> 
       },
       { menuItem: 'MIS PUBLICADAS', render: () => 
         <Tab.Pane attached={false}>
           <StdActivityList >
           { this.props.myActivities.length ? (
-              this.props.myActivities.map(act =>(
-                <ActivityItem compact edit key={act.id} activity={act}/>
-              ))
+                <ActivityList panel compact buttons={["unschedule"]} list={ this.props.myActivities }/>
             ) : (
               <b>No has agendado actividades</b>
             )
