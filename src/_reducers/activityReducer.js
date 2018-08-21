@@ -186,7 +186,7 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         filter,
-        visible: state.activities.filter(act =>
+        visible: (action.payload || state.activities).filter(act =>
           Object.keys(filter).every(key => 
             typeof filter[key] == "number" && filter[key] == act[key] ||
             typeof filter[key] == "string" && act[key].toLowerCase().includes(filter[key].toLowerCase()) ||

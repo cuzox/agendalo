@@ -52,7 +52,7 @@ class ActivityList extends Component {
   handleChange(name, value){
     let build = { [name]: value }
     this.setState(build)
-    this.props.filterActivities(build)
+    this.props.filterActivities({filter: build, list: this.props.list})
   }
 
   

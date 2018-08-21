@@ -28,7 +28,7 @@ class Profile extends Component {
       { menuItem: 'MIS AGENDADAS', render: () => 
         <Tab.Pane attached={false}>
           { this.props.scheduled.length ? (
-              <ActivityList panel compact buttons={["unschedule"]} list={ this.props.scheduled }/>
+              <ActivityList scheduled panel compact buttons={["unschedule"]} list={ this.props.scheduled }/>
             ) : (
               <b>No has publicado actividades</b>
             )
@@ -37,14 +37,12 @@ class Profile extends Component {
       },
       { menuItem: 'MIS PUBLICADAS', render: () => 
         <Tab.Pane attached={false}>
-          <StdActivityList >
           { this.props.myActivities.length ? (
-                <ActivityList panel compact buttons={["unschedule"]} list={ this.props.myActivities }/>
+                <ActivityList mine panel compact buttons={["edit", "remove"]} list={ this.props.myActivities }/>
             ) : (
               <b>No has agendado actividades</b>
             )
           }
-          </StdActivityList>
         </Tab.Pane> 
       }
     ]

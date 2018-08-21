@@ -120,7 +120,7 @@ export const fetchScheduledActivities = () => (
   (dispatch, getState) => {
     let accountId = getState().user.id
     dispatch(fetchingActivities())
-    HttpClient.get(`/Accounts/${accountId}/savedActivities`).then(res =>{
+    HttpClient.get(`Accounts/${accountId}/savedActivities`).then(res =>{
       dispatch(fetchScheduledActivitiesSucc(res.data))
     }).catch(error =>{
       dispatch(fetchActivitiesFail(error))
@@ -181,7 +181,7 @@ export const removeScheduledActivity = id =>
   (dispatch, getState)=>{
     let accountId = getState().user.id
     dispatch(removeScheduledActivitySucc(id))
-    HttpClient.delete(`/Accounts/${accountId}/savedActivities/rel/${id}`)
+    HttpClient.delete(`Accounts/${accountId}/savedActivities/rel/${id}`)
   }
 
 export const schedulingActivity = () =>({
@@ -241,7 +241,7 @@ export const scheduleActivity = id =>
   (dispatch, getState) => {
     let accountId = getState().user.id
     dispatch(schedulingActivity())
-    HttpClient.put(`/Accounts/${accountId}/savedActivities/rel/${id}`).then(()=>{
+    HttpClient.put(`Accounts/${accountId}/savedActivities/rel/${id}`).then(()=>{
       dispatch(scheduleActivitySucc())
     }).catch( err =>{
       dispatch(scheduleActivityFail())

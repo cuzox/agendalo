@@ -5,7 +5,8 @@ export const StdCard = styled.div`
   background-color: white;
   border-radius: 10px;
   overflow: hidden; 
-  box-shadow: 0 1px 0 0 rgba(0,0,0,0.1);
+  box-shadow: 0px 6px 30px rgba(210, 210, 210, 0.5);
+  border: 2px solid #dadada;
   cursor: pointer;
   max-height: 320px;
   transition: all .2s ease;
