@@ -8,7 +8,7 @@ import { fetchActivity, fetchActivitySucc, fetchActivities } from '../../../_act
 
 import { Dimmer, Loader, Button, Icon } from 'semantic-ui-react'
 import { Row, Col } from 'antd';
-
+import moment from 'moment'
 
 import { Link } from 'react-router-dom'
 import ActivityItem from '../../../components/activity/activity-item/activity-item'
@@ -49,6 +49,10 @@ class ActivityList extends Component {
                     <span style={{color: "gray", fontSize: "0.7em"}}>&nbsp; | &nbsp;&nbsp;&nbsp;{activity.category.name}</span> : null
                   }
                 </h3>
+                <h4 className="body-text">
+                  <Icon className="calendar"></Icon>
+                  <span style={{color: "black"}}>{moment(activity.fromDate).utcOffset('-0400').format('dddd D [de] MMMM[,] h:mm A')}</span>
+                </h4>
                 <h4 className="body-text">
                   <Icon className="home"></Icon>
                   { activity.organizer }
