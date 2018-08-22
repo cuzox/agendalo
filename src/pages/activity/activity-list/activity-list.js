@@ -35,8 +35,6 @@ class ActivityList extends Component {
   }
   
   componentDidMount(){
-    const { list } = this.props
-    list ? this.props.fetchActivitiesSucc(list) : this.props.fetchActivities()
     if(this.props.location && this.props.location.search){
       const unsub = store.subscribe(() => {
         let { visible } = store.getState().activity
@@ -58,6 +56,8 @@ class ActivityList extends Component {
   
 
   componentDidUpdate(){
+    const { list } = this.props
+    list ? this.props.fetchActivitiesSucc(list) : this.props.fetchActivities()
     if(this.props.categories.length && !this.updatedCategories){
       this.updatedCategories = true;
       this.setState({ 
@@ -72,7 +72,7 @@ class ActivityList extends Component {
   render(){
     const { visible, panel, compact, buttons } = this.props
     const { categoryId, date, categories, activePage, name } = this.state
-    const cols = {xl: 12, lg: 20, md: 18, sm: 20, xs: 20 }
+    const cols = {xl: 12, lg: 20, md: {span: 16, offset: 4}, sm: {span: 20, offset: 2}, xs: {span: 20, offset: 2} }
     const compactCols = { xxl: 8, xl: 8, lg: 12, md: 11, sm: 11, xs: 20 }
     const ipp = 6
     const cls = compact ? compactCols : cols
@@ -105,7 +105,7 @@ class ActivityList extends Component {
         </Row>
         <Row type="flex" justify="center" style={{minHeight: "590px"}}>
           <Col xxl={16} xl={16} lg={14} md={24} sm={24} xs={24}>
-            <Row type="flex" justify="center" gutter={15}>
+            <Row type="flex" justify="flex-start" gutter={15}>
               { visible.length ? (
                   visible.slice(
                     ((activePage-1)*ipp), ((activePage-1)*ipp) + ipp

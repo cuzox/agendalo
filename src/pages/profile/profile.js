@@ -4,9 +4,7 @@ import { connect } from 'react-redux'
 import { bindActionCreators} from 'redux'
 import { MainContainer} from '../../global.styled'
 import { fetchMyActivities, fetchScheduledActivities } from '../../_actions/activityActions'
-import ActivityItem from '../../components/activity/activity-item/activity-item'
 import ActivityList from '../activity/activity-list/activity-list'
-import { StdActivityList } from './profile.styled'
 
 import { Row, Col } from 'antd'
 
@@ -25,7 +23,7 @@ class Profile extends Component {
 
   render(){
     let panes = [
-      { menuItem: 'MIS AGENDADAS', render: () => 
+      { menuItem: 'Mis Agendadas', render: () => 
         <Tab.Pane attached={false}>
           { this.props.scheduled.length ? (
               <ActivityList scheduled panel compact buttons={["unschedule"]} list={ this.props.scheduled }/>
@@ -35,7 +33,7 @@ class Profile extends Component {
           }
         </Tab.Pane> 
       },
-      { menuItem: 'MIS PUBLICADAS', render: () => 
+      { menuItem: 'Mis Publicadas', render: () => 
         <Tab.Pane attached={false}>
           { this.props.myActivities.length ? (
                 <ActivityList mine panel compact buttons={["edit", "remove"]} list={ this.props.myActivities }/>
@@ -64,7 +62,7 @@ class Profile extends Component {
         </div>
         <Row type="flex" justify="center">
           <Col xxl={16} xl={18} lg={20} md={20} sm={18} xs={22}>
-            <Tab menu={{ secondary: true, pointing: true }} {...{ panes}} />
+            <Tab menu={{ pointing: true }} {...{ panes}} />
           </Col>
         </Row>
       </MainContainer>
