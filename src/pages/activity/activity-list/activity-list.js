@@ -26,6 +26,7 @@ class ActivityList extends Component {
     { key: 3, value: 3, text: "Proximo mes"}
   ]
   updatedCategories = false
+  gotList = false
   state = {
     categoryId: 0,
     date: 1,
@@ -57,7 +58,10 @@ class ActivityList extends Component {
 
   componentDidUpdate(){
     const { list } = this.props
-    list ? this.props.fetchActivitiesSucc(list) : this.props.fetchActivities()
+    if(list && !this.gotList) this.props.fetchActivitiesSucc(list)
+    else if (!this.gotList) this.props.fetchActivities()
+    !this.gotList && (this.gotList = true)
+    
     if(this.props.categories.length && !this.updatedCategories){
       this.updatedCategories = true;
       this.setState({ 
@@ -72,7 +76,7 @@ class ActivityList extends Component {
   render(){
     const { visible, panel, compact, buttons } = this.props
     const { categoryId, date, categories, activePage, name } = this.state
-    const cols = {xl: 12, lg: 20, md: {span: 16, offset: 4}, sm: {span: 20, offset: 2}, xs: {span: 20, offset: 2} }
+    const cols = {xl: 12, lg: 12, md: 24, sm: 24, xs: 24}
     const compactCols = { xxl: 8, xl: 8, lg: 12, md: 11, sm: 11, xs: 20 }
     const ipp = 6
     const cls = compact ? compactCols : cols
@@ -103,8 +107,8 @@ class ActivityList extends Component {
             </StdFilter>
           </Col>
         </Row>
-        <Row type="flex" justify="center" style={{minHeight: "590px"}}>
-          <Col xxl={16} xl={16} lg={14} md={24} sm={24} xs={24}>
+        <Row type="flex" justify="flex-start" style={{minHeight: "590px"}}>
+          <Col xxl={{span: 16, offset: 4}} xl={{span: 16, offset: 4}} lg={{span: 18, offset: 3}} md={18} sm={{span: 20, offset: 2}} xs={{span: 20, offset: 2}} >
             <Row type="flex" justify="flex-start" gutter={15}>
               { visible.length ? (
                   visible.slice(

@@ -51,7 +51,7 @@ class ActivityItem extends Component{
     switch(type){
       case 'edit':
         return (
-          <Button basic className="action-button">
+          <Button basic className="action-button" onClick={e => this.edit(e)}>
             <Link to={{pathname: "/agregar/"+activity.id, state: {activity}}} >
               <div style={{color: "#469c56"}} className="action-icon">
                 <Icon 
@@ -64,7 +64,7 @@ class ActivityItem extends Component{
         )
       case 'unschedule':
         return (
-          <Button basic className="action-button">
+          <Button basic className="action-button" onClick={e => this.edit(e)}>
             <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
               onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
               <div className="action-icon">
@@ -78,7 +78,7 @@ class ActivityItem extends Component{
         )
       case 'remove':
         return (
-          <Button basic className="action-button">
+          <Button basic className="action-button" onClick={e => this.edit(e)}>
             <Popconfirm placement="top" title={"¿Borrar actividad?"}
               onConfirm={()=>this.remove(activity.id)} okText="Si" cancelText="No">
               <div style={{color: "#f94141"}} className="action-icon">
@@ -92,7 +92,7 @@ class ActivityItem extends Component{
         )
       default: /* schedule */
         return (
-          <Button basic className="action-button">
+          <Button basic className="action-button" onClick={e => this.edit(e)}>
             <div style={{top: 0}} className="action-icon" onClick={()=>this.props.scheduleActivity(activity.id)}>
               <img 
                 style={{height: "30px", width: "auto"}} 

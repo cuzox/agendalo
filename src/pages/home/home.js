@@ -169,6 +169,12 @@ class Home extends Component{
   }
 
   render(){
+    let promotion = "https://gleam.io/1qqbJ/jess-adrin-romero"
+    let links = [
+      "https://www.dropbox.com/s/8f7h5pgd6033tb3/a69a02e9-0a35-4e2a-a36c-adfaf50ccdaf.jpeg?raw=1",
+      "https://www.dropbox.com/s/pd5713vaqc9ypae/48d7c2f6-11f5-451b-9dd7-782104152f28.jpeg?raw=1",
+      "https://www.dropbox.com/s/p8kmu1pjpmn37hg/ecf10867-0cbf-4007-a5da-754560df9d1e.jpeg?raw=1"
+    ]
     return (
       <MainContainer className={"no-trans"} style={{paddingTop: "0px" }}>
         <Header loggedIn={this.props.loggedIn}/>
@@ -182,10 +188,15 @@ class Home extends Component{
             style={{overflow: "hidden", margin: "25px 0"}}>
             <Carousel interval="4000" height="300px">
               {
-                [1,2,3].map((item, index) => {
+                [1,2,3].map((item, i) => {
                   return (
-                    <Carousel.Item key={index}>
-                      <div style={{backgroundColor: `rgb(100,100,18${item})`, height: "100%"} }>{item}</div>
+                    <Carousel.Item key={i}>
+                      <div style={{backgroundColor: ``, height: "100%"} }>
+                        <img
+                          src={links[i]}
+                          width="100%"
+                        />
+                      </div>
                     </Carousel.Item>
                   )
                 })
@@ -195,7 +206,14 @@ class Home extends Component{
         </Row>
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} style={{marginBottom: "25px"}}>
-            <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div>
+            <a href={promotion}>
+              <img 
+                width="100%" 
+                src="https://www.dropbox.com/s/sos69ds0p0mekd9/13488fe0-0cc3-4a28-9a2e-0cbae1472644.jpeg?raw=1"
+                onClick={e => {e.preventDefault(); window.open(promotion, '_blank')}}
+              />
+            </a>
+            {/* <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div> */}
           </Col>
         </Row>
         { !this.props.loggedIn &&
