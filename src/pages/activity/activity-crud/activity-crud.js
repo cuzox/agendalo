@@ -117,7 +117,7 @@ class ActivityCrud extends Component{
         toDate: moment(loadedActivity.toDate),
         toTime: moment(loadedActivity.toDate)
       }
-      this.setState({
+      if(loadedActivity.photos) this.setState({
         activityImages: loadedActivity.photos.map(p => ({
           key: uuidv4(),
           link: true,

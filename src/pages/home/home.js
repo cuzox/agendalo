@@ -171,9 +171,9 @@ class Home extends Component{
   render(){
     let promotion = "https://gleam.io/1qqbJ/jess-adrin-romero"
     let links = [
-      "https://www.dropbox.com/s/8f7h5pgd6033tb3/a69a02e9-0a35-4e2a-a36c-adfaf50ccdaf.jpeg?raw=1",
-      "https://www.dropbox.com/s/pd5713vaqc9ypae/48d7c2f6-11f5-451b-9dd7-782104152f28.jpeg?raw=1",
-      "https://www.dropbox.com/s/p8kmu1pjpmn37hg/ecf10867-0cbf-4007-a5da-754560df9d1e.jpeg?raw=1"
+      "https://www.dropbox.com/s/3n7t13w8g5qzjsa/47d9ebf5-51fa-4ca4-93e1-ed8ed9ea5a17.jpeg?raw=1",
+      "https://www.dropbox.com/s/uz5av0gup8ppw90/38b54924-e13a-44b8-b903-fbf247aaafea.jpeg?raw=1",
+      "https://www.dropbox.com/s/ki8ymfbfc7n17mh/cbe08c54-76df-43c2-8314-1aa99b29fe08.jpeg?raw=1"
     ]
     return (
       <MainContainer className={"no-trans"} style={{paddingTop: "0px" }}>
@@ -186,17 +186,16 @@ class Home extends Component{
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
             style={{overflow: "hidden", margin: "25px 0"}}>
-            <Carousel interval="4000" height="300px">
+            <Carousel interval="4000" arrow="always" height="500px">
               {
                 [1,2,3].map((item, i) => {
                   return (
                     <Carousel.Item key={i}>
-                      <div style={{backgroundColor: ``, height: "100%"} }>
                         <img
                           src={links[i]}
                           width="100%"
+                          style={{objectFit: "cover"}}
                         />
-                      </div>
                     </Carousel.Item>
                   )
                 })
@@ -209,7 +208,7 @@ class Home extends Component{
             <a href={promotion}>
               <img 
                 width="100%" 
-                src="https://www.dropbox.com/s/sos69ds0p0mekd9/13488fe0-0cc3-4a28-9a2e-0cbae1472644.jpeg?raw=1"
+                src="https://www.dropbox.com/s/n0i39uuagpspcra/90599174-8d91-43ea-b932-f32864603130.jpeg?raw=1"
                 onClick={e => {e.preventDefault(); window.open(promotion, '_blank')}}
               />
             </a>

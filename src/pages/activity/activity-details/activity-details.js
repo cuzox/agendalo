@@ -40,7 +40,7 @@ class ActivityList extends Component {
       <MainContainer>
         <Row type="flex" justify="center">
           <Col className="column" xl={12} lg={16} md={18} sm={20} xs={22}> 
-            <img alt="" src={activity && activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
+            <img alt="" src={activity && activity.photos && activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
             <div className="body">
               <div>
                 <h3 className="body-title">

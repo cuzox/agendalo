@@ -109,7 +109,7 @@ class ActivityItem extends Component{
     return (
       <StdCard className={compact ? "compact":"" + margin ? " margin":""}>
         { this.props.scheduleSucc && <Redirect push to="/perfil"/> }
-        <img alt="" src={activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
+        <img alt="" src={activity.photos && activity.photos.length ? activity.photos[0] : '/assets/images/placeholder.jpg'}/>
         <div className="card-content">
           <h3 className="title">
             {activity.name}
