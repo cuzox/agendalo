@@ -193,7 +193,7 @@ class ActivityCrud extends Component{
     ]
 
     required.forEach(key => !this.state.activity[key] && this.setState({ [key + 'Invalid']: true }))
-    if(!photos.length) errors.unshift('Al menos una foto es requerida')
+    if(!photos.length || photos.every(p => p.deleted)) errors.unshift('Al menos una foto es requerida')
     if(!required.every(key => this.state.activity[key])) errors.unshift('Faltan campos requeridos')
 
     if(this.testErrors(errors)){
@@ -315,7 +315,9 @@ class ActivityCrud extends Component{
                       this.state.activityImages.map( el =>
                         (!el.link || (el.link && !el.deleted)) && (
                           <div key={el.key}>
-                            <img alt="" src={ el.src }/>
+                            <img alt="" src={ el.src }
+                              onError={e=>{e.target.src='/assets/images/placeholder.jpg';e.target.onerror='';}}
+                            />
                             <FaTrash onClick={()=>this.showDeleteConfirm(el.key)} className="trash"/>
                             {/* <FaEye className="eye"/> */}
                           </div>
