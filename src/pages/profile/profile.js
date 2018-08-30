@@ -7,7 +7,7 @@ import { fetchMyActivities, fetchScheduledActivities } from '../../_actions/acti
 import ActivityList from '../activity/activity-list/activity-list'
 
 import { Row, Col } from 'antd'
-
+import uuid from 'uuid/v4'
 
 import { Dimmer, Loader, Tab } from 'semantic-ui-react'
 
@@ -26,7 +26,7 @@ class Profile extends Component {
       { menuItem: 'Mis Agendadas', render: () => 
         <Tab.Pane attached={false}>
           { this.props.scheduled.length ? (
-              <ActivityList scheduled panel compact buttons={["unschedule"]} list={ this.props.scheduled }/>
+              <ActivityList key={uuid()} nocls panel compact buttons={["unschedule"]} list={ this.props.scheduled }/>
             ) : (
               <b>No has publicado actividades</b>
             )
@@ -36,7 +36,7 @@ class Profile extends Component {
       { menuItem: 'Mis Publicadas', render: () => 
         <Tab.Pane attached={false}>
           { this.props.myActivities.length ? (
-                <ActivityList mine panel compact buttons={["edit", "remove"]} list={ this.props.myActivities }/>
+                <ActivityList key={uuid()} nocls panel compact buttons={["edit", "remove"]} list={ this.props.myActivities }/>
             ) : (
               <b>No has agendado actividades</b>
             )
@@ -61,7 +61,7 @@ class Profile extends Component {
           </div>
         </div>
         <Row type="flex" justify="center">
-          <Col xxl={16} xl={18} lg={20} md={20} sm={18} xs={22}>
+          <Col xxl={16} xl={18} lg={20} md={20} sm={22} xs={22}>
             <Tab menu={{ pointing: true }} {...{ panes}} />
           </Col>
         </Row>
