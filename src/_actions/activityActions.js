@@ -88,10 +88,10 @@ export const fetchActivitiesSucc = activities =>({
   payload: activities
 })
 
-export const fetchActivities = filter => (
+export const fetchActivities = () => (
   dispatch => {
     dispatch(fetchingActivities())
-    HttpClient.get('activities', filter).then(res =>{
+    HttpClient.get('activities', {order: 'fromDate asc'}).then(res =>{
       dispatch(fetchActivitiesSucc(res.data))
     }).catch(error =>{
       dispatch(fetchActivitiesFail(error))
@@ -103,7 +103,7 @@ export const fetchMyActivities = () => (
   (dispatch, getState) => {
     let state = getState()
     dispatch(fetchingActivities())
-    HttpClient.get(`accounts/${state.user.id}/activities`).then(res =>{
+    HttpClient.get(`accounts/${state.user.id}/activities`, {order: 'fromDate asc'}).then(res =>{
       dispatch(fetchingMyActivitiesSucc(res.data))
     }).catch(error =>{
       dispatch(fetchActivitiesFail(error))

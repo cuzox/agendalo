@@ -35,6 +35,7 @@ export const PhotoList = styled.div`
     width: 100px;
     height: 100px;
     object-fit: cover;
+    object-position: 0 0;
   }
 
   div{

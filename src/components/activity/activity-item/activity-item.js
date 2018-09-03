@@ -114,14 +114,14 @@ class ActivityItem extends Component{
           onError={e=>{e.target.src='/assets/images/palceholder.jpg';e.target.onerror='';}}
         />
         <div className="card-content">
-          <h3 className="title">
+          <span className="title">
             {activity.name}
-          </h3>
-          <h4 className="body">
+          </span>
+          <span className="body">
             {activity.description}
-          </h4>
+          </span>
           <div style={{display: "flex", justifyContent: "space-between", alignItems: "flex-end"}}>
-            <div style={{display: "flex", flexDirection: "column"}}>
+            <div className="date-tags" style={{display: "flex", flexDirection: "column"}}>
               <span style={{color: "black"}}>{moment(activity.fromDate).utcOffset('-0400').format('D [de] MMMM')}</span>
               <span style={{color: "black"}}>{moment(activity.fromDate).utcOffset('-0400').format('dddd[,] h:mm A')}</span>
               <span style={{color: "black"}}>{activity.category && "#" + activity.category.name}</span>

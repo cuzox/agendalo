@@ -20,9 +20,10 @@ import { Carousel } from 'element-react'
 import axios from 'axios'
 
 const dates = [
-  { key: 1, value: 1, text: "Esta semana"},
-  { key: 2, value: 2, text: "Este mes"},
-  { key: 3, value: 3, text: "Proximo mes"}
+  { key: 1, value: 'todas', text: "Todas"},
+  { key: 2, value: 'semana', text: "Esta semana"},
+  { key: 3, value: 'mes', text: "Este mes"},
+  { key: 4, value: 'proximo', text: "Proximo mes"}
 ]
 
 const Header = props =>{
@@ -66,7 +67,7 @@ const Header = props =>{
 class Month extends Component{
   state = {
     search: '',
-    date: 1
+    date: 'todas'
   }
   render(){
     let { search, date } = this.state
@@ -79,7 +80,7 @@ class Month extends Component{
           <Select
             style={{width: "40%", whiteSpace: "nowrap"}}
             onChange={(e, d)=> this.setState({date: d.value })}
-            compact options={dates} defaultValue={1}
+            compact options={dates} defaultValue={'todas'}
           />
           <Button style={{width: "20%"}} type='submit'>
             <Link to={{pathname:"/actividades", search: `?search=${search}&date=${date}`}}>

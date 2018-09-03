@@ -186,13 +186,14 @@ export default function reducer(state = initialState, action){
       return {
         ...state,
         filter,
-        visible: (action.payload.list || state.activities).filter(act =>
-          Object.keys(filter).every(key => 
+        visible: (action.payload.list || state.activities).filter(act =>{
+          return Object.keys(filter).every(key => 
             typeof filter[key] == "number" && filter[key] == act[key] ||
             typeof filter[key] == "string" && act[key].toLowerCase().includes(filter[key].toLowerCase()) ||
+            typeof filter[key] == "string" && compareDate.hasOwnProperty(filter[key]) && compareDate[filter[key]](act[key]) ||
             !filter[key]
           )
-        )
+        })
       }
     case CREATE_NOT_LOGGED_IN:
       return {
@@ -220,5 +221,23 @@ export default function reducer(state = initialState, action){
       }
     default:
       return state
+  }
+}
+
+const compareDate = {
+  todas: () => true,
+  semana: compare =>{
+    let semana = new Date(new Date().setDate(new Date().getDate()+7))
+    return new Date(compare) < semana
+  },
+  mes: compare =>{
+    let mes = new Date(new Date().setMonth(new Date().getMonth()+1))
+    return new Date(compare) < mes
+  },
+  proximo: compare =>{
+    let uno = new Date(new Date().setMonth(new Date().getMonth()+1))
+    let dos = new Date(new Date().setMonth(new Date().getMonth()+2))
+    let build = new Date(compare)
+    return build > uno && build < dos
   }
 }

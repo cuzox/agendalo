@@ -10,25 +10,24 @@ import { MainContainer} from '../../../global.styled'
 import { fetchActivities, filterActivities, fetchActivitiesSucc } from '../../../_actions/activityActions'
 import ActivityItem from '../../../components/activity/activity-item/activity-item'
 
-import { Dimmer, Loader, Input, Dropdown, Pagination } from 'semantic-ui-react'
+import { Dimmer, Loader, Input, Dropdown, Pagination, Label } from 'semantic-ui-react'
 import { Row, Col } from 'antd';
 import { StdFilter } from './activity-list.styled'
-
-import { Layout } from 'element-react'
 
 import query from 'query-string'
 import store from '../../../store'
 
 class ActivityList extends Component {
   dates = [
-    { key: 1, value: 1, text: "Esta semana"},
-    { key: 2, value: 2, text: "Este mes"},
-    { key: 3, value: 3, text: "Proximo mes"}
+    { key: 1, value: 'todas', text: "Todas"},
+    { key: 2, value: 'semana', text: "Esta semana"},
+    { key: 3, value: 'mes', text: "Este mes"},
+    { key: 4, value: 'proximo', text: "Proximo mes"}
   ]
   updatedCategories = false
   state = {
     categoryId: 0,
-    date: 1,
+    fromDate: 'todas',
     categories: [],
     activePage: 1,
     name: ''
@@ -48,6 +47,7 @@ class ActivityList extends Component {
           unsub()
           const { search, date } = query.parse(this.props.location.search)
           if(search) this.handleChange('name', search )
+          if(date) this.handleChange('fromDate', date )
         }
       })
     }
@@ -75,15 +75,15 @@ class ActivityList extends Component {
 
   render(){
     const { visible, panel, compact, buttons, nocls } = this.props
-    const { categoryId, date, categories, activePage, name } = this.state
+    const { categoryId, fromDate, categories, activePage, name } = this.state
     const cols = {xl: 12, lg: 12, md: 24, sm: 24, xs: 24}
     const compactCols = { xxl: 8, xl: 8, lg: 12, md: 11, sm: 11, xs: 20 }
     const cls = compact ? compactCols : cols
     const mainCls =  nocls ? {} : {
       xl: {span: 16, offset: 4}, 
-      lg: {span: 16, offset: 4}, 
+      lg: {span: 18, offset: 3}, 
       md: {span: 18, offset: 3}, 
-      sm: {span: 20, offset: 2}, 
+      sm: {span: 22, offset: 1}, 
       xs: {span: 20, offset: 2}
     }
     const ipp = 6
@@ -95,22 +95,28 @@ class ActivityList extends Component {
           <Loader />  
         </Dimmer>
         <Row type="flex" justify="center">
-          <Col xl={12} lg={16} md={18} sm={20} xs={22}>
+          <Col xl={12} lg={18} md={18} sm={20} xs={22}>
             <StdFilter className="filter">
               <Input onInput={e => this.handleChange('name', e.target.value )} 
                 size={"medium"} icon='search' placeholder='Buscar...'
                 value={name}
               />
-              <Dropdown size={"medium"}
-                onChange={(e, d)=> this.handleChange('categoryId', d.value) }
-                value={categoryId} placeholder='Categoría...' 
-                selection options={categories || []}
-              />
-              <Dropdown size={"medium"}
-                onChange={(e, d)=> this.handleChange('date', d.value) }
-                value={date} placeholder='Cuando...'
-                selection options={this.dates || []}
-              />
+              <div style={{display: "flex", flexDirection: "column"}}>
+                <Label basic style={{width: "100px"}} pointing='below'>Categoría</Label>
+                <Dropdown size={"medium"}
+                  onChange={(e, d)=> this.handleChange('categoryId', d.value) }
+                  value={categoryId} placeholder='Categoría...' 
+                  selection options={categories || []}
+                />
+              </div>
+              <div style={{display: "flex", flexDirection: "column"}}>
+                <Label basic style={{width: "100px"}} pointing='below'>Fecha</Label>
+                <Dropdown size={"medium"}
+                  onChange={(e, d)=> this.handleChange('fromDate', d.value) }
+                  value={fromDate} placeholder='Cuando...'
+                  selection options={this.dates || []}
+                />
+              </div>
             </StdFilter>
           </Col>
         </Row>

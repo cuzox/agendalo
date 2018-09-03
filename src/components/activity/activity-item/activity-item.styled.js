@@ -8,7 +8,7 @@ export const StdCard = styled.div`
   box-shadow: 0px 6px 30px rgba(210, 210, 210, 0.5);
   border: 2px solid #dadada;
   cursor: pointer;
-  max-height: 320px;
+  max-height: 330px;
   transition: all .2s ease;
   margin: 8px 0;
 
@@ -40,6 +40,7 @@ export const StdCard = styled.div`
     letter-spacing: 0;
     padding: 0;
     height: 2.5em;
+    margin-bottom: 5px;
   }
 
   .body{
@@ -57,6 +58,7 @@ export const StdCard = styled.div`
     letter-spacing: 0;
     padding: 0;
     height: 2.5em;
+    margin-bottom: 5px;
   }
 
   > img {
@@ -64,6 +66,7 @@ export const StdCard = styled.div`
     width: 180px;
     min-width: 180px;
     object-fit: cover;
+    object-position: 0 0;
   }
 
   &.compact{
@@ -77,7 +80,10 @@ export const StdCard = styled.div`
     }
   }
 
-  
+  .date-tags{
+    line-height: 14px;
+    font-weight: 13px;
+  }  
 
   .action-button{
     width: 40px;
