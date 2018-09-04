@@ -16,6 +16,9 @@ import { Button, Input, Select} from 'semantic-ui-react'
 import { Row, Col, Alert, notification} from 'antd'
 import { Carousel } from 'element-react'
 
+import _ from 'lodash'
+import Media from "react-media";
+
 
 import axios from 'axios'
 
@@ -165,11 +168,26 @@ class Newsletter extends Component{
 }
 
 class Home extends Component{
-  constructor(props){
-    super(props)
+  state = {
+    carousel_height: '500px'
   }
 
+  componentDidMount(){
+    let img = document.querySelector('.carousel_image')
+    setTimeout(()=>{
+      this.setState({ 
+        carousel_height: img.clientHeight + 'px'
+      })
+    })
+
+    window.addEventListener('resize', _.throttle(()=>{
+      this.componentDidMount()
+    }, 300))
+  }
+
+
   render(){
+    let { carousel_height } = this.state
     let promotion = "https://gleam.io/1qqbJ/jess-adrin-romero"
     let links = [
       "https://www.dropbox.com/s/3n7t13w8g5qzjsa/47d9ebf5-51fa-4ca4-93e1-ed8ed9ea5a17.jpeg?raw=1",
@@ -185,32 +203,37 @@ class Home extends Component{
           </Col>
         </Row>
         <Row type="flex" justify="center">
-          <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} 
+          <Col xxl={18} xl={18} lg={18} md={18} sm={20} xs={22} 
             style={{overflow: "hidden", margin: "25px 0"}}>
-            <Carousel interval="4000" arrow="always" height="500px">
-              {
-                [1,2,3].map((item, i) => {
-                  return (
-                    <Carousel.Item key={i}>
-                        <img
-                          src={links[i]}
-                          width="100%"
-                          style={{objectFit: "cover"}}
-                        />
-                    </Carousel.Item>
-                  )
-                })
-              }
-            </Carousel>
+            <Media query={{ maxWidth: 900 }}>
+              {matches =>(
+                <Carousel interval="4000" arrow="always" type={matches ? undefined :"card"} height={carousel_height}>
+                  {
+                    [1,2,3].map((item, i) => {
+                      return (
+                        <Carousel.Item key={i}>
+                            <img className="carousel_image"
+                              src={links[i]}
+                              width="100%"
+                              style={{objectFit: "cover"}}
+                              onLoad={()=>this.componentDidMount()}
+                            />
+                        </Carousel.Item>
+                      )
+                    })
+                  }
+                </Carousel>
+              )}
+            </Media>
           </Col>
         </Row>
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} style={{marginBottom: "25px"}}>
-            <a href={promotion}>
+            <a href="mailto:info@agendalo.com">
               <img 
                 width="100%" 
                 src="https://www.dropbox.com/s/n0i39uuagpspcra/90599174-8d91-43ea-b932-f32864603130.jpeg?raw=1"
-                onClick={e => {e.preventDefault(); window.open(promotion, '_blank')}}
+                // onClick={e => {e.preventDefault(); window.open(promotion, '_blank')}}
               />
             </a>
             {/* <div style={{backgroundColor: "black", borderRadius: "8px", height: "150px"}}></div> */}
