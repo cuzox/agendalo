@@ -16,7 +16,7 @@ import { Button, Input, Select} from 'semantic-ui-react'
 import { Row, Col, Alert, notification} from 'antd'
 import { Carousel } from 'element-react'
 
-import _ from 'lodash'
+import debounce from 'lodash/debounce'
 import Media from "react-media";
 
 
@@ -172,17 +172,22 @@ class Home extends Component{
     carousel_height: '500px'
   }
 
+  debounceResize = debounce(this.componentDidMount.bind(this), 300)
+
   componentDidMount(){
-    let img = document.querySelector('.carousel_image')
+    console.log('hey')
+    let img = document.querySelectorAll('.carousel_image')
     setTimeout(()=>{
       this.setState({ 
-        carousel_height: img.clientHeight + 'px'
+        carousel_height: Math.max(Array.prototype.map.call(img, i => i.clientHeight)) + 'px'
       })
     })
 
-    window.addEventListener('resize', _.throttle(()=>{
-      this.componentDidMount()
-    }, 300))
+    window.addEventListener('resize', this.debounceResize, {once: true})
+  }
+
+  componentWillUnmount(){
+    window.removeEventListener('resize', this.debounceResize)
   }
 
 

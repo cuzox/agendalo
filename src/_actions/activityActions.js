@@ -91,7 +91,15 @@ export const fetchActivitiesSucc = activities =>({
 export const fetchActivities = () => (
   dispatch => {
     dispatch(fetchingActivities())
-    HttpClient.get('activities', {order: 'fromDate asc'}).then(res =>{
+    HttpClient.get('activities', {
+      order: 'fromDate asc',
+      where: {
+        or: [
+          { fromDate: { gt: new Date().toISOString() }},
+          { toDate: { gt: new Date().toISOString() }}
+        ]
+      }
+    }).then(res =>{
       dispatch(fetchActivitiesSucc(res.data))
     }).catch(error =>{
       dispatch(fetchActivitiesFail(error))
