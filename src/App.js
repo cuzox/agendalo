@@ -16,6 +16,7 @@ import ActivityList from './pages/activity/activity-list/activity-list'
 import ActivityDetails from './pages/activity/activity-details/activity-details'
 import Profile from './pages/profile/profile'
 import ControlPanel from './pages/control-panel/control-panel'
+import Adverts from './pages/control-panel/adverts/adverts'
 import Terms from './pages/terms/terms'
 
 import { fetchCategories } from './_actions/categoryActions'
@@ -59,8 +60,6 @@ class App extends Component {
                   <Route path="/terminos" component={ Terms }/>
 
                   <Protected path="/panel" {...{loaded, isAdmin}} component={ ControlPanel }/>
-                  <Protected path="/panel/actividades" {...{loaded, isAdmin}} component={ ActivityList }/>
-
                   <Protected path="/perfil" {...{loaded, loggedIn}}  component={ Profile }/>
                   
                   <Route exact path="/agregar" component={ ActivityCrud }/>

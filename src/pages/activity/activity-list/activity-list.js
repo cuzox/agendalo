@@ -19,7 +19,7 @@ import store from '../../../store'
 
 class ActivityList extends Component {
   dates = [
-    { key: 1, value: 'todas', text: "Todas"},
+    { key: 1, value: 'todas', text: "Todas las fechas"},
     { key: 2, value: 'semana', text: "Esta semana"},
     { key: 3, value: 'mes', text: "Este mes"},
     { key: 4, value: 'proximo', text: "Proximo mes"}
@@ -66,7 +66,7 @@ class ActivityList extends Component {
       this.updatedCategories = true;
       this.setState({ 
         categories: [
-          { key: 0, value: 0, text: "Todas" },
+          { key: 0, value: 0, text: "Todas las categorías" },
           ...this.props.categories
         ] 
       })
@@ -102,7 +102,6 @@ class ActivityList extends Component {
                 value={name}
               />
               <div style={{display: "flex", flexDirection: "column"}}>
-                <Label basic style={{width: "100px"}} pointing='below'>Categoría</Label>
                 <Dropdown size={"medium"}
                   onChange={(e, d)=> this.handleChange('categoryId', d.value) }
                   value={categoryId} placeholder='Categoría...' 
@@ -110,7 +109,6 @@ class ActivityList extends Component {
                 />
               </div>
               <div style={{display: "flex", flexDirection: "column"}}>
-                <Label basic style={{width: "100px"}} pointing='below'>Fecha</Label>
                 <Dropdown size={"medium"}
                   onChange={(e, d)=> this.handleChange('fromDate', d.value) }
                   value={fromDate} placeholder='Cuando...'
