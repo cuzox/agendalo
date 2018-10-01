@@ -21,6 +21,7 @@ import Media from "react-media";
 
 
 import axios from 'axios'
+import HttpClient from '../../_helper/http-client';
 
 const dates = [
   { key: 1, value: 'todas', text: "Todas"},
@@ -169,13 +170,24 @@ class Newsletter extends Component{
 
 class Home extends Component{
   state = {
-    carousel_height: '500px'
+    carousel_height: '500px',
+    homeAds: {
+      advertisements: []
+    }
   }
 
   debounceResize = debounce(this.componentDidMount.bind(this), 300)
 
+  componentWillMount(){
+    HttpClient.get('adScreens', {include: 'advertisements', where: {name: 'Home'}})
+    .then(r => r.data)
+    .then(adScreens =>{
+      console.log(adScreens)
+      this.setState({homeAds: adScreens[0]})
+    })
+  }
+
   componentDidMount(){
-    console.log('hey')
     let img = document.querySelectorAll('.carousel_image')
     setTimeout(()=>{
       this.setState({ 
@@ -192,8 +204,7 @@ class Home extends Component{
 
 
   render(){
-    let { carousel_height } = this.state
-    let promotion = "https://gleam.io/1qqbJ/jess-adrin-romero"
+    let { carousel_height, homeAds } = this.state
     let links = [
       "https://www.dropbox.com/s/3n7t13w8g5qzjsa/47d9ebf5-51fa-4ca4-93e1-ed8ed9ea5a17.jpeg?raw=1",
       "https://www.dropbox.com/s/uz5av0gup8ppw90/38b54924-e13a-44b8-b903-fbf247aaafea.jpeg?raw=1",
@@ -214,11 +225,11 @@ class Home extends Component{
               {matches =>(
                 <Carousel interval="4000" arrow="always" type={matches ? undefined :"card"} height={carousel_height}>
                   {
-                    [1,2,3].map((item, i) => {
+                    homeAds.advertisements.map((ad, i) => {
                       return (
                         <Carousel.Item key={i}>
                             <img className="carousel_image"
-                              src={links[i]}
+                              src={ad.image}
                               width="100%"
                               style={{objectFit: "cover"}}
                               onLoad={()=>this.componentDidMount()}

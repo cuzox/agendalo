@@ -36,7 +36,12 @@ export default class Advert extends Component {
       minWidth: 100,
       render: data => {
         return(
-          <Button plain={true} size="small" type="info" onClick={()=>this.setState({...this.state, visible: true})}>
+          <Button
+            plain={true}
+            size="small"
+            type="info"
+            onClick={()=>this.setState({...this.state, visible: true, adScreenId: data.id, selected: {}})}
+          >
             <FaPlus />
           </Button>
         )
@@ -65,7 +70,9 @@ export default class Advert extends Component {
       minWidth: 100,
       render: data => {
         return(
-          <Button plain={true} size="small" type="info" >
+          <Button
+          plain={true} size="small" type="info"
+          onClick={()=>this.setState({...this.state, visible: true, adScreenId: null, selected: data})}>
             <FaEdit />
           </Button>
         )
@@ -74,11 +81,17 @@ export default class Advert extends Component {
   ]
   state = {
     ads: [],
-    visible: false
+    visible: false,
+    currentAd: {}
   }
 
   hide(){
     this.setState({...this.state, visible: false})
+  }
+
+  ok(){
+    this.setState({...this.state, visible: false})
+    this.componentDidMount()
   }
 
   componentDidMount(){
@@ -88,11 +101,12 @@ export default class Advert extends Component {
   }
 
   render(){
+    let { selected, adScreenId } = this.state
     return (
       <Row type="flex" justify="center" style={{marginTop: "20px"}}>
-        <Col span={12}>
+        <Col xl={15} lg={18} md={20} sm={22} xs={22}>
           <Table style={{width: '100%'}} emptyText="No hay datos" columns={this.columns} data={this.state.ads}/>
-          <Ad model={{}} visible={this.state.visible} hide={()=>this.hide()}/>
+          <Ad model={ selected } adScreenId={adScreenId} visible={this.state.visible} hide={()=>this.hide()} ok={()=>this.ok()}/>
         </Col>
       </Row>
     )
