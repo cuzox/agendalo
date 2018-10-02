@@ -170,7 +170,7 @@ class Newsletter extends Component{
 
 class Home extends Component{
   state = {
-    carousel_height: '500px',
+    carousel_height: '400px',
     homeAds: {
       advertisements: []
     }
@@ -178,38 +178,32 @@ class Home extends Component{
 
   debounceResize = debounce(this.componentDidMount.bind(this), 300)
 
-  componentWillMount(){
-    HttpClient.get('adScreens', {include: 'advertisements', where: {name: 'Home'}})
-    .then(r => r.data)
-    .then(adScreens =>{
-      console.log(adScreens)
-      this.setState({homeAds: adScreens[0]})
+  getCarouselHeight(){
+    setTimeout(()=>{
+      let img = document.querySelectorAll('.carousel_image')
+      this.setState({ 
+        carousel_height: Math.max(...Array.from(img).map( i => i.clientHeight)) + 'px'
+      })
+
+      window.addEventListener('resize', this.debounceResize, {once: true})
     })
   }
 
   componentDidMount(){
-    let img = document.querySelectorAll('.carousel_image')
-    setTimeout(()=>{
-      this.setState({ 
-        carousel_height: Math.max(Array.prototype.map.call(img, i => i.clientHeight)) + 'px'
-      })
+    HttpClient.get('adScreens', {include: 'advertisements', where: {name: 'Home'}})
+    .then(r => r.data)
+    .then(adScreens =>{
+      this.setState({ homeAds: adScreens[0] })
+      this.getCarouselHeight()
     })
-
-    window.addEventListener('resize', this.debounceResize, {once: true})
   }
 
   componentWillUnmount(){
     window.removeEventListener('resize', this.debounceResize)
   }
 
-
   render(){
     let { carousel_height, homeAds } = this.state
-    let links = [
-      "https://www.dropbox.com/s/3n7t13w8g5qzjsa/47d9ebf5-51fa-4ca4-93e1-ed8ed9ea5a17.jpeg?raw=1",
-      "https://www.dropbox.com/s/uz5av0gup8ppw90/38b54924-e13a-44b8-b903-fbf247aaafea.jpeg?raw=1",
-      "https://www.dropbox.com/s/ki8ymfbfc7n17mh/cbe08c54-76df-43c2-8314-1aa99b29fe08.jpeg?raw=1"
-    ]
     return (
       <MainContainer className={"no-trans"} style={{paddingTop: "0px" }}>
         <Header loggedIn={this.props.loggedIn}/>
@@ -218,31 +212,30 @@ class Home extends Component{
             <Month/>
           </Col>
         </Row>
-        <Row type="flex" justify="center">
-          <Col xxl={18} xl={18} lg={18} md={18} sm={20} xs={22} 
-            style={{overflow: "hidden", margin: "25px 0"}}>
-            <Media query={{ maxWidth: 900 }}>
-              {matches =>(
-                <Carousel interval="4000" arrow="always" type={matches ? undefined :"card"} height={carousel_height}>
-                  {
-                    homeAds.advertisements.map((ad, i) => {
-                      return (
+        { homeAds.advertisements.length &&
+          <Row type="flex" justify="center">
+            <Col id="carousel-col" xxl={18} xl={18} lg={18} md={18} sm={20} xs={22} 
+              style={{overflow: "hidden", margin: "25px 0"}}>
+              <Media query={{ maxWidth: 900 }}>
+                {matches => (
+                  <Carousel interval="4000" arrow="always" type={matches ? undefined :"card"} height={carousel_height}>
+                    { homeAds.advertisements.map((ad, i) => 
                         <Carousel.Item key={i}>
-                            <img className="carousel_image"
-                              src={ad.image}
-                              width="100%"
-                              style={{objectFit: "cover"}}
-                              onLoad={()=>this.componentDidMount()}
-                            />
+                          <img className="carousel_image"
+                            src={ad.image}
+                            width="100%"
+                            style={{objectFit: "cover"}}
+                            onLoad={()=>this.componentDidMount()}
+                          />
                         </Carousel.Item>
                       )
-                    })
-                  }
-                </Carousel>
-              )}
-            </Media>
-          </Col>
-        </Row>
+                    }
+                  </Carousel>
+                )}
+              </Media>
+            </Col>
+          </Row>
+        }
         <Row type="flex" justify="center">
           <Col xxl={10} xl={12} lg={14} md={18} sm={20} xs={22} style={{marginBottom: "25px"}}>
             <a href="mailto:info@agendalo.com">

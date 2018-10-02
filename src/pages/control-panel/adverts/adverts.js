@@ -5,6 +5,7 @@ import HttpClient from '../../../_helper/http-client';
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaPlus from 'react-icons/lib/fa/plus'
 import Ad from './ad'
+import moment from 'moment'
 
 export default class Advert extends Component {
   columns = [
@@ -59,11 +60,13 @@ export default class Advert extends Component {
       label: 'Inicio',
       prop: 'begin',
       minWidth: 100,
+      render: data => moment(data.begin).utcOffset('-0400').format('D [de] MMMM')
     },
     {
       label: 'Fin',
       prop: 'end',
       minWidth: 100,
+      render: data => moment(data.end).utcOffset('-0400').format('D [de] MMMM')
     },
     {
       label: "Acciones",
