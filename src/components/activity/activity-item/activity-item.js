@@ -64,31 +64,33 @@ class ActivityItem extends Component{
         )
       case 'unschedule':
         return (
-          <Button basic className="action-button" onClick={e => this.edit(e)}>
-            <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
-              onConfirm={()=>this.unschedule()} okText="Si" cancelText="No">
+          <Popconfirm placement="top" title={"¿Quitar de tu agenda?"} 
+            onConfirm={e => { this.unschedule(); e.stopPropagation()}}
+            onCancel={e => e.stopPropagation()} okText="Si" cancelText="No">
+            <Button basic className="action-button" onClick={e => this.edit(e)}>
               <div className="action-icon">
-                  <Icon
-                    style={{margin: "0", fontSize: "20px"}} 
-                    className="calendar times outline">
-                  </Icon>
+                <Icon
+                  style={{margin: "0", fontSize: "20px"}} 
+                  className="calendar times outline">
+                </Icon>
               </div>
-            </Popconfirm>
-          </Button>
+            </Button>
+          </Popconfirm>
         )
       case 'remove':
         return (
-          <Button basic className="action-button" onClick={e => this.edit(e)}>
-            <Popconfirm placement="top" title={"¿Borrar actividad?"}
-              onConfirm={()=>this.remove(activity.id)} okText="Si" cancelText="No">
+          <Popconfirm placement="top" title={"¿Borrar actividad?"}
+            onConfirm={e =>{ this.remove(activity.id); e.stopPropagation()}} 
+            onCancel={e => e.stopPropagation()} okText="Si" cancelText="No">
+            <Button basic className="action-button">
               <div style={{color: "#f94141"}} className="action-icon">
                 <Icon
                   style={{margin: "0", fontSize: "20px"}}
                   className="trash">
                 </Icon>
               </div>
-            </Popconfirm>
-          </Button> 
+            </Button> 
+          </Popconfirm>
         )
       default: /* schedule */
         return (

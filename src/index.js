@@ -23,7 +23,9 @@ moment.updateLocale('es', {
 
 ReactDOM.render(
   <Provider store={ store }>
-    <LocaleProvider locale={es_ES}><App /></LocaleProvider>
+    <LocaleProvider locale={es_ES}>
+      <App />
+    </LocaleProvider>
   </Provider>, 
   document.getElementById('root'))
 

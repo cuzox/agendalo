@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
 import { Table, Button } from 'element-react'
-import { Row, Col } from 'antd';
+import { Row, Col, Popconfirm } from 'antd';
 import HttpClient from '../../../_helper/http-client';
 import FaEdit from 'react-icons/lib/fa/edit'
 import FaPlus from 'react-icons/lib/fa/plus'
+import FaTrash from 'react-icons/lib/fa/trash'
 import Ad from './ad'
 import moment from 'moment'
 
@@ -73,11 +74,20 @@ export default class Advert extends Component {
       minWidth: 100,
       render: data => {
         return(
-          <Button
-          plain={true} size="small" type="info"
-          onClick={()=>this.setState({...this.state, visible: true, adScreenId: null, selected: data})}>
-            <FaEdit />
-          </Button>
+          <React.Fragment>
+            <Button
+            plain={true} size="small" type="info"
+            onClick={()=>this.setState({...this.state, visible: true, adScreenId: null, selected: data})}>
+              <FaEdit />
+            </Button>
+            <Popconfirm placement="top" title={"¿Borrar publicidad?"} onConfirm={()=>this.remove(data.id)} okText="Si" cancelText="No">
+              <Button plain={true} size="small" type="info">
+                <div style={{color: "#f94141"}} className="action-icon">
+                  <FaTrash />
+                </div>
+              </Button>
+            </Popconfirm>
+          </React.Fragment>
         )
       }
     }
@@ -95,6 +105,12 @@ export default class Advert extends Component {
   ok(){
     this.setState({...this.state, visible: false})
     this.componentDidMount()
+  }
+
+  remove(id){
+    HttpClient.delete(`advertisements/${id}`).then(()=>{
+      this.componentDidMount()
+    })
   }
 
   componentDidMount(){
