@@ -287,8 +287,9 @@ export const removeActivity = id =>
   (dispatch, getState) => 
     new Promise((succ, fail) => {
       dispatch(removingActivity())
-      let accountId = getState().user.id 
-      HttpClient.delete(`Accounts/${accountId}/activities/${id}`).then(()=>{
+      let { id: accountId, isAdmin } = getState().user
+      let path = isAdmin ? `Activities/${id}` : `Accounts/${accountId}/activities/${id}`
+      HttpClient.delete(path).then(()=>{
         dispatch(removeActivitySucc(id))
         succ()
       }).catch(()=> 

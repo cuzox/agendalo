@@ -18,7 +18,6 @@ class Terms extends Component {
               <h3>Sobre el contenido</h3>
               <p>
                 {/* Para publicar contenido en nuestro portal cada empresa deberá pasar por un proceso de verificación el cual no ayudará a evitar la colocación de informaciones falsas o inexactas para perjudicar alguna institución. */}
-                <br/><br/>
                 Todo el contenido provisto por los usuarios, pasa a ser propiedad de agendalo.com.do, sin retribución alguna directa, y nos autoriza a mostrar, distribuir y aprovechar por cualquier vía que agendalo.com.do considere.
                 <br/><br/> 
                 Agendalo.com.do no asume responsabilidad por cualquier contenido colocado en el portal, ni por las  decisiones o acciones que realices. Si encuentras una información aparentemente incorrecta en el sitio web y para evitar que algún dato sea inexacto y así evitar que se siga mostrando, te pedimos que por favor nos ayudes reportando el error por las vías correspondientes.

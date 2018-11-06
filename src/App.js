@@ -27,10 +27,6 @@ import Nav from './components/nav/nav'
 import Footer from './components/footer/footer'
 
 class App extends Component {
-  constructor() {
-    super()
-  }
-
   componentDidMount() {
     this.props.loadApp()
     this.props.fetchCategories()

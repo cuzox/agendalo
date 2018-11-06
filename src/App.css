@@ -74,17 +74,6 @@ body.hide-overflow {
   min-width: initial !important;
 }
 
-.fade-enter:not(.no-trans) {
-  opacity: 0;
-  transform: translate(10px);
-}
-
-.fade-enter.fade-enter-active:not(.no-trans) {
-  opacity: 1;
-  transition: all 500ms ease;
-  transform: translate(0)
-}
-
 .ui.segment.active.tab{
   border: none;
   box-shadow: none;
